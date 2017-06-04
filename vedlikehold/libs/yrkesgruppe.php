@@ -14,21 +14,6 @@ function visYrkesgruppe() {
   mysqli_close($conn);
 }
 
-function listeboksYrkesgruppe() {
-  include("db.php");
-  $sql = "SELECT yrkesgruppe FROM yrkesgruppe";
-  $result = mysqli_query($conn, $sql);
-
-  if(mysqli_num_rows($result) > 0) {
-    while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['yrkesgruppe'] .">". $row['yrkesgruppe'] ."</option>\n";
-    }
-  } else {
-    echo "<option value='Ingen'>Ingen yrkesgrupper funnet</option>\n";
-  }
-  mysqli_close($conn);
-}
-
 function registrerYrkesgruppe() {
   include("db.php");
   $yrkesgruppe = trim($_POST["yrkesgruppe"]);
@@ -55,7 +40,7 @@ function slettYrkesgruppe(){
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
-    echo "Kan ikke slette klasse når det finnes behandlere i yrkesgruppen.</div><br />";
+    echo "Kan ikke slette yrkesgruppen når det finnes behandlere i den.<br />";
   } else {
     $sql = "DELETE FROM yrkesgruppe WHERE yrkesgruppe='$yrkesgruppe'";
     if(mysqli_query($conn, $sql)) {

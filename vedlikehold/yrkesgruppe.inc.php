@@ -1,5 +1,6 @@
 <?php
 include("libs/yrkesgruppe.php");
+include("libs/listeboks.php");
 ?>
   <p>
   <h3>
@@ -9,8 +10,9 @@ include("libs/yrkesgruppe.php");
     </a>
   </h3>
   <table>
+    <tr><th>Yrkesgruppe</th></tr>
     <?php visYrkesgruppe(); ?>
-  </table>
+  </table><br /><br />
   </p>
 <p>
 <h3>
@@ -32,8 +34,8 @@ include("libs/yrkesgruppe.php");
   </a>
 </h3>
 <form method="post" name="slettyrkesgruppe" action="">
-  <label>Yrkesgruppe</label><select name="velgYrkesgruppe">
-  <?php listeboksYrkesgruppe(); ?>
+  <label>Yrkesgruppe</label>
+  <select name="velgYrkesgruppe"><?php listeboksYrkesgruppe(); ?>
   </select><br />
   <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Slett yrkesgruppe" name="submitSlettYrkesgruppe"><br /><br />
 </form>
