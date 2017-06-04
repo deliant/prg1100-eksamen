@@ -58,7 +58,7 @@
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
           } else {
-            include("vedlikehold.inc.php");
+            include("yrkesgruppe.inc.php");
           }
           ?>
         </div>
