@@ -26,12 +26,12 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand"><a href="index.php">Bjarum Medical</a></li>
-      <li><a href="#">Behandler</a></li>
-      <li><a href="#">Bilde</a></li>
-      <li><a href="#">Pasient</a></li>
-      <li><a href="#">Timebestilling</a></li>
-      <li><a href="#">Timeinndeling</a></li>
-      <li><a href="#">Yrkesgruppe</a></li>
+      <li><a href="behandler.php">Behandler</a></li>
+      <li><a href="bilde.php">Bilde</a></li>
+      <li><a href="pasient.php">Pasient</a></li>
+      <li><a href="timebestilling.php">Timebestilling</a></li>
+      <li><a href="timeinndeling.php">Timeinndeling</a></li>
+      <li><a href="yrkesgruppe.php">Yrkesgruppe</a></li>
       <hr>
       <li><a href="vedlikehold.php">Vedlikehold</a></li>
       <?php
@@ -61,8 +61,9 @@
           Logger brukeren ut av systemet.
           <?php
           session_destroy();
-          echo "<meta http-equiv='refresh' content='0;URL=index.php'>";
+          echo '<meta http-equiv="refresh" content="0;URL=index.php">';
           ?>
+          </p>
         </div>
       </div>
     </div>
