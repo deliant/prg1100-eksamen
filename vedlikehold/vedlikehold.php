@@ -28,7 +28,7 @@
   <!-- Sidebar -->
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
-      <li class="sidebar-brand"><a href="#">Bjarum Medical</a></li>
+      <li class="sidebar-brand"><a href="index.php">Bjarum Medical</a></li>
       <li><a href="#">Behandler</a></li>
       <li><a href="#">Bilde</a></li>
       <li><a href="#">Pasient</a></li>

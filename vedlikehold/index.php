@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bjarum Medical</title>
 
-  <link rel="icon" href="../images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -25,7 +25,7 @@
   <!-- Sidebar -->
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
-      <li class="sidebar-brand"><a href="#">Bjarum Medical</a></li>
+      <li class="sidebar-brand"><a href="index.php">Bjarum Medical</a></li>
       <li><a href="#">Behandler</a></li>
       <li><a href="#">Bilde</a></li>
       <li><a href="#">Pasient</a></li>
