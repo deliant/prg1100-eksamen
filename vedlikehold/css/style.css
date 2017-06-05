@@ -112,6 +112,17 @@ select {
   top: 4px;
 }
 
+.glyphmenuadjust {
+  top: 14px;
+  float: left;
+}
+
+.glyphminiadjust {
+  top: 2px;
+  left: -5px;
+  float: left;
+}
+
 @media(min-width:768px) {
   #wrapper {
     padding-left: 250px;

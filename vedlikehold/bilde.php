@@ -26,21 +26,21 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand"><a href="index.php">Bjarum Medical</a></li>
-      <li><a href="behandler.php">Behandler</a></li>
-      <li><a href="bilde.php">Bilde</a></li>
-      <li><a href="pasient.php">Pasient</a></li>
-      <li><a href="timebestilling.php">Timebestilling</a></li>
-      <li><a href="timeinndeling.php">Timeinndeling</a></li>
-      <li><a href="yrkesgruppe.php">Yrkesgruppe</a></li>
+      <li><span class="glyphicon glyphmenuadjust glyphicon-pencil"></span><a href="behandler.php">Behandler</a></li>
+      <li><span class="glyphicon glyphmenuadjust glyphicon-file"></span><a href="bilde.php">Bilde</a></li>
+      <li><span class="glyphicon glyphmenuadjust glyphicon-user"></span><a href="pasient.php">Pasient</a></li>
+      <li><span class="glyphicon glyphmenuadjust glyphicon-calendar"></span><a href="timebestilling.php">Timebestilling</a></li>
+      <li><span class="glyphicon glyphmenuadjust glyphicon-hourglass"></span><a href="timeinndeling.php">Timeinndeling</a></li>
+      <li><span class="glyphicon glyphmenuadjust glyphicon-education"></span><a href="yrkesgruppe.php">Yrkesgruppe</a></li>
       <hr>
-      <li><a href="vedlikehold.php">Vedlikehold</a></li>
+      <li><span class="glyphicon glyphmenuadjust glyphicon-cog"></span><a href="vedlikehold.php">Vedlikehold</a></li>
       <?php
       session_start();
       @$innloggetBruker = $_SESSION["brukernavn"];
       if(!$innloggetBruker){
-        echo "<li><a href=\"index.php\">Logg inn</a></li>";
+        echo "<li><span class=\"glyphicon glyphmenuadjust glyphicon-lock\"></span><a href=\"index.php\">Logg inn</a></li>";
       } else {
-        echo "<li><a href=\"loggut.php\">Logg ut</a></li>";
+        echo "<li><span class=\"glyphicon glyphmenuadjust glyphicon-lock\"></span><a href=\"loggut.php\">Logg ut</a></li>";
       }
       ?>
     </ul>

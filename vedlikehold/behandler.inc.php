@@ -3,10 +3,10 @@ include("libs/behandler.php");
 include("libs/listeboks.php");
 ?>
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#vis">Vis</a></li>
-    <li><a data-toggle="tab" href="#registrer">Registrer</a></li>
-    <li><a data-toggle="tab" href="#endre">Endre</a></li>
-    <li><a data-toggle="tab" href="#slett">Slett</a></li>
+    <li class="active"><a data-toggle="tab" href="#vis"><span class="glyphicon glyphminiadjust glyphicon-folder-open"></span>Vis</a></li>
+    <li><a data-toggle="tab" href="#registrer"><span class="glyphicon glyphminiadjust glyphicon-file"></span>Registrer</a></li>
+    <li><a data-toggle="tab" href="#endre"><span class="glyphicon glyphminiadjust glyphicon-list-alt"></span>Endre</a></li>
+    <li><a data-toggle="tab" href="#slett"><span class="glyphicon glyphminiadjust glyphicon-trash"></span>Slett</a></li>
   </ul>
 
   <div class="tab-content">
@@ -91,7 +91,6 @@ include("libs/listeboks.php");
       </p>
     </div>
   </div>
-
 <?php
 if(isset($_POST["submitRegBehandler"])) {
   registrerBehandler();
