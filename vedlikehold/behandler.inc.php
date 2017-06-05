@@ -5,6 +5,7 @@ include("libs/listeboks.php");
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#vis">Vis</a></li>
     <li><a data-toggle="tab" href="#registrer">Registrer</a></li>
+    <li><a data-toggle="tab" href="#endre">Endre</a></li>
     <li><a data-toggle="tab" href="#slett">Slett</a></li>
   </ul>
 
@@ -57,6 +58,23 @@ include("libs/listeboks.php");
       </form>
       </p>
     </div>
+    <div id="endre" class="tab-pane fade">
+      <h3>
+        Endre behandler
+        <a data-toggle="tooltip" class="tooltipLink">
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende behandler"></span>
+        </a>
+      </h3>
+      <p>
+      <form method="post" name="endrebehandler" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <label>Brukernavn</label>
+        <select name="velgBehandler">
+          <?php listeboksBehandler(); ?>
+        </select><br/>
+        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Endre" name="submitVelgBehandler">
+      </form>
+      </p>
+    </div>
     <div id="slett" class="tab-pane fade">
       <h3>
         Slett behandler
@@ -67,7 +85,7 @@ include("libs/listeboks.php");
       <p>
       <form method="post" name="slettbehandler" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Behandler</label>
-        <select name="velgBehandler">
+        <select name="velgBehandlerSlett">
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBehandler">
@@ -80,8 +98,17 @@ include("libs/listeboks.php");
 if(isset($_POST["submitRegBehandler"])) {
   registrerBehandler();
 }
+if(isset($_POST["submitVelgBehandler"])) {
+  velgBehandler();
+}
+if(isset($_POST["submitEndreBehandler"])) {
+  endreBehandler();
+}
 if(isset($_POST["submitSlettBehandler"])) {
   slettBehandler();
+}
+if(isset($_POST["edit_id"])) {
+  velgBehandlerFraVis();
 }
 if(isset($_POST["delete_id"])) {
   slettBehandlerFraVis();
