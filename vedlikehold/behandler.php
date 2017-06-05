@@ -17,9 +17,6 @@
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script>
-    $("a.tooltipLink").tooltip();
-  </script>
 </head>
 <body>
 <body>
@@ -40,10 +37,10 @@
       <?php
       session_start();
       @$innloggetBruker = $_SESSION["brukernavn"];
-      if(!$innloggetBruker){w
-        echo '<li><a href="index.php">Logg inn</a></li>';
+      if(!$innloggetBruker){
+        echo "<li><a href=\"index.php\">Logg inn</a></li>";
       } else {
-        echo '<li><a href="loggut.php">Logg ut</a></li>';
+        echo "<li><a href=\"loggut.php\">Logg ut</a></li>";
       }
       ?>
     </ul>

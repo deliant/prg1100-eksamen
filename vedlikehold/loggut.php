@@ -38,9 +38,9 @@
       session_start();
       @$innloggetBruker = $_SESSION["brukernavn"];
       if(!$innloggetBruker){
-        echo '<li><a href="index.php">Logg inn</a></li>';
+        echo "<li><a href=\"index.php\">Logg inn</a></li>";
       } else {
-        echo '<li><a href="loggut.php">Logg ut</a></li>';
+        echo "<li><a href=\"loggut.php\">Logg ut</a></li>";
       }
       ?>
     </ul>
@@ -61,7 +61,7 @@
           Logger brukeren ut av systemet.
           <?php
           session_destroy();
-          echo '<meta http-equiv="refresh" content="0;URL=index.php">';
+          echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php\">";
           ?>
           </p>
         </div>
