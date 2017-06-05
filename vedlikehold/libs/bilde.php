@@ -51,12 +51,35 @@ function registrerBilde() {
 function slettBilde() {
   include("db.php");
   $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
-  $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
-  if(mysqli_query($conn, $sql)) {
-    echo "Databasen oppdatert.<br/><br />";
-    echo "<meta http-equiv=\"refresh\" content=\"1\">";
+  // Sjekk at bildet ikke brukes
+  $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
+  $result = mysqli_query($conn, $sql);
+  if(mysqli_num_rows($result) > 0) {
+    echo "Kan ikke slette bilde når det brukes av behandler.<br/>";
   } else {
-    echo "Feil under database forespørsel: " . mysqli_error($conn);
+    $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $filbane = "../bilder/" . $row['filnavn'];
+
+    if(is_writable($filbane)) {
+      if(unlink($filbane)) {
+        $slettOk = 1;
+        echo "Bildefil " . $row['filnavn'] . " slettet.<br/>";
+      } else {
+        $slettOk = 0;
+        echo "Bildefil kunne ikke slettes automatisk.<br/>";
+      }
+    }
+    if($slettOk == 1) {
+      $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
+      if(mysqli_query($conn, $sql)) {
+        echo "Databasen oppdatert.<br />";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      } else {
+        echo "Feil under database forespørsel: " . mysqli_error($conn);
+      }
+    }
   }
   mysqli_close($conn);
 }

@@ -45,10 +45,12 @@ include("libs/listeboks.php");
         <label>Navn</label><input type="text" name="navn" required /><br />
         <label>Yrkesgruppe</label>
         <select name="velgYrkesgruppe">
+          <option value="NULL">Ingen</option>
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>Bildenr</label>
         <select name="velgBildenr">
+          <option value="NULL">Ingen</option>
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBehandler">
