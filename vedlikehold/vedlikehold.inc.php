@@ -1,6 +1,6 @@
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#endre">Endre passord</a></li>
-    <li><a data-toggle="tab" href="#registrer">Registrer superbruker</a></li>
+    <li class="active"><a data-toggle="tab" href="#endre"><span class="glyphicon glyphminiadjust glyphicon-lock"></span>Endre passord</a></li>
+    <li><a data-toggle="tab" href="#registrer"><span class="glyphicon glyphminiadjust glyphicon-user"></span>Registrer superbruker</a></li>
   </ul>
 
   <div class="tab-content">
