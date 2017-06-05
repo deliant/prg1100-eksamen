@@ -13,11 +13,11 @@ function visBehandler() {
       echo "<td>". $row['bildenr'] ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
       echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['brukernavn'] ." />\n";
-      echo "<button type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
+      echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
       echo "</form></td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
       echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['brukernavn'] ." />\n";
-      echo "<button type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
+      echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
       echo "</tr>";
     }

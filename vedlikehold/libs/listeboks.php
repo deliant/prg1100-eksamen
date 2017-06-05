@@ -9,7 +9,7 @@ function listeboksBehandler() {
       echo "<option value=". $row['brukernavn'] .">". $row['brukernavn'] ." - ". $row['behandlernavn'] ."</option>\n";
     }
   } else {
-    echo "<option value='Ingen'>Ingen behandlere funnet</option>\n";
+    echo "<option value=\"Ingen\">Ingen behandlere funnet</option>\n";
   }
   mysqli_close($conn);
 }
@@ -24,7 +24,7 @@ function listeboksBilde() {
       echo "<option value=". $row['bildenr'] .">". $row['bildenr'] ."</option>\n";
     }
   } else {
-    echo "<option value='Ingen'>Ingen bilder funnet</option>\n";
+    echo "<option value=\"Ingen\">Ingen bilder funnet</option>\n";
   }
   mysqli_close($conn);
 }
@@ -39,7 +39,7 @@ function listeboksYrkesgruppe() {
       echo "<option value=". $row['yrkesgruppe'] .">". $row['yrkesgruppe'] ."</option>\n";
     }
   } else {
-    echo "<option value='Ingen'>Ingen yrkesgrupper funnet</option>\n";
+    echo "<option value=\"Ingen\">Ingen yrkesgrupper funnet</option>\n";
   }
   mysqli_close($conn);
 }

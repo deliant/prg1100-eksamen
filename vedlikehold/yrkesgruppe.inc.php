@@ -10,29 +10,32 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
-      <p>
       <h3>
         Vis yrkesgrupper
         <a data-toggle="tooltip" class="tooltipLink">
           <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende yrkesgrupper i databasen"></span>
         </a>
       </h3>
+      <p>
       <div class="table-responsive">
-        <table class="table-striped" width="60%">
-          <tr><th>Yrkesgruppe</th><th>Slett</th></tr>
+        <table class="table table-striped">
+          <tr>
+            <th>Yrkesgruppe</th>
+            <th>Slett</th>
+          </tr>
           <?php visYrkesgruppe(); ?>
         </table>
       </div>
       </p>
     </div>
     <div id="registrer" class="tab-pane fade">
-      <p>
       <h3>
         Registrer yrkesgruppe
         <a data-toggle="tooltip" class="tooltipLink">
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny yrkesgruppe"></span>
         </a>
       </h3>
+      <p>
       <form method="post" name="regyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Yrkesgruppe</label><input type="text" name="yrkesgruppe" required /><br />
         <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegYrkesgruppe">
@@ -40,13 +43,13 @@ include("libs/listeboks.php");
       </p>
     </div>
     <div id="slett" class="tab-pane fade">
-      <p>
       <h3>
         Slett yrkesgruppe
         <a data-toggle="tooltip" class="tooltipLink">
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende yrkesgruppe"></span>
         </a>
       </h3>
+      <p>
       <form method="post" name="slettyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Yrkesgruppe</label>
         <select name="velgYrkesgruppe">
