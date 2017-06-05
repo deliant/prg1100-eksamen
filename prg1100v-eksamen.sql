@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 05, 2017 at 12:06 AM
+-- Generation Time: Jun 06, 2017 at 12:37 AM
 -- Server version: 10.0.29-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 7.0.18-0ubuntu0.16.04.1
 
@@ -29,9 +29,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `behandler` (
   `brukernavn` varchar(20) NOT NULL,
   `behandlernavn` varchar(50) NOT NULL,
-  `yrkesgruppe` varchar(50) NOT NULL,
-  `bildenr` int(11) NOT NULL
+  `yrkesgruppe` varchar(50) DEFAULT NULL,
+  `bildenr` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `behandler`
+--
+
+INSERT INTO `behandler` (`brukernavn`, `behandlernavn`, `yrkesgruppe`, `bildenr`) VALUES
+('mn', 'marius norheim', 'Lege', 1);
 
 -- --------------------------------------------------------
 
@@ -45,6 +52,14 @@ CREATE TABLE `bilde` (
   `filnavn` varchar(255) NOT NULL,
   `beskrivelse` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bilde`
+--
+
+INSERT INTO `bilde` (`bildenr`, `opplastingsdato`, `filnavn`, `beskrivelse`) VALUES
+(1, '2017-06-05', 'moneeey.jpeg', 'bilde av marius'),
+(3, '2017-06-05', 'poweroflove.jpg', 'testbilde');
 
 -- --------------------------------------------------------
 
@@ -62,7 +77,7 @@ CREATE TABLE `bruker` (
 --
 
 INSERT INTO `bruker` (`brukernavn`, `passord`) VALUES
-('admin', '$2y$10$cothFHVZTzb76dB3Jjkc0OOQcUm83.L6Cvd6pA/hrwCIDGIcRvfa.');
+('admin', '$2y$10$w7RRf8k1ShawPHBjXGUfaeccmBC7Pvf.zxwGXh8VqR2KygE0osLuq');
 
 -- --------------------------------------------------------
 
@@ -99,8 +114,18 @@ CREATE TABLE `timebestilling` (
 CREATE TABLE `timeinndeling` (
   `brukernavn` varchar(20) NOT NULL,
   `ukedag` varchar(10) NOT NULL,
-  `tidspunkt` time NOT NULL
+  `tidspunkt` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `timeinndeling`
+--
+
+INSERT INTO `timeinndeling` (`brukernavn`, `ukedag`, `tidspunkt`) VALUES
+('mn', 'Mandag', '08:00-08:15'),
+('mn', 'Mandag', '08:15-08:30'),
+('mn', 'Mandag', '08:30-08:45'),
+('mn', 'Mandag', '08:45-09:00');
 
 -- --------------------------------------------------------
 
@@ -111,6 +136,14 @@ CREATE TABLE `timeinndeling` (
 CREATE TABLE `yrkesgruppe` (
   `yrkesgruppe` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `yrkesgruppe`
+--
+
+INSERT INTO `yrkesgruppe` (`yrkesgruppe`) VALUES
+('Lege'),
+('Psykolog');
 
 --
 -- Indexes for dumped tables
@@ -170,7 +203,7 @@ ALTER TABLE `yrkesgruppe`
 -- AUTO_INCREMENT for table `bilde`
 --
 ALTER TABLE `bilde`
-  MODIFY `bildenr` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `bildenr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
