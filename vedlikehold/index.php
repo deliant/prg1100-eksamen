@@ -38,9 +38,9 @@
       session_start();
       @$innloggetBruker = $_SESSION["brukernavn"];
       if(!$innloggetBruker){
-        echo '<li><a href="index.php">Logg inn</a></li>';
+        echo "<li><a href=\"index.php\">Logg inn</a></li>";
       } else {
-        echo '<li><a href="loggut.php">Logg ut</a></li>';
+        echo "<li><a href=\"loggut.php\">Logg ut</a></li>";
       }
       ?>
     </ul>
@@ -73,7 +73,7 @@
               echo "Feil brukernavn eller passord.";
             } else {
               $_SESSION["brukernavn"] = $brukernavn;
-              echo '<meta http-equiv="refresh" content="0;url=vedlikehold.php">';
+              echo "<meta http-equiv=\"refresh\" content=\"0;url=vedlikehold.php\">";
             }
           }
           ?>

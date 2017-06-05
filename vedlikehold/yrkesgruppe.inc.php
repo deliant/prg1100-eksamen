@@ -33,9 +33,9 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny yrkesgruppe"></span>
         </a>
       </h3>
-      <form method="post" name="regyrkesgruppe" action="">
+      <form method="post" name="regyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Yrkesgruppe</label><input type="text" name="yrkesgruppe" required /><br />
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer yrkesgruppe" name="submitRegYrkesgruppe">
+        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegYrkesgruppe">
       </form>
       </p>
     </div>
@@ -47,16 +47,17 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende yrkesgruppe"></span>
         </a>
       </h3>
-      <form method="post" name="slettyrkesgruppe" action="">
+      <form method="post" name="slettyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Yrkesgruppe</label>
         <select name="velgYrkesgruppe">
           <?php listeboksYrkesgruppe(); ?>
-        </select><br />
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Slett yrkesgruppe" name="submitSlettYrkesgruppe">
+        </select><br/>
+        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Slett" name="submitSlettYrkesgruppe">
       </form>
       </p>
     </div>
   </div>
+
 <?php
 if(isset($_POST["submitRegYrkesgruppe"])) {
   registrerYrkesgruppe();

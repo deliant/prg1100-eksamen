@@ -41,7 +41,7 @@ function registrerBehandler() {
 
     if(mysqli_query($conn, $sql)) {
       echo "$navn registrert i behandler databasen.";
-      echo '<meta http-equiv="refresh" content="1">';
+      echo "<meta http-equiv=\"refresh\" content=\"1\">";
     } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
@@ -49,23 +49,25 @@ function registrerBehandler() {
   }
 }
 
-function slettBehandler(){
+function slettBehandler() {
   include("db.php");
-  $behandler = mysqli_real_escape_string($conn, $_POST["velgBehandler"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_POST["velgBehandler"]);
+  /* Kan ikke slette om lege har booket time med pasient?
   $sql = "SELECT bildenr FROM behandler WHERE brukernavn='$behandler'";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     echo "Kan ikke slette behandler når bilde er valgt.<br />";
   } else {
-    $sql = "DELETE FROM behandler WHERE brukernavn='$behandler'";
+  */
+    $sql = "DELETE FROM behandler WHERE brukernavn='$brukernavn'";
     if(mysqli_query($conn, $sql)) {
       echo "Databasen oppdatert.<br/><br />";
-      echo '<meta http-equiv="refresh" content="1">';
+      echo "<meta http-equiv=\"refresh\" content=\"1\">";
     } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
-  }
+  //}
   mysqli_close($conn);
 }
 

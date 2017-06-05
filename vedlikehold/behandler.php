@@ -17,9 +17,6 @@
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script>
-    $("a.tooltipLink").tooltip();
-  </script>
 </head>
 <body>
 <body>
@@ -41,9 +38,9 @@
       session_start();
       @$innloggetBruker = $_SESSION["brukernavn"];
       if(!$innloggetBruker){
-        echo '<li><a href="index.php">Logg inn</a></li>';
+        echo "<li><a href=\"index.php\">Logg inn</a></li>";
       } else {
-        echo '<li><a href="loggut.php">Logg ut</a></li>';
+        echo "<li><a href=\"loggut.php\">Logg ut</a></li>";
       }
       ?>
     </ul>
@@ -53,7 +50,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h1>Vedlikehold</h1>
+          <h1>BM Vedlikehold</h1>
           <?php
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
