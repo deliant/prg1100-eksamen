@@ -5,6 +5,7 @@ include("libs/listeboks.php");
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#vis">Vis</a></li>
     <li><a data-toggle="tab" href="#registrer">Registrer</a></li>
+    <li><a data-toggle="tab" href="#endre">Endre</a></li>
     <li><a data-toggle="tab" href="#slett">Slett</a></li>
   </ul>
 
@@ -47,6 +48,23 @@ include("libs/listeboks.php");
       </form>
       </p>
     </div>
+    <div id="endre" class="tab-pane fade">
+      <h3>
+        Endre bilde
+        <a data-toggle="tooltip" class="tooltipLink">
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Endre et eksisterende bilde"></span>
+        </a>
+      </h3>
+      <p>
+      <form method="post" name="endrebilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <label>Bildenr</label>
+        <select name="velgBildenr">
+          <?php listeboksBilde(); ?>
+        </select><br/>
+        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Endre" name="submitVelgBilde">
+      </form>
+      </p>
+    </div>
     <div id="slett" class="tab-pane fade">
       <p>
       <h3>
@@ -73,8 +91,14 @@ if(isset($_POST["submitRegBilde"])) {
     registrerBilde();
   }
 }
+if(isset($_POST["submitVelgBilde"])) {
+  velgBilde();
+}
 if(isset($_POST["submitSlettBilde"])) {
   slettBilde();
+}
+if(isset($_POST["edit_id"])) {
+  velgBildeFraVis();
 }
 if(isset($_POST["delete_id"])) {
   slettBildeFraVis();

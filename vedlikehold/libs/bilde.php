@@ -48,6 +48,36 @@ function registrerBilde() {
   }
 }
 
+function velgBilde() {
+  include("db.php");
+  $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
+  $sql = "SELECT * FROM bilde WHERE bildenr='$bildenr'";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_assoc($result);
+  // Validering; onsubmit="return validerRegistrerBehandlerdata()"
+  echo "<form method=\"post\" name=\"updatebilde\" action=". $_SERVER['PHP_SELF'] .">\n";
+  echo "<label>Bildenr</label><input type=\"text\" name=\"bildenr\" value='" . $row['bildenr'] . "' readonly required /><br/>\n";
+  echo "<label>Beskrivelse</label><input type=\"text\" name=\"navn\" value='" . $row['beskrivelse'] . "' required /><br/>\n";
+  echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
+  echo "</form>\n";
+  mysqli_close($conn);
+}
+
+function velgBildeFraVis() {
+  include("db.php");
+  $bildenr = mysqli_real_escape_string($conn, $_POST["edit_id"]);
+  $sql = "SELECT * FROM bilde WHERE bildenr='$bildenr'";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_assoc($result);
+  // Validering; onsubmit="return validerRegistrerBehandlerdata()"
+  echo "<form method=\"post\" name=\"updatebilde\" action=". $_SERVER['PHP_SELF'] .">\n";
+  echo "<label>Bildenr</label><input type=\"text\" name=\"bildenr\" value='" . $row['bildenr'] . "' readonly required /><br/>\n";
+  echo "<label>Beskrivelse</label><input type=\"text\" name=\"navn\" value='" . $row['beskrivelse'] . "' required /><br/>\n";
+  echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
+  echo "</form>\n";
+  mysqli_close($conn);
+}
+
 function slettBilde() {
   include("db.php");
   $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
