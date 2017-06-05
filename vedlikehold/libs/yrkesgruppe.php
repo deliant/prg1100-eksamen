@@ -35,13 +35,18 @@ function registrerYrkesgruppe() {
     } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
-    mysqli_close($conn);
   }
+  mysqli_close($conn);
 }
 
 function slettYrkesgruppe() {
   include("db.php");
-  $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppe"]);
+  if(isset($_POST["velgYrkesgruppelett"])) {
+    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppeSlett"]);
+  }
+  else if(isset($_POST["delete_id"])) {
+    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["delete_id"]);
+  };
   if(!empty($yrkesgruppe)) {
     $sql = "SELECT brukernavn FROM behandler WHERE yrkesgruppe='$yrkesgruppe'";
     $result = mysqli_query($conn, $sql);
@@ -59,23 +64,7 @@ function slettYrkesgruppe() {
         echo "Feil under database forespørsel: " . mysqli_error($conn);
       }
     }
-    mysqli_close($conn);
   }
-}
-
-function slettYrkesgruppeFraVis() {
-  include("db.php");
-  $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["delete_id"]);
-  if(!empty($yrkesgruppe)) {
-    $sql = "DELETE FROM yrkesgruppe WHERE yrkesgruppe='$yrkesgruppe'";
-
-    if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/><br />";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
-    } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
-    }
-    mysqli_close($conn);
-  }
+  mysqli_close($conn);
 }
 ?>

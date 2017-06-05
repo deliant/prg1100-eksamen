@@ -61,7 +61,7 @@ include("libs/listeboks.php");
         <select name="velgBildenr">
           <?php listeboksBilde(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Endre" name="submitVelgBilde">
+        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgBilde">
       </form>
       </p>
     </div>
@@ -75,7 +75,7 @@ include("libs/listeboks.php");
       </h3>
       <form method="post" name="slettbilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Bildenr</label>
-        <select name="velgBildenr">
+        <select name="velgBildenrSlett">
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBilde">
@@ -91,16 +91,13 @@ if(isset($_POST["submitRegBilde"])) {
     registrerBilde();
   }
 }
-if(isset($_POST["submitVelgBilde"])) {
+if(isset($_POST["submitVelgBilde"]) || isset($_POST["edit_id"])) {
   velgBilde();
 }
-if(isset($_POST["submitSlettBilde"])) {
+if(isset($_POST["submitEndreBilde"])) {
+  endreBilde();
+}
+if(isset($_POST["submitSlettBilde"]) || isset($_POST["delete_id"])) {
   slettBilde();
-}
-if(isset($_POST["edit_id"])) {
-  velgBildeFraVis();
-}
-if(isset($_POST["delete_id"])) {
-  slettBildeFraVis();
 }
 ?>

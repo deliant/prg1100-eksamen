@@ -51,7 +51,12 @@ function registrerBehandler() {
 
 function velgBehandler() {
   include("db.php");
-  $brukernavn = mysqli_real_escape_string($conn, $_POST["velgBehandler"]);
+  if(isset($_POST["velgBehandler"])) {
+    $brukernavn = mysqli_real_escape_string($conn, $_POST["velgBehandler"]);
+  }
+  else if(isset($_POST["edit_id"])) {
+    $brukernavn = mysqli_real_escape_string($conn, $_POST["edit_id"]);
+  }
   $sql = "SELECT * FROM behandler WHERE brukernavn='$brukernavn'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
@@ -64,7 +69,6 @@ function velgBehandler() {
   $result2 = mysqli_query($conn, $sql2);
 
   if(mysqli_num_rows($result2) > 0) {
-    echo "<option value=\"NULL\">Ingen</option>\n";
     while($row2 = mysqli_fetch_assoc($result2)) {
       if($row2['yrkesgruppe'] === $row['yrkesgruppe']) {
         echo "<option value=". $row2['yrkesgruppe'] ." selected=\"selected\">". $row2['yrkesgruppe'] ."</option>\n";
@@ -81,7 +85,6 @@ function velgBehandler() {
   $result3 = mysqli_query($conn, $sql3);
 
   if(mysqli_num_rows($result3) > 0) {
-    echo "<option value=\"NULL\">Ingen</option>\n";
     while($row3 = mysqli_fetch_assoc($result3)) {
       if($row3['bildenr'] === $row['bildenr']) {
         echo "<option value=". $row3['bildenr'] ." selected=\"selected\">". $row3['bildenr'] ."</option>\n";
@@ -95,55 +98,7 @@ function velgBehandler() {
   echo "</select><br />\n";
   echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBehandler\"><br/><br/>\n";
   echo "</form>\n";
-  mysqli_close($conn);
-}
-
-function velgBehandlerFraVis() {
-  include("db.php");
-  $brukernavn = mysqli_real_escape_string($conn, $_POST["edit_id"]);
-  $sql = "SELECT * FROM behandler WHERE brukernavn='$brukernavn'";
-  $result = mysqli_query($conn, $sql);
-  $row = mysqli_fetch_assoc($result);
-  // Validering; onsubmit="return validerRegistrerBehandlerdata()"
-  echo "<form method=\"post\" name=\"updatebehandler\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Brukernavn</label><input type=\"text\" name=\"brukernavn\" value='" . $row['brukernavn'] . "' readonly required /><br/>\n";
-  echo "<label>Navn</label><input type=\"text\" name=\"navn\" value='" . $row['behandlernavn'] . "' required /><br/>\n";
-  echo "<label>Klassekode</label><select name=\"yrkesgruppe\">";
-  $sql2 = "SELECT yrkesgruppe FROM yrkesgruppe";
-  $result2 = mysqli_query($conn, $sql2);
-
-  if(mysqli_num_rows($result2) > 0) {
-    echo "<option value=\"NULL\">Ingen</option>\n";
-    while($row2 = mysqli_fetch_assoc($result2)) {
-      if($row2['yrkesgruppe'] === $row['yrkesgruppe']) {
-        echo "<option value=". $row2['yrkesgruppe'] ." selected=\"selected\">". $row2['yrkesgruppe'] ."</option>\n";
-      } else {
-        echo "<option value=". $row2['yrkesgruppe'] .">". $row2['yrkesgruppe'] ."</option>\n";
-      }
-    }
-  } else {
-    echo "<option value=\"NULL\">Ingen yrkesgruppe funnet</option>\n";
-  }
-  echo "</select><br/>\n";
-  echo "<label>Bildenr</label><select name='bildenr'>";
-  $sql3 = "SELECT bildenr FROM bilde";
-  $result3 = mysqli_query($conn, $sql3);
-
-  if(mysqli_num_rows($result3) > 0) {
-    echo "<option value=\"NULL\">Ingen</option>\n";
-    while($row3 = mysqli_fetch_assoc($result3)) {
-      if($row3['bildenr'] === $row['bildenr']) {
-        echo "<option value=". $row3['bildenr'] ." selected=\"selected\">". $row3['bildenr'] ."</option>\n";
-      } else {
-        echo "<option value=". $row3['bildenr'] .">". $row3['bildenr'] ."</option>\n";
-      }
-    }
-  } else {
-    echo "<option value=\"NULL\">Ingen bildenr funnet</option>\n";
-  }
-  echo "</select><br />\n";
-  echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBehandler\"><br/><br/>\n";
-  echo "</form>\n";
+  echo "</p>";
   mysqli_close($conn);
 }
 
@@ -168,7 +123,12 @@ function endreBehandler() {
 
 function slettBehandler() {
   include("db.php");
-  $brukernavn = mysqli_real_escape_string($conn, $_POST["velgBehandlerSlett"]);
+  if(isset($_POST["velgBehandlerSlett"])) {
+    $brukernavn = mysqli_real_escape_string($conn, $_POST["velgBehandlerSlett"]);
+  }
+  else if(isset($_POST["delete_id"])) {
+    $brukernavn = mysqli_real_escape_string($conn, $_POST["delete_id"]);
+  }
   /* Kan ikke slette om lege har booket time med pasient?
   $sql = "SELECT bildenr FROM behandler WHERE brukernavn='$behandler'";
   $result = mysqli_query($conn, $sql);
@@ -190,21 +150,5 @@ function slettBehandler() {
   }
   mysqli_close($conn);
   //}
-}
-
-function slettBehandlerFraVis() {
-  include("db.php");
-  $brukernavn = mysqli_real_escape_string($conn, $_POST["delete_id"]);
-  if(!empty($brukernavn)) {
-    $sql = "DELETE FROM behandler WHERE brukernavn='$brukernavn'";
-
-    if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/><br />";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
-    } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
-    }
-  }
-  mysqli_close($conn);
 }
 ?>
