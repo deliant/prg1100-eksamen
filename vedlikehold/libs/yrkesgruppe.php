@@ -10,7 +10,7 @@ function visYrkesgruppe() {
       echo "<td>". $row['yrkesgruppe'] ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
       echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['yrkesgruppe'] ." />\n";
-      echo "<button type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
+      echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
       echo "</tr>\n";
     }

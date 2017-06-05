@@ -18,8 +18,14 @@ include("libs/listeboks.php");
       </h3>
       <p>
       <div class="table-responsive">
-        <table class="table-striped" width="90%">
-          <tr><th>Brukernavn</th><th>Navn</th><th>Yrkesgruppe</th><th>Bildenr</th><th>Endre / Slett</th></tr>
+        <table class="table table-striped">
+          <tr>
+            <th>Brukernavn</th>
+            <th>Navn</th>
+            <th>Yrkesgruppe</th>
+            <th>Bildenr</th>
+            <th>Endre / Slett</th>
+          </tr>
           <?php visBehandler(); ?>
         </table>
       </div>
