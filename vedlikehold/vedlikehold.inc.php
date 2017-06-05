@@ -15,7 +15,7 @@
       <form method="post" name="regbruker" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Brukernavn</label><input type="text" name="brukernavn" required /><br />
         <label>Passord</label><input type="password" name="passord" required /><br />
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegBruker"><br /><br />
+        <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBruker"><br /><br />
       </form>
       </p>
     </div>
@@ -27,9 +27,9 @@
         </a>
       </h3>
       <p>
-      <form method="post" name="endrebruker" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form method="post" name="endrepassord" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Passord</label><input type="password" name="endrepassord" required /><br />
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Endre" name="submitEndrePassord"><br /><br />
+        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Endre" name="submitEndrePassord"><br /><br />
       </form>
       </p>
     </div>

@@ -40,7 +40,7 @@ function registrerBilde() {
 
     if(mysqli_query($conn, $sql)) {
       echo "$beskrivelse registrert i bilde databasen.";
-      //echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">";
     } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
