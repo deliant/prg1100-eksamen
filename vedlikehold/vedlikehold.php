@@ -53,7 +53,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h1>Vedlikehold</h1>
+          <h1>BM Vedlikehold</h1>
           <?php
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
