@@ -14,13 +14,20 @@ include("libs/listeboks.php");
       <h3>
         Vis bilder
         <a data-toggle="tooltip" class="tooltipLink">
-          <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende yrkesgrupper i databasen"></span>
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende bilder i databasen"></span>
         </a>
       </h3>
       <div class="table-responsive">
-        <table class="table-striped" width="60%">
-          <tr><th>Yrkesgruppe</th><th>Slett</th></tr>
-          <?php visYrkesgruppe(); ?>
+        <table class="table table-striped">
+          <tr>
+            <th>Bildenr</th>
+            <th>Opplastingsdato</th>
+            <th>Filnavn</th>
+            <th>Beskrivelse</th>
+            <th>Endre</th>
+            <th>Slett</th>
+          </tr>
+          <?php visBilde(); ?>
         </table>
       </div>
       </p>
@@ -30,12 +37,13 @@ include("libs/listeboks.php");
       <h3>
         Registrer bilder
         <a data-toggle="tooltip" class="tooltipLink">
-          <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny yrkesgruppe"></span>
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer et ny bilde"></span>
         </a>
       </h3>
-      <form method="post" name="regbilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label></label><input type="text" name="yrkesgruppe" required /><br />
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegYrkesgruppe">
+      <form method="post" name="regbilde" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <label>Fil</label><input type="file" name="filnavn" required /><br/>
+        <label>Beskrivelse</label><input type="text" name="beskrivelse" required /><br/>
+        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegBilde">
       </form>
       </p>
     </div>
@@ -44,7 +52,7 @@ include("libs/listeboks.php");
       <h3>
         Slett bilde
         <a data-toggle="tooltip" class="tooltipLink">
-          <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende yrkesgruppe"></span>
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Slett et eksisterende bilde"></span>
         </a>
       </h3>
       <form method="post" name="slettbilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -59,13 +67,16 @@ include("libs/listeboks.php");
   </div>
 
 <?php
-if(isset($_POST["submitRegYrkesgruppe"])) {
-  registrerYrkesgruppe();
+if(isset($_POST["submitRegBilde"])) {
+  include("libs/upload.php");
+  if($uploadOk == 1) {
+    registrerBilde();
+  }
 }
-if(isset($_POST["submitSlettYrkesgruppe"])) {
-  slettYrkesgruppe();
+if(isset($_POST["submitSlettBilde"])) {
+  slettBilde();
 }
 if(isset($_POST["delete_id"])) {
-  slettYrkesgruppeFraVis();
+  slettBildeFraVis();
 }
 ?>
