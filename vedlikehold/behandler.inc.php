@@ -24,7 +24,8 @@ include("libs/listeboks.php");
             <th>Navn</th>
             <th>Yrkesgruppe</th>
             <th>Bildenr</th>
-            <th>Endre / Slett</th>
+            <th>Endre</th>
+            <th>Slett</th>
           </tr>
           <?php visBehandler(); ?>
         </table>
@@ -40,8 +41,8 @@ include("libs/listeboks.php");
       </h3>
       <p>
       <form method="post" name="regbehandler" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Brukernavn</label><input type="text" name="yrkesgruppe" required /><br />
-        <label>Navn</label><input type="text" name="yrkesgruppe" required /><br />
+        <label>Brukernavn</label><input type="text" name="brukernavn" required /><br />
+        <label>Navn</label><input type="text" name="navn" required /><br />
         <label>Yrkesgruppe</label>
         <select name="velgYrkesgruppe">
           <?php listeboksYrkesgruppe(); ?>
