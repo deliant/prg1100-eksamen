@@ -50,37 +50,49 @@ function registrerBilde() {
 
 function velgBilde() {
   include("db.php");
-  $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
+  if(isset($_POST["velgBildenr"])) {
+    $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
+  }
+  else if(isset($_POST["edit_id"])) {
+    $bildenr = mysqli_real_escape_string($conn, $_POST["edit_id"]);
+  }
   $sql = "SELECT * FROM bilde WHERE bildenr='$bildenr'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   // Validering; onsubmit="return validerRegistrerBehandlerdata()"
   echo "<form method=\"post\" name=\"updatebilde\" action=". $_SERVER['PHP_SELF'] .">\n";
   echo "<label>Bildenr</label><input type=\"text\" name=\"bildenr\" value='" . $row['bildenr'] . "' readonly required /><br/>\n";
-  echo "<label>Beskrivelse</label><input type=\"text\" name=\"navn\" value='" . $row['beskrivelse'] . "' required /><br/>\n";
+  echo "<label>Beskrivelse</label><input type=\"text\" name=\"beskrivelse\" value='" . $row['beskrivelse'] . "' required /><br/>\n";
   echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
   echo "</form>\n";
   mysqli_close($conn);
 }
 
-function velgBildeFraVis() {
+function endreBilde() {
   include("db.php");
-  $bildenr = mysqli_real_escape_string($conn, $_POST["edit_id"]);
-  $sql = "SELECT * FROM bilde WHERE bildenr='$bildenr'";
-  $result = mysqli_query($conn, $sql);
-  $row = mysqli_fetch_assoc($result);
-  // Validering; onsubmit="return validerRegistrerBehandlerdata()"
-  echo "<form method=\"post\" name=\"updatebilde\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Bildenr</label><input type=\"text\" name=\"bildenr\" value='" . $row['bildenr'] . "' readonly required /><br/>\n";
-  echo "<label>Beskrivelse</label><input type=\"text\" name=\"navn\" value='" . $row['beskrivelse'] . "' required /><br/>\n";
-  echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
-  echo "</form>\n";
+  $bildenr = mysqli_real_escape_string($conn, $_POST["bildenr"]);
+  $beskrivelse = mysqli_real_escape_string($conn, $_POST["beskrivelse"]);
+  if(!empty($bildenr) && !empty($beskrivelse)) {
+    $sql = "UPDATE bilde SET beskrivelse='$beskrivelse' WHERE bildenr='$bildenr'";
+
+    if(mysqli_query($conn, $sql)) {
+      echo "Databasen oppdatert.<br/>";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+    } else {
+      echo "Feil under database forespørsel: " . mysqli_error($conn);
+    }
+  }
   mysqli_close($conn);
 }
 
 function slettBilde() {
   include("db.php");
-  $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
+  if(isset($_POST["velgBildenrSlett"])) {
+    $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenrSlett"]);
+  }
+  else if(isset($_POST["delete_id"])) {
+    $bildenr = mysqli_real_escape_string($conn, $_POST["delete_id"]);
+  }
   // Sjekk at bildet ikke brukes
   $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
   $result = mysqli_query($conn, $sql);
@@ -112,21 +124,5 @@ function slettBilde() {
     }
   }
   mysqli_close($conn);
-}
-
-function slettBildeFraVis() {
-  include("db.php");
-  $bildenr = mysqli_real_escape_string($conn, $_POST["delete_id"]);
-  if(!empty($bildenr)) {
-    $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
-
-    if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/><br />";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
-    } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
-    }
-    mysqli_close($conn);
-  }
 }
 ?>

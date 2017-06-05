@@ -52,7 +52,7 @@ include("libs/listeboks.php");
       <p>
       <form method="post" name="slettyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Yrkesgruppe</label>
-        <select name="velgYrkesgruppe">
+        <select name="velgYrkesgruppeSlett">
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettYrkesgruppe">
@@ -65,10 +65,7 @@ include("libs/listeboks.php");
 if(isset($_POST["submitRegYrkesgruppe"])) {
   registrerYrkesgruppe();
 }
-if(isset($_POST["submitSlettYrkesgruppe"])) {
+if(isset($_POST["submitSlettYrkesgruppe"]) || isset($_POST["delete_id"])) {
   slettYrkesgruppe();
-}
-if(isset($_POST["delete_id"])) {
-  slettYrkesgruppeFraVis();
 }
 ?>

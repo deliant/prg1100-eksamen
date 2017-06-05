@@ -46,12 +46,10 @@ include("libs/listeboks.php");
         <label>Navn</label><input type="text" name="navn" required /><br />
         <label>Yrkesgruppe</label>
         <select name="velgYrkesgruppe">
-          <option value="NULL">Ingen</option>
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>Bildenr</label>
         <select name="velgBildenr">
-          <option value="NULL">Ingen</option>
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBehandler">
@@ -71,7 +69,7 @@ include("libs/listeboks.php");
         <select name="velgBehandler">
           <?php listeboksBehandler(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Endre" name="submitVelgBehandler">
+        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgBehandler">
       </form>
       </p>
     </div>
@@ -98,19 +96,13 @@ include("libs/listeboks.php");
 if(isset($_POST["submitRegBehandler"])) {
   registrerBehandler();
 }
-if(isset($_POST["submitVelgBehandler"])) {
+if(isset($_POST["submitVelgBehandler"]) || isset($_POST["edit_id"])) {
   velgBehandler();
 }
 if(isset($_POST["submitEndreBehandler"])) {
   endreBehandler();
 }
-if(isset($_POST["submitSlettBehandler"])) {
+if(isset($_POST["submitSlettBehandler"]) || isset($_POST["delete_id"])) {
   slettBehandler();
-}
-if(isset($_POST["edit_id"])) {
-  velgBehandlerFraVis();
-}
-if(isset($_POST["delete_id"])) {
-  slettBehandlerFraVis();
 }
 ?>
