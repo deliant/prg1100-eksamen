@@ -6,11 +6,13 @@ function visYrkesgruppe() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<tr><td>". $row['yrkesgruppe'] ."</td>\n";
+      echo "<tr>\n";
+      echo "<td>". $row['yrkesgruppe'] ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
       echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['yrkesgruppe'] ." />\n";
-      echo "<button type=\"submit\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
-      echo "</form></td></tr>\n";
+      echo "<button type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
+      echo "</form></td>\n";
+      echo "</tr>\n";
     }
   } else {
     echo "<tr><td>Ingen yrkesgrupper funnet</td><td>&nbsp;</td></tr>\n";
