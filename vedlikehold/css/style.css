@@ -86,16 +86,16 @@ hr {
 
 label {
   display: inline-block;
-  width: 200px;
+  width: 250px;
 }
 
 input[type="text"] {
-  width: 250px;
+  width: 300px;
   height: 28px;
 }
 
 input[type="password"] {
-  width: 250px;
+  width: 300px;
   height: 28px;
 }
 
@@ -104,7 +104,8 @@ input[type="file"] {
 }
 
 select {
-  width: 245px;
+  display: inline-block;
+  width: 295px;
   height: 28px;
 }
 
