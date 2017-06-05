@@ -64,7 +64,7 @@ function velgBehandler() {
   echo "<form method=\"post\" name=\"updatebehandler\" action=". $_SERVER['PHP_SELF'] .">\n";
   echo "<label>Brukernavn</label><input type=\"text\" name=\"brukernavn\" value='" . $row['brukernavn'] . "' readonly required /><br/>\n";
   echo "<label>Navn</label><input type=\"text\" name=\"navn\" value='" . $row['behandlernavn'] . "' required /><br/>\n";
-  echo "<label>Klassekode</label><select name=\"yrkesgruppe\">";
+  echo "<label>Yrkesgruppe</label><select name=\"yrkesgruppe\">";
   $sql2 = "SELECT yrkesgruppe FROM yrkesgruppe";
   $result2 = mysqli_query($conn, $sql2);
 

@@ -19,7 +19,6 @@
   <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-<body>
 
 <div id="wrapper">
   <!-- Sidebar -->
