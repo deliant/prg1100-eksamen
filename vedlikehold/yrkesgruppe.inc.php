@@ -38,7 +38,7 @@ include("libs/listeboks.php");
       <p>
       <form method="post" name="regyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Yrkesgruppe</label><input type="text" name="yrkesgruppe" required /><br />
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegYrkesgruppe">
+        <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegYrkesgruppe">
       </form>
       </p>
     </div>
@@ -55,7 +55,7 @@ include("libs/listeboks.php");
         <select name="velgYrkesgruppe">
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Slett" name="submitSlettYrkesgruppe">
+        <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettYrkesgruppe">
       </form>
       </p>
     </div>

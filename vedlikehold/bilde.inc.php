@@ -43,7 +43,7 @@ include("libs/listeboks.php");
       <form method="post" name="regbilde" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Fil</label><input type="file" name="filnavn" required /><br/>
         <label>Beskrivelse</label><input type="text" name="beskrivelse" required /><br/>
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegBilde">
+        <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBilde">
       </form>
       </p>
     </div>
@@ -60,7 +60,7 @@ include("libs/listeboks.php");
         <select name="velgBildenr">
           <?php listeboksBilde(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Slett" name="submitSlettBilde">
+        <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBilde">
       </form>
       </p>
     </div>

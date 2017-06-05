@@ -61,7 +61,7 @@
           <form method="post" id="login" name="login" action="">
             <label>Brukernavn</label><input type="text" id="brukernavn" name="brukernavn" required /><br />
             <label>Passord</label><input type="password" id="passord" name="passord" required /><br />
-            <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Logg inn" name="submitLogin"><br /><br />
+            <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Logg inn" name="submitLogin"><br /><br />
           </form>
           </p>
           <?php

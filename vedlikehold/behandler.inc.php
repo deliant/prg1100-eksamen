@@ -45,13 +45,15 @@ include("libs/listeboks.php");
         <label>Navn</label><input type="text" name="navn" required /><br />
         <label>Yrkesgruppe</label>
         <select name="velgYrkesgruppe">
+          <option value="NULL">Ingen</option>
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>Bildenr</label>
         <select name="velgBildenr">
+          <option value="NULL">Ingen</option>
           <?php listeboksBilde(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Registrer" name="submitRegBehandler">
+        <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBehandler">
       </form>
       </p>
     </div>
@@ -68,7 +70,7 @@ include("libs/listeboks.php");
         <select name="velgBehandler">
           <?php listeboksBehandler(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Slett" name="submitSlettBehandler">
+        <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBehandler">
       </form>
       </p>
     </div>
