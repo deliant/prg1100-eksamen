@@ -16,7 +16,24 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script>
+    $(function() {
+      $('#fratidspunkt, #tiltidspunkt').timepicker({
+        timeFormat: 'HH:mm',
+        interval: '15',
+        minTime: '08',
+        maxTime: '16',
+        defaultTime: '08',
+        startTime: '08:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -49,26 +66,19 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h1>Vedlikehold</h1>
-          <p>
-          <h3>
-            Logg ut
-            <a data-toggle="tooltip" class="tooltipLink">
-              <span class="glyphicon glyphicon-info-sign icon_info" title="Logg ut administrator bruker"></span>
-            </a>
-          </h3>
-          Logger brukeren ut av systemet.
+          <h1>BM Vedlikehold</h1>
           <?php
-          session_destroy();
-          echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php\">";
+          if(!$innloggetBruker){
+            echo "<p>Denne siden krever innlogging.</p>";
+          } else {
+            include("timeinndeling.inc.php");
+          }
           ?>
-          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 </html>
 </body>
 </html>

@@ -41,7 +41,7 @@ function registrerYrkesgruppe() {
 
 function slettYrkesgruppe() {
   include("db.php");
-  if(isset($_POST["velgYrkesgruppelett"])) {
+  if(isset($_POST["velgYrkesgruppeSlett"])) {
     $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppeSlett"]);
   }
   else if(isset($_POST["delete_id"])) {
