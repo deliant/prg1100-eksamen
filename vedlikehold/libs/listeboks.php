@@ -31,12 +31,12 @@ function listeboksBilde() {
 
 function listeboksPasient() {
   include("db.php");
-  $sql = "SELECT personnr FROM pasient";
+  $sql = "SELECT personnr, pasientnavn FROM pasient";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['personnr'] .">". $row['personnr'] ."</option>\n";
+      echo "<option value=". $row['personnr'] .">". $row['personnr'] ." - ". $row['pasientnavn'] ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen pasienter funnet</option>\n";
