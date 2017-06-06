@@ -143,8 +143,7 @@ function slettBehandler() {
     if (mysqli_query($conn, $sql)) {
       echo "Databasen oppdatert.<br/><br />";
       echo "<meta http-equiv=\"refresh\" content=\"1\">";
-    }
-    else {
+    } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
   }

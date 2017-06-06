@@ -28,7 +28,7 @@ function visPasient() {
 
 function registrerPasient() {
   include("db.php");
-  $personnr = $_POST["regpersonnr"];
+  $personnr = mysqli_real_escape_string($conn, $_POST["regpersonnr"]);
   $navn = mysqli_real_escape_string($conn, $_POST["regnavn"]);
   $fastlege = mysqli_real_escape_string($conn, $_POST["velgFastlege"]);
   // Sjekk at tekstfeltene har input
@@ -126,12 +126,10 @@ function slettPasient() {
     if (mysqli_query($conn, $sql)) {
       echo "Databasen oppdatert.<br/><br />";
       echo "<meta http-equiv=\"refresh\" content=\"1\">";
-    }
-    else {
+    } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
   }
   mysqli_close($conn);
-  //}
 }
 ?>

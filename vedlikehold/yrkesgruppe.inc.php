@@ -5,6 +5,7 @@ include("libs/listeboks.php");
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#vis"><span class="glyphicon glyphminiadjust glyphicon-folder-open"></span>Vis</a></li>
     <li><a data-toggle="tab" href="#registrer"><span class="glyphicon glyphminiadjust glyphicon-file"></span>Registrer</a></li>
+    <li><a data-toggle="tab" href="#endre"><span class="glyphicon glyphminiadjust glyphicon-list-alt"></span>Endre</a></li>
     <li><a data-toggle="tab" href="#slett"><span class="glyphicon glyphminiadjust glyphicon-trash"></span>Slett</a></li>
   </ul>
 
@@ -37,8 +38,25 @@ include("libs/listeboks.php");
       </h3>
       <p>
       <form method="post" name="regyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Yrkesgruppe</label><input type="text" name="yrkesgruppe" required /><br />
+        <label>Yrkesgruppe</label><input type="text" name="regyrkesgruppenavn" required /><br />
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegYrkesgruppe">
+      </form>
+      </p>
+    </div>
+    <div id="endre" class="tab-pane fade">
+      <h3>
+        Endre yrkesgruppe
+        <a data-toggle="tooltip" class="tooltipLink">
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende yrkesgruppe"></span>
+        </a>
+      </h3>
+      <p>
+      <form method="post" name="endreyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <label>Yrkesgruppe</label>
+        <select name="velgYrkesgruppe">
+          <?php listeboksYrkesgruppe(); ?>
+        </select><br/>
+        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgYrkesgruppe">
       </form>
       </p>
     </div>
@@ -63,6 +81,12 @@ include("libs/listeboks.php");
 <?php
 if(isset($_POST["submitRegYrkesgruppe"])) {
   registrerYrkesgruppe();
+}
+if(isset($_POST["submitVelgYrkesgruppe"]) || isset($_POST["edit_id"])) {
+  velgYrkesgruppe();
+}
+if(isset($_POST["submitEndreYrkesgruppe"])) {
+  endreYrkesgruppe();
 }
 if(isset($_POST["submitSlettYrkesgruppe"]) || isset($_POST["delete_id"])) {
   slettYrkesgruppe();
