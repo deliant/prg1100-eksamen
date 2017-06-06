@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 06, 2017 at 12:37 AM
+-- Generation Time: Jun 06, 2017 at 02:02 AM
 -- Server version: 10.0.29-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 7.0.18-0ubuntu0.16.04.1
 
@@ -99,9 +99,10 @@ CREATE TABLE `pasient` (
 --
 
 CREATE TABLE `timebestilling` (
-  `brukernavn` varchar(20) NOT NULL,
+  `id` int(11) NOT NULL,
   `dato` date NOT NULL,
-  `tidspunkt` time NOT NULL,
+  `tidspunkt` varchar(12) NOT NULL,
+  `brukernavn` varchar(20) NOT NULL,
   `personnr` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -125,7 +126,12 @@ INSERT INTO `timeinndeling` (`brukernavn`, `ukedag`, `tidspunkt`) VALUES
 ('mn', 'Mandag', '08:00-08:15'),
 ('mn', 'Mandag', '08:15-08:30'),
 ('mn', 'Mandag', '08:30-08:45'),
-('mn', 'Mandag', '08:45-09:00');
+('mn', 'Mandag', '08:45-09:00'),
+('mn', 'Tirsdag', '10:00-10:15'),
+('mn', 'Tirsdag', '10:15-10:30'),
+('mn', 'Tirsdag', '10:30-10:45'),
+('mn', 'Torsdag', '09:00-09:15'),
+('mn', 'Torsdag', '09:15-09:30');
 
 -- --------------------------------------------------------
 
@@ -180,7 +186,8 @@ ALTER TABLE `pasient`
 -- Indexes for table `timebestilling`
 --
 ALTER TABLE `timebestilling`
-  ADD PRIMARY KEY (`brukernavn`,`dato`,`tidspunkt`),
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `brukernavn` (`brukernavn`),
   ADD KEY `personnr` (`personnr`);
 
 --
@@ -204,6 +211,11 @@ ALTER TABLE `yrkesgruppe`
 --
 ALTER TABLE `bilde`
   MODIFY `bildenr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `timebestilling`
+--
+ALTER TABLE `timebestilling`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
