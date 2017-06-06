@@ -54,7 +54,7 @@
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
           } else {
-            include("behandler.inc.php");
+            include("admin/behandler.inc.php");
           }
           ?>
         </div>

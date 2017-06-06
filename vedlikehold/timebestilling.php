@@ -63,7 +63,7 @@
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
           } else {
-            include("timebestilling.inc.php");
+            include("admin/timebestilling.inc.php");
           }
           ?>
         </div>

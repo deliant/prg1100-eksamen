@@ -54,7 +54,7 @@
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
           } else {
-            include("bilde.inc.php");
+            include("admin/bilde.inc.php");
           }
           ?>
         </div>
