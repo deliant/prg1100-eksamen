@@ -76,7 +76,7 @@ function velgPasient() {
       }
     }
   } else {
-    echo "<option value=\"NULL\">Ingen pasienter funnet</option>\n";
+    echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
   }
   echo "</select><br/>\n";
   echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndrePasient\"><br/><br/>\n";
