@@ -71,7 +71,7 @@
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
           } else {
-            include("timeinndeling.inc.php");
+            include("admin/timeinndeling.inc.php");
           }
           ?>
         </div>

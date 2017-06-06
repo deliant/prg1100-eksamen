@@ -44,6 +44,25 @@ function listeboksPasient() {
   mysqli_close($conn);
 }
 
+function listeboksTimebestilling() {
+  include("db.php");
+  $sql = "SELECT t.timebestillingnr, t.dato, t.brukernavn, t.personnr
+  FROM timebestilling AS t
+  LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
+  LEFT JOIN pasient AS p ON t.personnr = p.personnr
+  ORDER BY t.dato";
+  $result = mysqli_query($conn, $sql);
+
+  if(mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+      echo "<option value=". $row['personnr'] .">". $row['personnr'] ." - ". $row['pasientnavn'] ."</option>\n";
+    }
+  } else {
+    echo "<option value=\"Ingen\">Ingen pasienter funnet</option>\n";
+  }
+  mysqli_close($conn);
+}
+
 function listeboksTimeinndeling() {
   include("db.php");
   $brukernavn = mysqli_real_escape_string($conn, $_POST["velgTimeinndelingBehandler"]);

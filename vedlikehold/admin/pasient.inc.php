@@ -14,7 +14,7 @@ include("libs/listeboks.php");
       <h3>
         Vis pasienter
         <a data-toggle="tooltip" class="tooltipLink">
-          <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende behandlere i databasen"></span>
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende pasienter i databasen"></span>
         </a>
       </h3>
       <p>

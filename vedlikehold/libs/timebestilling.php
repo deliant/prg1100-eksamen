@@ -1,44 +1,46 @@
 <?php
-function visPasient() {
+function visTimebestilling() {
   include("db.php");
-  $sql = "SELECT personnr, pasientnavn, fastlege FROM pasient";
+  $sql = "SELECT * FROM timebestilling";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>";
+      echo "<td>". $row['dato'] ."</td>";
+      echo "<td>". $row['tidspunkt'] ."</td>";
+      echo "<td>". $row['brukernavn'] ."</td>";
       echo "<td>". $row['personnr'] ."</td>";
-      echo "<td>". $row['pasientnavn'] ."</td>";
-      echo "<td>". $row['fastlege'] ."</td>";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['personnr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['timebestillingnr'] ." />\n";
       echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
       echo "</form></td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['personnr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['timebestillingnr'] ." />\n";
       echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
       echo "</tr>";
     }
   } else {
-    echo "<tr><td>Ingen pasienter funnet</td></tr>\n";
+    echo "<tr><td>Ingen timebestillinger funnet</td></tr>\n";
   }
   mysqli_close($conn);
 }
 
-function registrerPasient() {
+function registrerTimebestilling() {
   include("db.php");
-  $personnr = mysqli_real_escape_string($conn, $_POST["regpersonnr"]);
-  $navn = mysqli_real_escape_string($conn, $_POST["regnavn"]);
-  $fastlege = mysqli_real_escape_string($conn, $_POST["velgFastlege"]);
+  $dato = mysqli_real_escape_string($conn, $_POST["regdato"]);
+  $tidspunkt = mysqli_real_escape_string($conn, $_POST["regtidspunkt"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_POST["velgBehandler"]);
+  $personnr = mysqli_real_escape_string($conn, $_POST["velgPasient"]);
   // Sjekk at tekstfeltene har input
-  if(!empty($personnr) && !empty($navn) && !empty($fastlege)) {
+  if(!empty($dato) && !empty($tidspunkt) && !empty($brukernavn) && !empty($personnr)) {
     // Sett inn i databasen
-    $sql = "INSERT INTO pasient (personnr, pasientnavn, fastlege)
-    VALUES ('$personnr', '$navn', '$fastlege')";
+    $sql = "INSERT INTO timebestilling (dato, tidspunkt, brukernavn, personnr)
+    VALUES ('$dato', '$tidspunkt', '$brukernavn', '$personnr')";
 
     if(mysqli_query($conn, $sql)) {
-      echo "$navn ($personnr) registrert i pasient databasen.";
+      echo "$personnr registrert til time $dato kl. $tidspunkt i timebestilling databasen.";
       echo "<meta http-equiv=\"refresh\" content=\"1\">";
     } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
@@ -47,29 +49,28 @@ function registrerPasient() {
   }
 }
 
-function velgPasient() {
+function velgTimebestilling() {
   include("db.php");
-  if(isset($_POST["velgPasient"])) {
-    $personnr = mysqli_real_escape_string($conn, $_POST["velgPasient"]);
+  if(isset($_POST["velgTimebestilling"])) {
+    $timebestillingnr = mysqli_real_escape_string($conn, $_POST["velgTimebestilling"]);
   }
   else if(isset($_POST["edit_id"])) {
-    $personnr = mysqli_real_escape_string($conn, $_POST["edit_id"]);
+    $timebestillingnr = mysqli_real_escape_string($conn, $_POST["edit_id"]);
   }
-  $sql = "SELECT * FROM pasient WHERE personnr='$personnr'";
+  $sql = "SELECT * FROM timebestilling WHERE timebestillingnr='$timebestillingnr'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   // Validering; onsubmit="return validerRegistrerBehandlerdata()"
-  echo "<form method=\"post\" name=\"updatepasient\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Personnr</label><input type=\"text\" name=\"personnr\" value='" . $row['personnr'] . "' readonly required /><br/>\n";
-  echo "<label>Navn</label><input type=\"text\" name=\"navn\" value='" . $row['pasientnavn'] . "' required /><br/>\n";
-  echo "<label>Passord</label><input type=\"password\" name=\"passord\" value='" . $row['passord'] . "'><br/>\n";
-  echo "<label>Fastlege</label><select name=\"fastlege\">";
+  echo "<form method=\"post\" name=\"updatetimebestilling\" action=". $_SERVER['PHP_SELF'] .">\n";
+  echo "<label>Dato</label><input type=\"text\" id=\"dato\" name=\"dato\" value='" . $row['dato'] . "' required /><br/>\n";
+  echo "<label>Tidspunkt</label><input type=\"text\" name=\"tidspunkt\" value='" . $row['tidspunkt'] . "' required /><br/>\n";
+  echo "<label>Behandler</label><select name=\"behandler\">";
   $sql2 = "SELECT brukernavn FROM behandler";
   $result2 = mysqli_query($conn, $sql2);
 
   if(mysqli_num_rows($result2) > 0) {
     while($row2 = mysqli_fetch_assoc($result2)) {
-      if($row2['brukernavn'] === $row['fastlege']) {
+      if($row2['brukernavn'] === $row['brukernavn']) {
         echo "<option value=". $row2['brukernavn'] ." selected=\"selected\">". $row2['brukernavn'] ."</option>\n";
       } else {
         echo "<option value=". $row2['brukernavn'] .">". $row2['brukernavn'] ."</option>\n";
@@ -79,13 +80,29 @@ function velgPasient() {
     echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
   }
   echo "</select><br/>\n";
-  echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndrePasient\"><br/><br/>\n";
+  echo "<label>Pasient</label><select name=\"pasient\">";
+  $sql3 = "SELECT personnr FROM pasient";
+  $result3 = mysqli_query($conn, $sql3);
+
+  if(mysqli_num_rows($result3) > 0) {
+    while($row3 = mysqli_fetch_assoc($result3)) {
+      if($row3['personnr'] === $row['personnr']) {
+        echo "<option value=". $row3['brukernavn'] ." selected=\"selected\">". $row3['brukernavn'] ."</option>\n";
+      } else {
+        echo "<option value=". $row3['brukernavn'] .">". $row3['brukernavn'] ."</option>\n";
+      }
+    }
+  } else {
+    echo "<option value=\"NULL\">Ingen pasienter funnet</option>\n";
+  }
+  echo "</select><br/>\n";
+  echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\"><br/><br/>\n";
   echo "</form>\n";
   echo "</p>";
   mysqli_close($conn);
 }
 
-function endrePasient() {
+function endreTimebestilling() {
   include("db.php");
   $personnr = mysqli_real_escape_string($conn, $_POST["personnr"]);
   $navn = mysqli_real_escape_string($conn, $_POST["navn"]);
@@ -104,10 +121,10 @@ function endrePasient() {
   mysqli_close($conn);
 }
 
-function slettPasient() {
+function slettTimebestilling() {
   include("db.php");
-  if(isset($_POST["velgPasientSlett"])) {
-    $personnr = mysqli_real_escape_string($conn, $_POST["velgPasientSlett"]);
+  if(isset($_POST["velgTimebestillingSlett"])) {
+    $personnr = mysqli_real_escape_string($conn, $_POST["velgTimebestillingSlett"]);
   }
   else if(isset($_POST["delete_id"])) {
     $personnr = mysqli_real_escape_string($conn, $_POST["delete_id"]);
@@ -121,7 +138,7 @@ function slettPasient() {
   } else {
   */
   if(!empty($personnr)) {
-    $sql = "DELETE FROM pasient WHERE personnr='$personnr'";
+    $sql = "DELETE FROM timebestilling WHERE personnr='$personnr'";
 
     if (mysqli_query($conn, $sql)) {
       echo "Databasen oppdatert.<br/><br />";
