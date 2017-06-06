@@ -42,8 +42,8 @@ include("libs/listeboks.php");
       </h3>
       <p>
       <form method="post" name="regbehandler" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Brukernavn</label><input type="text" name="brukernavn" required /><br />
-        <label>Navn</label><input type="text" name="navn" required /><br />
+        <label>Brukernavn</label><input type="text" name="regbrukernavn" required /><br />
+        <label>Navn</label><input type="text" name="regnavn" required /><br />
         <label>Yrkesgruppe</label>
         <select name="velgYrkesgruppe">
           <?php listeboksYrkesgruppe(); ?>

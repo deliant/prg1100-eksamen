@@ -29,8 +29,8 @@ function visBehandler() {
 
 function registrerBehandler() {
   include("db.php");
-  $brukernavn = mysqli_real_escape_string($conn, $_POST["brukernavn"]);
-  $navn = mysqli_real_escape_string($conn, $_POST["navn"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_POST["regbrukernavn"]);
+  $navn = mysqli_real_escape_string($conn, $_POST["regnavn"]);
   $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppe"]);
   $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
   // Sjekk at tekstfeltene har input
