@@ -6,20 +6,20 @@ function visBehandler() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<tr>";
-      echo "<td>". $row['brukernavn'] ."</td>";
-      echo "<td>". $row['behandlernavn'] ."</td>";
-      echo "<td>". $row['yrkesgruppe'] ."</td>";
-      echo "<td>". $row['bildenr'] ."</td>\n";
+      echo "<tr>\n";
+      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['yrkesgruppe']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['brukernavn'] ." />\n";
+      echo "<input type=\"hidden\" name=\"edit_id\" value=". htmlspecialchars($row['brukernavn']) ." />\n";
       echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
       echo "</form></td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['brukernavn'] ." />\n";
+      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['brukernavn']) ." />\n";
       echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
-      echo "</tr>";
+      echo "</tr>\n";
     }
   } else {
     echo "<tr><td>Ingen behandlere funnet</td></tr>\n";
@@ -61,9 +61,10 @@ function velgBehandler() {
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   // Validering; onsubmit="return validerRegistrerBehandlerdata()"
+  echo "<p>\n";
   echo "<form method=\"post\" name=\"updatebehandler\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Brukernavn</label><input type=\"text\" name=\"brukernavn\" value='" . $row['brukernavn'] . "' readonly required /><br/>\n";
-  echo "<label>Navn</label><input type=\"text\" name=\"navn\" value='" . $row['behandlernavn'] . "' required /><br/>\n";
+  echo "<label>Brukernavn</label><input type=\"text\" name=\"brukernavn\" value='" . htmlspecialchars($row['brukernavn']) . "' readonly required /><br/>\n";
+  echo "<label>Navn</label><input type=\"text\" name=\"navn\" value='" . htmlspecialchars($row['behandlernavn']) . "' required /><br/>\n";
   echo "<label>Yrkesgruppe</label><select name=\"yrkesgruppe\">";
   $sql2 = "SELECT yrkesgruppe FROM yrkesgruppe";
   $result2 = mysqli_query($conn, $sql2);
@@ -71,9 +72,9 @@ function velgBehandler() {
   if(mysqli_num_rows($result2) > 0) {
     while($row2 = mysqli_fetch_assoc($result2)) {
       if($row2['yrkesgruppe'] === $row['yrkesgruppe']) {
-        echo "<option value=". $row2['yrkesgruppe'] ." selected=\"selected\">". $row2['yrkesgruppe'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row2['yrkesgruppe']) ." selected=\"selected\">". htmlspecialchars($row2['yrkesgruppe']) ."</option>\n";
       } else {
-        echo "<option value=". $row2['yrkesgruppe'] .">". $row2['yrkesgruppe'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row2['yrkesgruppe']) .">". htmlspecialchars($row2['yrkesgruppe']) ."</option>\n";
       }
     }
   } else {
@@ -87,9 +88,9 @@ function velgBehandler() {
   if(mysqli_num_rows($result3) > 0) {
     while($row3 = mysqli_fetch_assoc($result3)) {
       if($row3['bildenr'] === $row['bildenr']) {
-        echo "<option value=". $row3['bildenr'] ." selected=\"selected\">". $row3['bildenr'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row3['bildenr']) ." selected=\"selected\">". htmlspecialchars($row3['bildenr']) ."</option>\n";
       } else {
-        echo "<option value=". $row3['bildenr'] .">". $row3['bildenr'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row3['bildenr']) .">". htmlspecialchars($row3['bildenr']) ."</option>\n";
       }
     }
   } else {
@@ -98,7 +99,7 @@ function velgBehandler() {
   echo "</select><br />\n";
   echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBehandler\"><br/><br/>\n";
   echo "</form>\n";
-  echo "</p>";
+  echo "</p>\n";
   mysqli_close($conn);
 }
 

@@ -66,8 +66,8 @@
           <?php
           include("libs/bruker.php");
           if(isset($_POST["submitLogin"])) {
-            $brukernavn = trim($_POST["brukernavn"]);
-            $passord = trim($_POST["passord"]);
+            $brukernavn = mysqli_real_escape_string($conn, $_POST["brukernavn"]);
+            $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
             if(!sjekkLogin($brukernavn, $passord)) {
               echo "Feil brukernavn eller passord.";
             } else {

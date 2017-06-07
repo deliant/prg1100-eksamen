@@ -7,9 +7,9 @@ function visYrkesgruppe() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td>". $row['yrkesgruppe'] ."</td>\n";
+      echo "<td>". htmlspecialchars($row['yrkesgruppe']) ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['yrkesgruppe'] ." />\n";
+      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['yrkesgruppe']) ." />\n";
       echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
       echo "</tr>\n";
@@ -53,8 +53,9 @@ function velgYrkesgruppe() {
     $row = mysqli_fetch_assoc($result);
 
     // Validering; onsubmit="return validerRegistrerBehandlerdata()"
+    echo "<p>\n";
     echo "<form method=\"post\" name=\"updateyrkesgruppe\" action=". $_SERVER['PHP_SELF'] .">\n";
-    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"yrkesgruppe\" value='" . $row['yrkesgruppe'] . "' required /><br/>\n";
+    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"yrkesgruppe\" value='" . htmlspecialchars($row['yrkesgruppe']) . "' required /><br/>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreYrkesgruppe\"><br/><br/>\n";
     echo "</form>\n";
     echo "</p>";
