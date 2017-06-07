@@ -6,20 +6,20 @@ function visTimebestilling() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<tr>";
-      echo "<td>". $row['dato'] ."</td>";
-      echo "<td>". $row['tidspunkt'] ."</td>";
-      echo "<td>". $row['brukernavn'] ."</td>";
-      echo "<td>". $row['personnr'] ."</td>";
+      echo "<tr>\n";
+      echo "<td>". htmlspecialchars($row['dato']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['tidspunkt']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['personnr']) ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['timebestillingnr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"edit_id\" value=". htmlspecialchars($row['timebestillingnr']) ." />\n";
       echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
       echo "</form></td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['timebestillingnr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['timebestillingnr']) ." />\n";
       echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
-      echo "</tr>";
+      echo "</tr>\n";
     }
   } else {
     echo "<tr><td>Ingen timebestillinger funnet</td></tr>\n";
@@ -61,9 +61,10 @@ function velgTimebestilling() {
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   // Validering; onsubmit="return validerRegistrerBehandlerdata()"
+  echo "<p>\n";
   echo "<form method=\"post\" name=\"updatetimebestilling\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Dato</label><input type=\"text\" id=\"dato\" name=\"dato\" value='" . $row['dato'] . "' required /><br/>\n";
-  echo "<label>Tidspunkt</label><input type=\"text\" name=\"tidspunkt\" value='" . $row['tidspunkt'] . "' required /><br/>\n";
+  echo "<label>Dato</label><input type=\"text\" id=\"dato\" name=\"dato\" value='" . htmlspecialchars($row['dato']) . "' required /><br/>\n";
+  echo "<label>Tidspunkt</label><input type=\"text\" name=\"tidspunkt\" value='" . htmlspecialchars($row['tidspunkt']) . "' required /><br/>\n";
   echo "<label>Behandler</label><select name=\"behandler\">";
   $sql2 = "SELECT brukernavn FROM behandler";
   $result2 = mysqli_query($conn, $sql2);
@@ -71,9 +72,9 @@ function velgTimebestilling() {
   if(mysqli_num_rows($result2) > 0) {
     while($row2 = mysqli_fetch_assoc($result2)) {
       if($row2['brukernavn'] === $row['brukernavn']) {
-        echo "<option value=". $row2['brukernavn'] ." selected=\"selected\">". $row2['brukernavn'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row2['brukernavn']) ." selected=\"selected\">". htmlspecialchars($row2['brukernavn']) ."</option>\n";
       } else {
-        echo "<option value=". $row2['brukernavn'] .">". $row2['brukernavn'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row2['brukernavn']) .">". htmlspecialchars($row2['brukernavn']) ."</option>\n";
       }
     }
   } else {
@@ -87,9 +88,9 @@ function velgTimebestilling() {
   if(mysqli_num_rows($result3) > 0) {
     while($row3 = mysqli_fetch_assoc($result3)) {
       if($row3['personnr'] === $row['personnr']) {
-        echo "<option value=". $row3['brukernavn'] ." selected=\"selected\">". $row3['brukernavn'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row3['brukernavn']) ." selected=\"selected\">". htmlspecialchars($row3['brukernavn']) ."</option>\n";
       } else {
-        echo "<option value=". $row3['brukernavn'] .">". $row3['brukernavn'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row3['brukernavn']) .">". htmlspecialchars($row3['brukernavn']) ."</option>\n";
       }
     }
   } else {
@@ -98,7 +99,7 @@ function velgTimebestilling() {
   echo "</select><br/>\n";
   echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\"><br/><br/>\n";
   echo "</form>\n";
-  echo "</p>";
+  echo "</p>\n";
   mysqli_close($conn);
 }
 
@@ -109,7 +110,7 @@ function endreTimebestilling() {
   $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
   $fastlege = mysqli_real_escape_string($conn, $_POST["fastlege"]);
   if(!empty($personnr) && !empty($navn) && !empty($fastlege)) {
-    $sql = "UPDATE pasient SET pasientnavn='$navn', fastlege='$fastlege' WHERE personnr='$personnr'";
+    $sql = "UPDATE timebestilling SET pasientnavn='$navn', fastlege='$fastlege' WHERE personnr='$personnr'";
 
     if(mysqli_query($conn, $sql)) {
       echo "Databasen oppdatert.<br/>";

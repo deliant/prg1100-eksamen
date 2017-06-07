@@ -6,7 +6,7 @@ function listeboksBehandler() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['brukernavn'] .">". $row['brukernavn'] ." - ". $row['behandlernavn'] ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['brukernavn']) .">". htmlspecialchars($row['brukernavn']) ." - ". htmlspecialchars($row['behandlernavn']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen behandlere funnet</option>\n";
@@ -21,7 +21,7 @@ function listeboksBilde() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['bildenr'] .">". $row['bildenr'] ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['bildenr']) .">". htmlspecialchars($row['bildenr']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen bilder funnet</option>\n";
@@ -36,7 +36,7 @@ function listeboksPasient() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['personnr'] .">". $row['personnr'] ." - ". $row['pasientnavn'] ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['personnr']) .">". htmlspecialchars($row['personnr']) ." - ". htmlspecialchars($row['pasientnavn']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen pasienter funnet</option>\n";
@@ -55,7 +55,7 @@ function listeboksTimebestilling() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['personnr'] .">". $row['personnr'] ." - ". $row['pasientnavn'] ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['personnr']) .">". htmlspecialchars($row['personnr']) ." - ". htmlspecialchars($row['pasientnavn']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen pasienter funnet</option>\n";
@@ -72,7 +72,7 @@ function listeboksTimeinndeling() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['tidspunkt'] .">". $row['tidspunkt'] ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['tidspunkt']) .">". htmlspecialchars($row['tidspunkt']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen timeinndelinger funnet</option>\n";
@@ -87,7 +87,7 @@ function listeboksYrkesgruppe() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". $row['yrkesgruppe'] .">". $row['yrkesgruppe'] ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['yrkesgruppe']) .">". htmlspecialchars($row['yrkesgruppe']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen yrkesgrupper funnet</option>\n";

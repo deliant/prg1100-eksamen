@@ -6,19 +6,19 @@ function visPasient() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<tr>";
-      echo "<td>". $row['personnr'] ."</td>";
-      echo "<td>". $row['pasientnavn'] ."</td>";
-      echo "<td>". $row['fastlege'] ."</td>";
+      echo "<tr>\n";
+      echo "<td>". htmlspecialchars($row['personnr']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['pasientnavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['fastlege']) ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['personnr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"edit_id\" value=". htmlspecialchars($row['personnr']) ." />\n";
       echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
       echo "</form></td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['personnr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['personnr']) ." />\n";
       echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
-      echo "</tr>";
+      echo "</tr>\n";
     }
   } else {
     echo "<tr><td>Ingen pasienter funnet</td></tr>\n";
@@ -59,10 +59,11 @@ function velgPasient() {
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   // Validering; onsubmit="return validerRegistrerBehandlerdata()"
+  echo "<p>\n";
   echo "<form method=\"post\" name=\"updatepasient\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Personnr</label><input type=\"text\" name=\"personnr\" value='" . $row['personnr'] . "' readonly required /><br/>\n";
-  echo "<label>Navn</label><input type=\"text\" name=\"navn\" value='" . $row['pasientnavn'] . "' required /><br/>\n";
-  echo "<label>Passord</label><input type=\"password\" name=\"passord\" value='" . $row['passord'] . "'><br/>\n";
+  echo "<label>Personnr</label><input type=\"text\" name=\"personnr\" value='" . htmlspecialchars($row['personnr']) . "' readonly required /><br/>\n";
+  echo "<label>Navn</label><input type=\"text\" name=\"navn\" value='" . htmlspecialchars($row['pasientnavn']) . "' required /><br/>\n";
+  echo "<label>Passord</label><input type=\"password\" name=\"passord\" value='" . htmlspecialchars($row['passord']) . "'><br/>\n";
   echo "<label>Fastlege</label><select name=\"fastlege\">";
   $sql2 = "SELECT brukernavn FROM behandler";
   $result2 = mysqli_query($conn, $sql2);
@@ -70,9 +71,9 @@ function velgPasient() {
   if(mysqli_num_rows($result2) > 0) {
     while($row2 = mysqli_fetch_assoc($result2)) {
       if($row2['brukernavn'] === $row['fastlege']) {
-        echo "<option value=". $row2['brukernavn'] ." selected=\"selected\">". $row2['brukernavn'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row2['brukernavn']) ." selected=\"selected\">". htmlspecialchars($row2['brukernavn']) ."</option>\n";
       } else {
-        echo "<option value=". $row2['brukernavn'] .">". $row2['brukernavn'] ."</option>\n";
+        echo "<option value=". htmlspecialchars($row2['brukernavn']) .">". htmlspecialchars($row2['brukernavn']) ."</option>\n";
       }
     }
   } else {
@@ -81,7 +82,7 @@ function velgPasient() {
   echo "</select><br/>\n";
   echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndrePasient\"><br/><br/>\n";
   echo "</form>\n";
-  echo "</p>";
+  echo "</p>\n";
   mysqli_close($conn);
 }
 

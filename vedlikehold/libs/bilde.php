@@ -7,16 +7,16 @@ function visBilde() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td>". $row['bildenr'] ."</td>\n";
-      echo "<td>". $row['opplastingsdato'] ."</td>\n";
-      echo "<td>". $row['filnavn'] ."</td>\n";
-      echo "<td>". $row['beskrivelse'] ."</td>\n";
+      echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['opplastingsdato']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['filnavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['beskrivelse']) ."</td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['bildenr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"edit_id\" value=". htmlspecialchars($row['bildenr']) ." />\n";
       echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
       echo "</form></td>\n";
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['bildenr'] ." />\n";
+      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['bildenr']) ." />\n";
       echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
       echo "</tr>\n";
@@ -60,11 +60,13 @@ function velgBilde() {
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   // Validering; onsubmit="return validerRegistrerBehandlerdata()"
+  echo "<p>\n";
   echo "<form method=\"post\" name=\"updatebilde\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Bildenr</label><input type=\"text\" name=\"bildenr\" value='" . $row['bildenr'] . "' readonly required /><br/>\n";
-  echo "<label>Beskrivelse</label><input type=\"text\" name=\"beskrivelse\" value='" . $row['beskrivelse'] . "' required /><br/>\n";
+  echo "<label>Bildenr</label><input type=\"text\" name=\"bildenr\" value='" . htmlspecialchars($row['bildenr']) . "' readonly required /><br/>\n";
+  echo "<label>Beskrivelse</label><input type=\"text\" name=\"beskrivelse\" value='" . htmlspecialchars($row['beskrivelse']) . "' required /><br/>\n";
   echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
   echo "</form>\n";
+  echo "</p>\n";
   mysqli_close($conn);
 }
 
@@ -93,33 +95,35 @@ function slettBilde() {
   else if(isset($_POST["delete_id"])) {
     $bildenr = mysqli_real_escape_string($conn, $_POST["delete_id"]);
   }
-  // Sjekk at bildet ikke brukes
-  $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
-  $result = mysqli_query($conn, $sql);
-  if(mysqli_num_rows($result) > 0) {
-    echo "Kan ikke slette bilde når det brukes av behandler.<br/>";
-  } else {
-    $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
+  if(!empty($bildenr)) {
+    // Sjekk at bildet ikke brukes
+    $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
     $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $filbane = "../bilder/" . $row['filnavn'];
+    if(mysqli_num_rows($result) > 0) {
+      echo "Kan ikke slette bilde når det brukes av behandler.<br/>";
+    } else {
+      $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_assoc($result);
+      $filbane = "../bilder/" . $row['filnavn'];
 
-    if(is_writable($filbane)) {
-      if(unlink($filbane)) {
-        $slettOk = 1;
-        echo "Bildefil " . $row['filnavn'] . " slettet.<br/>";
-      } else {
-        $slettOk = 0;
-        echo "Bildefil kunne ikke slettes automatisk.<br/>";
+      if(is_writable($filbane)) {
+        if(unlink($filbane)) {
+          $slettOk = 1;
+          echo "Bildefil " . $row['filnavn'] . " slettet.<br/>";
+        } else {
+          $slettOk = 0;
+          echo "Bildefil kunne ikke slettes automatisk.<br/>";
+        }
       }
-    }
-    if($slettOk == 1) {
-      $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
-      if(mysqli_query($conn, $sql)) {
-        echo "Databasen oppdatert.<br />";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">";
-      } else {
-        echo "Feil under database forespørsel: " . mysqli_error($conn);
+      if($slettOk == 1) {
+        $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
+        if(mysqli_query($conn, $sql)) {
+          echo "Databasen oppdatert.<br />";
+          echo "<meta http-equiv=\"refresh\" content=\"1\">";
+        } else {
+          echo "Feil under database forespørsel: " . mysqli_error($conn);
+        }
       }
     }
   }

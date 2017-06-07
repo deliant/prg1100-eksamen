@@ -6,21 +6,21 @@ function visTimeinndeling() {
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<tr>";
-      echo "<td>". $row['brukernavn'] ."</td>";
-      echo "<td>". $row['ukedag'] ."</td>";
-      echo "<td>". $row['tidspunkt'] ."</td>";
+      echo "<tr>\n";
+      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['ukedag']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['tidspunkt']) ."</td>\n";
       /*
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". $row['brukernavn'] ." />\n";
+      echo "<input type=\"hidden\" name=\"edit_id\" value=". htmlspecialchars($row['brukernavn']) ." />\n";
       echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
       echo "</form></td>\n";w
       echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". $row['brukernavn'] ." />\n";
+      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['brukernavn']) ." />\n";
       echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
       echo "</form></td>\n";
       */
-      echo "</tr>";
+      echo "</tr>\n";
     }
   } else {
     echo "<tr><td>Ingen timeinndelinger funnet</td></tr>\n";

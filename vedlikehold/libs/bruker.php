@@ -1,8 +1,8 @@
 <?php
 function registrerBruker() {
   include("db.php");
-  $brukernavn = mysqli_real_escape_string($conn, $_POST["brukernavn"]);
-  $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_POST["regbrukernavn"]);
+  $passord = mysqli_real_escape_string($conn, $_POST["regpassord"]);
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($passord)) {
     $sql = "SELECT * FROM bruker WHERE brukernavn='$brukernavn'";
@@ -10,7 +10,7 @@ function registrerBruker() {
     if(mysqli_num_rows($result) != 0){
       echo "Brukernavnet finnes fra før.";
     } else {
-      $kryptert_passord = password_hash($passord, PASSWORD_DEFAULT);
+      $kryptert_passord = mysqli_real_escape_string($conn, password_hash($passord, PASSWORD_DEFAULT));
       $sql = "INSERT INTO bruker VALUES('$brukernavn', '$kryptert_passord')";
       mysqli_query($conn, $sql) or die("Kan ikke registrere data i databasen." . mysqli_error($conn));
       echo "Brukeren med innlogging " . $brukernavn . " er nå registrert.<br />";
@@ -23,13 +23,13 @@ function registrerBruker() {
 function endrePassord() {
   include("db.php");
   $brukernavn = mysqli_real_escape_string($conn, $_SESSION["brukernavn"]);
-  $passord = mysqli_real_escape_string($conn, $_POST["endrepassord"]);
+  $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($passord)) {
     $sql = "SELECT * FROM bruker WHERE brukernavn='$brukernavn'";
     $result = mysqli_query($conn, $sql) or die("Kan ikke hente data fra databasen." . mysqli_error($conn));
     if(mysqli_num_rows($result) > 0) {
-      $kryptert_passord = password_hash($passord, PASSWORD_DEFAULT);
+      $kryptert_passord = mysqli_real_escape_string($conn, password_hash($passord, PASSWORD_DEFAULT));
       $sql = "UPDATE bruker SET passord='$kryptert_passord' WHERE brukernavn='$brukernavn'";
       mysqli_query($conn, $sql) or die("Kan ikke registrere data i databasen." . mysqli_error($conn));
       echo "Passord for ". $brukernavn ." er oppdatert.<br/>";
@@ -50,8 +50,8 @@ function sjekkLogin($brukernavn, $passord) {
     $validUser = false;
   } else {
     $row = mysqli_fetch_array($result);
-    $lagretBrukernavn = $row["brukernavn"];
-    $lagretPassord = $row["passord"];
+    $lagretBrukernavn = mysqli_real_escape_string($conn, $row["brukernavn"]);
+    $lagretPassord = mysqli_real_escape_string($conn, $row["passord"]);
 
     if($brukernavn != $lagretBrukernavn || !password_verify($passord, $lagretPassord)){
       $validUser = false;
