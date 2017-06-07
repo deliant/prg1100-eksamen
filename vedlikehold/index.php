@@ -66,6 +66,7 @@
           <?php
           include("libs/bruker.php");
           if(isset($_POST["submitLogin"])) {
+            include("libs/db.php");
             $brukernavn = mysqli_real_escape_string($conn, $_POST["brukernavn"]);
             $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
             if(!sjekkLogin($brukernavn, $passord)) {
@@ -74,6 +75,7 @@
               $_SESSION["brukernavn"] = $brukernavn;
               echo "<meta http-equiv=\"refresh\" content=\"0;url=vedlikehold.php\">";
             }
+            mysqli_close($conn);
           }
           ?>
         </div>

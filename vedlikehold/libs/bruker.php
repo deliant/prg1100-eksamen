@@ -16,8 +16,8 @@ function registrerBruker() {
       echo "Brukeren med innlogging " . $brukernavn . " er nå registrert.<br />";
       echo "<a href='index.php'>Gå til innlogging</a>";
     }
-    mysqli_close($conn);
   }
+  mysqli_close($conn);
 }
 
 function endrePassord() {
@@ -37,13 +37,16 @@ function endrePassord() {
     } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
-    mysqli_close($conn);
   }
+  mysqli_close($conn);
 }
 
 function sjekkLogin($brukernavn, $passord) {
   include("db.php");
   $validUser = true;
+  if(!$brukernavn || !$passord) {
+    $validUser = false;
+  }
   $sql = "SELECT * FROM bruker WHERE brukernavn='$brukernavn'";
   $result = mysqli_query($conn, $sql);
   if(!$result){
@@ -57,6 +60,8 @@ function sjekkLogin($brukernavn, $passord) {
       $validUser = false;
     }
   }
+  mysqli_close($conn);
+
   return $validUser;
 }
 ?>
