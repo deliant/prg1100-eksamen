@@ -111,4 +111,20 @@ function slettYrkesgruppe() {
   }
   mysqli_close($conn);
 }
+
+include("db.php");
+if(@$_GET["action"] == "endre") {
+  $yrkesgruppe = mysqli_real_escape_string($conn, $_GET["yrkesgruppe"]);
+  $sql = "SELECT yrkesgruppe FROM yrkesgruppe WHERE yrkesgruppe='$yrkesgruppe'";
+  $result = mysqli_query($conn, $sql);
+
+  while($row = mysqli_fetch_array($result)) {
+    echo "<h3>Endring</h3>\n";
+    echo "<form name=\"updateyrkesgruppe\" method=\"post\" action=\"\">\n";
+    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"yrkesgruppe\"  value=". htmlspecialchars($row['yrkesgruppe']) ." required/><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreYrkesgruppe\"><br/><br/>\n";
+    echo "</form>\n";
+  }
+  mysqli_close($conn);
+}
 ?>
