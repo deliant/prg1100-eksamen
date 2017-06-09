@@ -1,22 +1,11 @@
 <?php
-function getTimebestillingnr() {
-  include("db.php");
-  @$dato = mysqli_real_escape_string($conn, $_POST["dato"]);
-  @$tidspunkt = mysqli_real_escape_string($conn, $_POST["tidspunkt"]);
-  @$brukernavn = mysqli_real_escape_string($conn, $_POST["behandler"]);
-  @$personnr = mysqli_real_escape_string($conn, $_POST["pasient"]);
-  $sql = "SELECT timebestillingnr FROM timebestilling WHERE dato='$dato' AND tidspunkt='$tidspunkt' AND brukernavn='$brukernavn' AND personnr='$personnr'";
-  $result = mysqli_query($conn, $sql);
-
-  if(mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    return $row['timebestillingnr'];
-  }
-}
-
 function visTimebestilling() {
   include("db.php");
-  $sql = "SELECT * FROM timebestilling";
+  $sql = "SELECT t.dato, t.tidspunkt, t.brukernavn, b.behandlernavn, t.personnr, p.pasientnavn
+  FROM timebestilling AS t
+  LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
+  LEFT JOIN pasient AS p ON t.personnr = p.personnr
+  ORDER BY t.dato";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
@@ -24,15 +13,8 @@ function visTimebestilling() {
       echo "<tr>\n";
       echo "<td>". htmlspecialchars($row['dato']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['tidspunkt']) ."</td>\n";
-      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
-      echo "<td>". htmlspecialchars($row['personnr']) ."</td>\n";
-      echo "<td><form>\n";
-      echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" onclick=\"endreTimebestilling(". htmlspecialchars($row['timebestillingnr']) .") title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
-      echo "</form></td>\n";
-      echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['timebestillingnr']) ." />\n";
-      echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
-      echo "</form></td>\n";
+      echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['pasientnavn']) ."</td>\n";
       echo "</tr>\n";
     }
   } else {
@@ -59,18 +41,13 @@ function registrerTimebestilling() {
     } else {
       echo "Feil under database forespørsel: " . mysqli_error($conn);
     }
-    mysqli_close($conn);
   }
+  mysqli_close($conn);
 }
 
 function endreTimebestilling() {
   include("db.php");
-  if(isset($_POST["timebestillingnr"])) {
-    $timebestillingnr = mysqli_real_escape_string($conn, $_POST["timebestillingnr"]);
-  }
-  else if(isset($_POST["edit_id"])) {
-    $timebestillingnr = mysqli_real_escape_string($conn, $_POST["edit_id"]);
-  }
+  $timebestillingnr = mysqli_real_escape_string($conn, $_POST["timebestillingnr"]);
   $dato = mysqli_real_escape_string($conn, $_POST["dato"]);
   $tidspunkt = mysqli_real_escape_string($conn, $_POST["tidspunkt"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["behandler"]);
@@ -145,7 +122,7 @@ if(@$_GET["action"] == "endre") {
 
   while($row = mysqli_fetch_array($result)) {
     echo "<h3>Endring</h3>\n";
-    echo "<form method=\"post\" name=\"updatetimebestilling\" action=". $_SERVER['PHP_SELF'] .">\n";
+    echo "<form action=\"\" method=\"post\">\n";
     echo "<label>Pasient</label><select name=\"pasient\">\n";
     $sql2 = "SELECT personnr, pasientnavn FROM pasient ORDER BY pasientnavn";
     $result2 = mysqli_query($conn, $sql2);
@@ -178,8 +155,8 @@ if(@$_GET["action"] == "endre") {
       echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
     }
     echo "</select><br/>\n";
-    echo "<label>Dato</label><input type=\"text\" id=\"dato\"  name=\"dato\" value=". $row['dato'] ." required/><br/>\n";
-    echo "<label>Tidspunkt</label><input type=\"text\" name=\"tidspunkt\"  value=". $row['tidspunkt'] ." required/><br/>\n";
+    echo "<label>Dato</label><input type=\"text\" id=\"dato\"  name=\"dato\" value=". htmlspecialchars($row['dato']) ." required/><br/>\n";
+    echo "<label>Tidspunkt</label><input type=\"text\" name=\"tidspunkt\"  value=". htmlspecialchars($row['tidspunkt']) ." required/><br/>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\"><br/><br/>\n";
     echo "</form>\n";
   }

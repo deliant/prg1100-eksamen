@@ -1,17 +1,13 @@
 <?php
 function visYrkesgruppe() {
   include("db.php");
-  $sql = "SELECT yrkesgruppe FROM yrkesgruppe";
+  $sql = "SELECT yrkesgruppenavn FROM yrkesgruppe";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td>". htmlspecialchars($row['yrkesgruppe']) ."</td>\n";
-      echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['yrkesgruppe']) ." />\n";
-      echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
-      echo "</form></td>\n";
+      echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
       echo "</tr>\n";
     }
   } else {
@@ -22,12 +18,12 @@ function visYrkesgruppe() {
 
 function registrerYrkesgruppe() {
   include("db.php");
-  $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["regyrkesgruppenavn"]);
+  $yrkesgruppenavn = mysqli_real_escape_string($conn, $_POST["regYrkesgruppe"]);
   // Sjekk at tekstfeltet har input
-  if(!empty($yrkesgruppe)) {
+  if(!empty($yrkesgruppenavn)) {
     // Sett inn i databasen
-    $sql = "INSERT INTO yrkesgruppe (yrkesgruppe)
-    VALUES ('$yrkesgruppe')";
+    $sql = "INSERT INTO yrkesgruppe (yrkesgruppenavn)
+    VALUES ('$yrkesgruppenavn')";
 
     if(mysqli_query($conn, $sql)) {
       echo "$yrkesgruppe registrert i yrkesgruppe databasen.";
@@ -39,41 +35,12 @@ function registrerYrkesgruppe() {
   mysqli_close($conn);
 }
 
-function velgYrkesgruppe() {
-  include("db.php");
-  if(isset($_POST["velgYrkesgruppe"])) {
-    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppe"]);
-  }
-  else if(isset($_POST["edit_id"])) {
-    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["edit_id"]);
-  }
-  if(!empty($yrkesgruppe)) {
-    $sql = "SELECT yrkesgruppe FROM yrkesgruppe WHERE yrkesgruppe='$yrkesgruppe'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-
-    // Validering; onsubmit="return validerRegistrerBehandlerdata()"
-    echo "<p>\n";
-    echo "<form method=\"post\" name=\"updateyrkesgruppe\" action=". $_SERVER['PHP_SELF'] .">\n";
-    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"yrkesgruppe\" value='" . htmlspecialchars($row['yrkesgruppe']) . "' required /><br/>\n";
-    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreYrkesgruppe\"><br/><br/>\n";
-    echo "</form>\n";
-    echo "</p>";
-  }
-  mysqli_close($conn);
-}
-
 function endreYrkesgruppe() {
   include("db.php");
-  if(isset($_POST["velgYrkesgruppe"])) {
-    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppe"]);
-  }
-  else if(isset($_POST["edit_id"])) {
-    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["edit_id"]);
-  }
-  $yrkesgruppe_ny = mysqli_real_escape_string($conn, $_POST["yrkesgruppe"]);
-  if(!empty($yrkesgruppe) && !empty($yrkesgruppe_ny)) {
-    $sql = "UPDATE yrkesgruppe SET yrkesgruppe='$yrkesgruppe_ny' WHERE yrkesgruppe='$yrkesgruppe'";
+  $yrkesgruppenr = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppe"]);
+  $yrkesgruppenavn = mysqli_real_escape_string($conn, $_POST["endringYrkesgruppe"]);
+  if(!empty($yrkesgruppenr) && !empty($yrkesgruppenavn)) {
+    $sql = "UPDATE yrkesgruppe SET yrkesgruppenavn='$yrkesgruppenavn' WHERE yrkesgruppenr='$yrkesgruppenr'";
 
     if(mysqli_query($conn, $sql)) {
       echo "Databasen oppdatert.<br/>";
@@ -87,20 +54,15 @@ function endreYrkesgruppe() {
 
 function slettYrkesgruppe() {
   include("db.php");
-  if(isset($_POST["velgYrkesgruppeSlett"])) {
-    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppeSlett"]);
-  }
-  else if(isset($_POST["delete_id"])) {
-    $yrkesgruppe = mysqli_real_escape_string($conn, $_POST["delete_id"]);
-  }
-  if(!empty($yrkesgruppe)) {
-    $sql = "SELECT brukernavn FROM behandler WHERE yrkesgruppe='$yrkesgruppe'";
+  $yrkesgruppenr = mysqli_real_escape_string($conn, $_POST["slettYrkesgruppe"]);
+  if(!empty($yrkesgruppenr)) {
+    $sql = "SELECT brukernavn FROM behandler WHERE yrkesgruppenr='$yrkesgruppenr'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
       echo "Kan ikke slette yrkesgruppen når det finnes behandlere i den.<br />";
     } else {
-      $sql = "DELETE FROM yrkesgruppe WHERE yrkesgruppe='$yrkesgruppe'";
+      $sql = "DELETE FROM yrkesgruppe WHERE yrkesgruppenr='$yrkesgruppenr'";
       if (mysqli_query($conn, $sql)) {
         echo "Databasen oppdatert.<br/><br />";
         echo "<meta http-equiv=\"refresh\" content=\"1\">";
@@ -114,14 +76,14 @@ function slettYrkesgruppe() {
 
 include("db.php");
 if(@$_GET["action"] == "endre") {
-  $yrkesgruppe = mysqli_real_escape_string($conn, $_GET["yrkesgruppe"]);
-  $sql = "SELECT yrkesgruppe FROM yrkesgruppe WHERE yrkesgruppe='$yrkesgruppe'";
+  $yrkesgruppenr = mysqli_real_escape_string($conn, $_GET["yrkesgruppenr"]);
+  $sql = "SELECT yrkesgruppenavn FROM yrkesgruppe WHERE yrkesgruppenr='$yrkesgruppenr'";
   $result = mysqli_query($conn, $sql);
 
   while($row = mysqli_fetch_array($result)) {
     echo "<h3>Endring</h3>\n";
-    echo "<form name=\"updateyrkesgruppe\" method=\"post\" action=\"\">\n";
-    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"yrkesgruppe\"  value=". htmlspecialchars($row['yrkesgruppe']) ." required/><br/>\n";
+    echo "<form action=\"\" method=\"post\">\n";
+    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"endringYrkesgruppe\"  value=". htmlspecialchars($row['yrkesgruppenavn']) ." required/><br/>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreYrkesgruppe\"><br/><br/>\n";
     echo "</form>\n";
   }

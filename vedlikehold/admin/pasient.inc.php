@@ -11,13 +11,13 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
+      <p id="alert"></p>
       <h3>
         Vis pasienter
         <a data-toggle="tooltip" class="tooltipLink">
           <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende pasienter i databasen"></span>
         </a>
       </h3>
-      <p>
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
@@ -30,7 +30,6 @@ include("libs/listeboks.php");
           <?php visPasient(); ?>
         </table>
       </div>
-      </p>
     </div>
     <div id="registrer" class="tab-pane fade">
       <h3>
@@ -39,7 +38,6 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny pasient"></span>
         </a>
       </h3>
-      <p>
       <form method="post" name="regpasient" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Personnr</label><input type="text" name="regpersonnr" required /><br />
         <label>Navn</label><input type="text" name="regnavn" required /><br />
@@ -49,7 +47,6 @@ include("libs/listeboks.php");
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegPasient">
       </form>
-      </p>
     </div>
     <div id="endre" class="tab-pane fade">
       <h3>
@@ -58,15 +55,14 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende pasient"></span>
         </a>
       </h3>
-      <p>
       <form method="post" name="endrepasient" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Personnr</label>
+        <label>Pasient</label>
         <select name="velgPasient">
           <?php listeboksPasient(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgPasient">
       </form>
-      </p>
+      <div id="endring"></div>
     </div>
     <div id="slett" class="tab-pane fade">
       <h3>
@@ -75,28 +71,23 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende pasient"></span>
         </a>
       </h3>
-      <p>
       <form method="post" name="slettpasient" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Personnr</label>
+        <label>Pasient</label>
         <select name="velgPasientSlett">
           <?php listeboksPasient(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettPasient">
       </form>
-      </p>
     </div>
   </div>
 <?php
 if(isset($_POST["submitRegPasient"])) {
   registrerPasient();
 }
-if(isset($_POST["submitVelgPasient"]) || isset($_POST["edit_id"])) {
-  velgPasient();
-}
 if(isset($_POST["submitEndrePasient"])) {
   endrePasient();
 }
-if(isset($_POST["submitSlettPasient"]) || isset($_POST["delete_id"])) {
+if(isset($_POST["submitSlettPasient"])) {
   slettPasient();
 }
 ?>

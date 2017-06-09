@@ -11,7 +11,7 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
-      <p>
+      <p id="alert"></p>
       <h3>
         Vis bilder
         <a data-toggle="tooltip" class="tooltipLink">
@@ -31,10 +31,8 @@ include("libs/listeboks.php");
           <?php visBilde(); ?>
         </table>
       </div>
-      </p>
     </div>
     <div id="registrer" class="tab-pane fade">
-      <p>
       <h3>
         Registrer bilder
         <a data-toggle="tooltip" class="tooltipLink">
@@ -46,7 +44,6 @@ include("libs/listeboks.php");
         <label>Beskrivelse</label><input type="text" name="beskrivelse" required /><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBilde">
       </form>
-      </p>
     </div>
     <div id="endre" class="tab-pane fade">
       <h3>
@@ -55,15 +52,14 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre et eksisterende bilde"></span>
         </a>
       </h3>
-      <p>
       <form method="post" name="endrebilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Bildenr</label>
+        <label>Bilde</label>
         <select name="velgBildenr">
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgBilde">
       </form>
-      </p>
+      <div id="endring"></div>
     </div>
     <div id="slett" class="tab-pane fade">
       <p>
@@ -74,7 +70,7 @@ include("libs/listeboks.php");
         </a>
       </h3>
       <form method="post" name="slettbilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Bildenr</label>
+        <label>Bilde</label>
         <select name="velgBildenrSlett">
           <?php listeboksBilde(); ?>
         </select><br/>
@@ -90,13 +86,10 @@ if(isset($_POST["submitRegBilde"])) {
     registrerBilde();
   }
 }
-if(isset($_POST["submitVelgBilde"]) || isset($_POST["edit_id"])) {
-  velgBilde();
-}
 if(isset($_POST["submitEndreBilde"])) {
   endreBilde();
 }
-if(isset($_POST["submitSlettBilde"]) || isset($_POST["delete_id"])) {
+if(isset($_POST["submitSlettBilde"])) {
   slettBilde();
 }
 ?>

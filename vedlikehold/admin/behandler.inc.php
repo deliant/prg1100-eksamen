@@ -11,13 +11,13 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
+      <p id="alert"></p>
       <h3>
         Vis behandlere
         <a data-toggle="tooltip" class="tooltipLink">
           <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende behandlere i databasen"></span>
         </a>
       </h3>
-      <p>
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
@@ -25,13 +25,10 @@ include("libs/listeboks.php");
             <th>Navn</th>
             <th>Yrkesgruppe</th>
             <th>Bildenr</th>
-            <th>Endre</th>
-            <th>Slett</th>
           </tr>
           <?php visBehandler(); ?>
         </table>
       </div>
-      </p>
     </div>
     <div id="registrer" class="tab-pane fade">
       <h3>
@@ -40,21 +37,19 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny behandler"></span>
         </a>
       </h3>
-      <p>
-      <form method="post" name="regbehandler" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Brukernavn</label><input type="text" name="regbrukernavn" required /><br />
-        <label>Navn</label><input type="text" name="regnavn" required /><br />
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+        <label>Brukernavn</label><input type="text" name="regBrukernavn" required /><br />
+        <label>Navn</label><input type="text" name="regNavn" required /><br />
         <label>Yrkesgruppe</label>
-        <select name="velgYrkesgruppe">
+        <select name="regYrkesgruppenr">
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>Bildenr</label>
-        <select name="velgBildenr">
+        <select name="regBildenr">
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBehandler">
       </form>
-      </p>
     </div>
     <div id="endre" class="tab-pane fade">
       <h3>
@@ -63,15 +58,14 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende behandler"></span>
         </a>
       </h3>
-      <p>
-      <form method="post" name="endrebehandler" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Brukernavn</label>
-        <select name="velgBehandler">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+        <label>Behandler</label>
+        <select name="velgBehandler" id="velgBehandler" onchange="endreBehandler(this.value)">
+          <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgBehandler">
       </form>
-      </p>
+      <div id="endring"></div>
     </div>
     <div id="slett" class="tab-pane fade">
       <h3>
@@ -80,28 +74,23 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende behandler"></span>
         </a>
       </h3>
-      <p>
-      <form method="post" name="slettbehandler" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Behandler</label>
-        <select name="velgBehandlerSlett">
+        <select name="slettBehandler">
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBehandler">
       </form>
-      </p>
     </div>
   </div>
 <?php
 if(isset($_POST["submitRegBehandler"])) {
   registrerBehandler();
 }
-if(isset($_POST["submitVelgBehandler"]) || isset($_POST["edit_id"])) {
-  velgBehandler();
-}
 if(isset($_POST["submitEndreBehandler"])) {
   endreBehandler();
 }
-if(isset($_POST["submitSlettBehandler"]) || isset($_POST["delete_id"])) {
+if(isset($_POST["submitSlettBehandler"])) {
   slettBehandler();
 }
 ?>

@@ -1,12 +1,14 @@
 <?php
 function listeboksBehandler() {
   include("db.php");
-  $sql = "SELECT brukernavn, behandlernavn, yrkesgruppe FROM behandler ORDER BY behandlernavn";
+  $sql = "SELECT brukernavn, behandlernavn, yrkesgruppenavn FROM behandler
+  LEFT JOIN yrkesgruppe ON behandler.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
+  ORDER BY behandlernavn";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". htmlspecialchars($row['brukernavn']) .">". htmlspecialchars($row['behandlernavn']) ." - ". htmlspecialchars($row['yrkesgruppe']) ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['brukernavn']) .">". htmlspecialchars($row['behandlernavn']) ." - ". htmlspecialchars($row['yrkesgruppenavn']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen behandlere funnet</option>\n";
@@ -82,12 +84,12 @@ function listeboksTimeinndeling() {
 
 function listeboksYrkesgruppe() {
   include("db.php");
-  $sql = "SELECT yrkesgruppe FROM yrkesgruppe";
+  $sql = "SELECT yrkesgruppenr, yrkesgruppenavn FROM yrkesgruppe ORDER BY yrkesgruppenavn";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". htmlspecialchars($row['yrkesgruppe']) .">". htmlspecialchars($row['yrkesgruppe']) ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['yrkesgruppenr']) .">". htmlspecialchars($row['yrkesgruppenavn']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen yrkesgrupper funnet</option>\n";

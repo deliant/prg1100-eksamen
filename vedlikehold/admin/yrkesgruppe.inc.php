@@ -11,23 +11,21 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
+      <p id="alert"></p>
       <h3>
         Vis yrkesgrupper
         <a data-toggle="tooltip" class="tooltipLink">
           <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende yrkesgrupper i databasen"></span>
         </a>
       </h3>
-      <p>
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
             <th>Yrkesgruppe</th>
-            <th>Slett</th>
           </tr>
           <?php visYrkesgruppe(); ?>
         </table>
       </div>
-      </p>
     </div>
     <div id="registrer" class="tab-pane fade">
       <h3>
@@ -36,12 +34,10 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny yrkesgruppe"></span>
         </a>
       </h3>
-      <p>
-      <form method="post" name="regyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Yrkesgruppe</label><input type="text" name="regyrkesgruppenavn" required /><br />
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+        <label>Yrkesgruppe</label><input type="text" name="regYrkesgruppe" required/><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegYrkesgruppe">
       </form>
-      </p>
     </div>
     <div id="endre" class="tab-pane fade">
       <h3>
@@ -50,15 +46,13 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende yrkesgruppe"></span>
         </a>
       </h3>
-      <p>
-      <form method="post" name="endreyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Yrkesgruppe</label>
-        <select name="velgYrkesgruppe">
+        <select name="velgYrkesgruppe" onchange="endreYrkesgruppe(this.value)">
+          <option>-Velg yrkesgruppe-</option>
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgYrkesgruppe">
-      </form>
-      </p>
+      <div id="endring"></div>
     </div>
     <div id="slett" class="tab-pane fade">
       <h3>
@@ -67,28 +61,23 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende yrkesgruppe"></span>
         </a>
       </h3>
-      <p>
-      <form method="post" name="slettyrkesgruppe" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Yrkesgruppe</label>
-        <select name="velgYrkesgruppeSlett">
+        <select name="slettYrkesgruppe">
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettYrkesgruppe">
       </form>
-      </p>
     </div>
   </div>
 <?php
 if(isset($_POST["submitRegYrkesgruppe"])) {
   registrerYrkesgruppe();
 }
-if(isset($_POST["submitVelgYrkesgruppe"]) || isset($_POST["edit_id"])) {
-  velgYrkesgruppe();
-}
 if(isset($_POST["submitEndreYrkesgruppe"])) {
   endreYrkesgruppe();
 }
-if(isset($_POST["submitSlettYrkesgruppe"]) || isset($_POST["delete_id"])) {
+if(isset($_POST["submitSlettYrkesgruppe"])) {
   slettYrkesgruppe();
 }
 ?>

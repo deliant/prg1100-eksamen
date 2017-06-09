@@ -10,13 +10,13 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
+      <p id="alert"></p>
       <h3>
         Vis timeinndelinger
         <a data-toggle="tooltip" class="tooltipLink">
           <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende timeinndelinger i databasen"></span>
         </a>
       </h3>
-      <p>
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
@@ -27,7 +27,6 @@ include("libs/listeboks.php");
           <?php visTimeinndeling(); ?>
         </table>
       </div>
-      </p>
     </div>
     <div id="registrer" class="tab-pane fade">
       <h3>
@@ -36,7 +35,6 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny timeinndeling"></span>
         </a>
       </h3>
-      <p>
       <form method="post" name="regtimeinndeling" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Brukernavn</label>
         <select name="velgBrukernavn">
@@ -54,7 +52,6 @@ include("libs/listeboks.php");
         <input type="time" id="tiltidspunkt" name="tiltidspunkt" required /><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegTimeinndeling">
       </form>
-      </p>
     </div>
     <div id="slett" class="tab-pane fade">
       <h3>
@@ -85,12 +82,13 @@ include("libs/listeboks.php");
       </p>
     </div>
   </div>
+  <div id="endring"></div>
 <?php
 if(isset($_POST["submitRegTimeinndeling"])) {
   registrerTimeinndeling();
 }
-if(isset($_POST["submitSokTimeinndeling"])) {
-  echo "<meta http-equiv=\"refresh\" content=\"0;url=timeinndeling.php#slett\">";
+if(isset($_POST["submitEndreTimeinndeling"])) {
+  endreTimeinndeling();
 }
 if(isset($_POST["submitSlettTimeinndeling"])) {
   slettTimeinndeling();
