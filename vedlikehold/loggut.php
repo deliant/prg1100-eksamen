@@ -69,6 +69,5 @@
   </div>
 </div>
 
-</html>
 </body>
 </html>
