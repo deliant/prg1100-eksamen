@@ -1,12 +1,12 @@
 <?php
 function listeboksBehandler() {
   include("db.php");
-  $sql = "SELECT brukernavn, behandlernavn FROM behandler";
+  $sql = "SELECT brukernavn, behandlernavn, yrkesgruppe FROM behandler ORDER BY behandlernavn";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". htmlspecialchars($row['brukernavn']) .">". htmlspecialchars($row['brukernavn']) ." - ". htmlspecialchars($row['behandlernavn']) ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['brukernavn']) .">". htmlspecialchars($row['behandlernavn']) ." - ". htmlspecialchars($row['yrkesgruppe']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen behandlere funnet</option>\n";
@@ -16,12 +16,12 @@ function listeboksBehandler() {
 
 function listeboksBilde() {
   include("db.php");
-  $sql = "SELECT bildenr FROM bilde";
+  $sql = "SELECT bildenr, beskrivelse FROM bilde ORDER BY bildenr DESC";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=". htmlspecialchars($row['bildenr']) .">". htmlspecialchars($row['bildenr']) ."</option>\n";
+      echo "<option value=". htmlspecialchars($row['bildenr']) .">". htmlspecialchars($row['beskrivelse']) ."</option>\n";
     }
   } else {
     echo "<option value=\"Ingen\">Ingen bilder funnet</option>\n";
@@ -31,7 +31,7 @@ function listeboksBilde() {
 
 function listeboksPasient() {
   include("db.php");
-  $sql = "SELECT personnr, pasientnavn FROM pasient";
+  $sql = "SELECT personnr, pasientnavn FROM pasient ORDER BY pasientnavn";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
@@ -58,7 +58,7 @@ function listeboksTimebestilling() {
       echo "<option value=". htmlspecialchars($row['personnr']) .">". htmlspecialchars($row['personnr']) ." - ". htmlspecialchars($row['pasientnavn']) ."</option>\n";
     }
   } else {
-    echo "<option value=\"Ingen\">Ingen pasienter funnet</option>\n";
+    echo "<option value=\"Ingen\">Ingen timebestillinger funnet</option>\n";
   }
   mysqli_close($conn);
 }
