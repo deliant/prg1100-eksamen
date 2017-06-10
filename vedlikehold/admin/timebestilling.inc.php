@@ -15,7 +15,7 @@ include("libs/listeboks.php");
       <h3>
         Vis timebestillinger
         <a data-toggle="tooltip" class="tooltipLink">
-          <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende behandlere i databasen"></span>
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Viser eksisterende timebestillinger i databasen"></span>
         </a>
       </h3>
       <div class="table-responsive">
@@ -37,17 +37,19 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny timebestilling"></span>
         </a>
       </h3>
-      <form method="post" name="regtimebestilling" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Pasient</label>
-        <select name="velgPasient">
+        <select name="regPasient">
+          <option>-Velg pasient-</option>
           <?php listeboksPasient(); ?>
         </select><br/>
         <label>Behandler</label>
-        <select name="velgBehandler">
+        <select name="regBehandler">
+          <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
-        <label>Dato</label><input type="text" id="regdato" name="regdato" required /><br />
-        <label>Tidspunkt</label><input type="text" name="regtidspunkt" required /><br />
+        <label>Dato</label><input type="text" id="regDato" name="regDato" required /><br />
+        <label>Tidspunkt</label><input type="text" name="regTidspunkt" required /><br />
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegTimebestilling">
       </form>
     </div>
@@ -58,7 +60,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende timebestilling"></span>
         </a>
       </h3>
-        <form name="endretimebestilling">
+        <form>
         <label>Pasient</label>
         <select id="pasient" name="pasient">
           <option>-Velg pasient-</option>
@@ -83,9 +85,10 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende timebestilling"></span>
         </a>
       </h3>
-      <form method="post" name="sletttimebestiling" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Personnr</label>
-        <select name="velgTimebestillingSlett">
+        <select name="slettTimebestilling">
+          <option>-Velg timebestilling-</option>
           <?php listeboksTimebestilling(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettTimebestilling">

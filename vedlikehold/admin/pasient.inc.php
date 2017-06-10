@@ -24,8 +24,6 @@ include("libs/listeboks.php");
             <th>Personnr</th>
             <th>Navn</th>
             <th>Fastlege</th>
-            <th>Endre</th>
-            <th>Slett</th>
           </tr>
           <?php visPasient(); ?>
         </table>
@@ -38,11 +36,12 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny pasient"></span>
         </a>
       </h3>
-      <form method="post" name="regpasient" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Personnr</label><input type="text" name="regpersonnr" required /><br />
-        <label>Navn</label><input type="text" name="regnavn" required /><br />
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+        <label>Personnr</label><input type="text" name="regPersonnr" required /><br />
+        <label>Navn</label><input type="text" name="regNavn" required /><br />
         <label>Fastlege</label>
         <select name="velgFastlege">
+          <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegPasient">
@@ -55,12 +54,12 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende pasient"></span>
         </a>
       </h3>
-      <form method="post" name="endrepasient" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Pasient</label>
-        <select name="velgPasient">
+        <select name="velgPasient" onchange="endrePasient(this.value)">
+          <option>-Velg pasient-</option>
           <?php listeboksPasient(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgPasient">
       </form>
       <div id="endring"></div>
     </div>
@@ -71,9 +70,10 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende pasient"></span>
         </a>
       </h3>
-      <form method="post" name="slettpasient" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Pasient</label>
-        <select name="velgPasientSlett">
+        <select name="slettPasient">
+          <option>-Velg pasient-</option>
           <?php listeboksPasient(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettPasient">

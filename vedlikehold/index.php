@@ -49,12 +49,12 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h1>Vedlikehold</h1>
+          <h1>BM Vedlikehold</h1>
           <p>
           <h3>
             Logg inn
             <a data-toggle="tooltip" class="tooltipLink">
-              <span class="glyphicon glyphicon-info-sign icon_info" title="Logg inn for å registrere eller endre data"></span>
+              <span class="glyphicon glyphicon-info-sign icon_info" title="Logg inn for å registrere, endre eller slette data"></span>
             </a>
           </h3>
           <form method="post" id="login" name="login" action="">

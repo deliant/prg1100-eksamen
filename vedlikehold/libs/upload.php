@@ -1,12 +1,12 @@
 <?php
 $target_dir = "../bilder/";
-$target_file = $target_dir . basename($_FILES["filnavn"]["name"]);
+$target_file = $target_dir . basename($_FILES["regFilnavn"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["submitRegBilde"])) {
-  $check = getimagesize($_FILES["filnavn"]["tmp_name"]);
+  $check = getimagesize($_FILES["regFilnavn"]["tmp_name"]);
   if($check !== false) {
     $uploadOk = 1;
   } else {
@@ -22,7 +22,7 @@ if(file_exists($target_file)) {
 }
 
 // Check file size
-if($_FILES["filnavn"]["size"] > 500000) {
+if($_FILES["regFilnavn"]["size"] > 500000) {
   echo "Filen er for stor. (over 0,5MB)<br/>";
   $uploadOk = 0;
 }
@@ -38,8 +38,8 @@ if($uploadOk == 0) {
   echo "Filen ble ikke lastet opp.";
   // if everything is ok, try to upload file
 } else {
-  if(move_uploaded_file($_FILES["filnavn"]["tmp_name"], $target_file)) {
-    echo "Filen ". basename($_FILES["filnavn"]["name"]). " har blitt lastet opp.<br/>";
+  if(move_uploaded_file($_FILES["regFilnavn"]["tmp_name"], $target_file)) {
+    echo "Filen ". basename($_FILES['regFilnavn']['name']) ." har blitt lastet opp.<br/>";
   } else {
     $uploadOk = 0;
     echo "Beklager, det var en feil med opplastning av bildefil.<br/>";

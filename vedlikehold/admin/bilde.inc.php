@@ -25,8 +25,6 @@ include("libs/listeboks.php");
             <th>Opplastingsdato</th>
             <th>Filnavn</th>
             <th>Beskrivelse</th>
-            <th>Endre</th>
-            <th>Slett</th>
           </tr>
           <?php visBilde(); ?>
         </table>
@@ -39,9 +37,9 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer et ny bilde"></span>
         </a>
       </h3>
-      <form method="post" name="regbilde" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Fil</label><input type="file" name="filnavn" required /><br/>
-        <label>Beskrivelse</label><input type="text" name="beskrivelse" required /><br/>
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data" method="post"">
+        <label>Fil</label><input type="file" name="regFilnavn" required /><br/>
+        <label>Beskrivelse</label><input type="text" name="regBeskrivelse" required /><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBilde">
       </form>
     </div>
@@ -52,12 +50,12 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre et eksisterende bilde"></span>
         </a>
       </h3>
-      <form method="post" name="endrebilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Bilde</label>
-        <select name="velgBildenr">
+        <select name="velgBildenr" onchange="endreBilde(this.value)">
+          <option>-Velg bilde-</option>
           <?php listeboksBilde(); ?>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Velg" name="submitVelgBilde">
       </form>
       <div id="endring"></div>
     </div>
@@ -69,9 +67,10 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett et eksisterende bilde"></span>
         </a>
       </h3>
-      <form method="post" name="slettbilde" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Bilde</label>
-        <select name="velgBildenrSlett">
+        <select name="slettBildenr">
+          <option>-Velg bilde-</option>
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBilde">
