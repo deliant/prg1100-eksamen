@@ -99,19 +99,19 @@ if(@$_GET["action"] == "endre") {
 
   while($row = mysqli_fetch_array($result)) {
     echo "<h3>Endring</h3>\n";
-    echo "<form name=\"updatebehandler\"action=\"\" method=\"post\">\n";
-    echo "<label>Brukernavn</label><input type=\"text\" name=\"endringBrukernavn\" value=". htmlspecialchars($row['brukernavn']) ." readonly required/><br/>\n";
-    echo "<label>Navn</label><input type=\"text\" name=\"endringNavn\" value=". $row['behandlernavn'] ." required/><br/>\n";
+    echo "<form action=\"\" method=\"post\">\n";
+    echo "<label>Brukernavn</label><input type=\"text\" name=\"endringBrukernavn\" value=\"" . htmlspecialchars($row['brukernavn']) . "\" readonly required/><br/>\n";
+    echo "<label>Navn</label><input type=\"text\" name=\"endringNavn\" value=\"" . htmlspecialchars($row['behandlernavn']) ."\" required/><br/>\n";
     echo "<label>Yrkesgruppe</label><select name=\"endringYrkesgruppenr\">\n";
     $sql2 = "SELECT yrkesgruppenr, yrkesgruppenavn FROM yrkesgruppe ORDER BY yrkesgruppenavn";
     $result2 = mysqli_query($conn, $sql2);
 
     if(mysqli_num_rows($result2) > 0) {
       while($row2 = mysqli_fetch_assoc($result2)) {
-        if($row2['yrkesgruppenr'] === $row['yrkesgruppenr']) {
-          echo "<option value=". htmlspecialchars($row2['yrkesgruppenr']) ." selected=\"selected\">". htmlspecialchars($row2['yrkesgruppenavn']) ."</option>\n";
+        if($row2["yrkesgruppenr"] === $row["yrkesgruppenr"]) {
+          echo "<option value=\"". htmlspecialchars($row2['yrkesgruppenr']) ."\" selected=\"selected\">". htmlspecialchars($row2['yrkesgruppenavn']) ."</option>\n";
         } else {
-          echo "<option value=". htmlspecialchars($row2['yrkesgruppenr']) .">". htmlspecialchars($row2['yrkesgruppenavn']) ."</option>\n";
+          echo "<option value=\"". htmlspecialchars($row2['yrkesgruppenr']) ."\">". htmlspecialchars($row2['yrkesgruppenavn']) ."</option>\n";
         }
       }
     } else {
@@ -124,10 +124,10 @@ if(@$_GET["action"] == "endre") {
 
     if(mysqli_num_rows($result3) > 0) {
       while($row3 = mysqli_fetch_assoc($result3)) {
-        if($row3['bildenr'] === $row['bildenr']) {
-          echo "<option value=". htmlspecialchars($row3['bildenr']) ." selected=\"selected\">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
+        if($row3["bildenr"] === $row["bildenr"]) {
+          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\" selected=\"selected\">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
         } else {
-          echo "<option value=". htmlspecialchars($row3['bildenr']) .">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
+          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
         }
       }
     } else {

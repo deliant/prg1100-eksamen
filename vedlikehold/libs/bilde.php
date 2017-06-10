@@ -11,14 +11,6 @@ function visBilde() {
       echo "<td>". htmlspecialchars($row['opplastingsdato']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['filnavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['beskrivelse']) ."</td>\n";
-      echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". htmlspecialchars($row['bildenr']) ." />\n";
-      echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
-      echo "</form></td>\n";
-      echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['bildenr']) ." />\n";
-      echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
-      echo "</form></td>\n";
       echo "</tr>\n";
     }
   } else {
@@ -29,8 +21,8 @@ function visBilde() {
 
 function registrerBilde() {
   include("db.php");
-  $filnavn = basename($_FILES["filnavn"]["name"]);
-  $beskrivelse = mysqli_real_escape_string($conn, $_POST["beskrivelse"]);
+  $filnavn = basename($_FILES["regFilnavn"]["name"]);
+  $beskrivelse = mysqli_real_escape_string($conn, $_POST["regBeskrivelse"]);
   $dato = date("Y-m-d");
   // Sjekk at tekstfeltene har input
   if(!empty($filnavn) && !empty($beskrivelse)) {
@@ -48,32 +40,10 @@ function registrerBilde() {
   }
 }
 
-function velgBilde() {
-  include("db.php");
-  if(isset($_POST["velgBildenr"])) {
-    $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenr"]);
-  }
-  else if(isset($_POST["edit_id"])) {
-    $bildenr = mysqli_real_escape_string($conn, $_POST["edit_id"]);
-  }
-  $sql = "SELECT * FROM bilde WHERE bildenr='$bildenr'";
-  $result = mysqli_query($conn, $sql);
-  $row = mysqli_fetch_assoc($result);
-  // Validering; onsubmit="return validerRegistrerBehandlerdata()"
-  echo "<p>\n";
-  echo "<form method=\"post\" name=\"updatebilde\" action=". $_SERVER['PHP_SELF'] .">\n";
-  echo "<label>Bildenr</label><input type=\"text\" name=\"bildenr\" value='" . htmlspecialchars($row['bildenr']) . "' readonly required /><br/>\n";
-  echo "<label>Beskrivelse</label><input type=\"text\" name=\"beskrivelse\" value='" . htmlspecialchars($row['beskrivelse']) . "' required /><br/>\n";
-  echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
-  echo "</form>\n";
-  echo "</p>\n";
-  mysqli_close($conn);
-}
-
 function endreBilde() {
   include("db.php");
-  $bildenr = mysqli_real_escape_string($conn, $_POST["bildenr"]);
-  $beskrivelse = mysqli_real_escape_string($conn, $_POST["beskrivelse"]);
+  $bildenr = mysqli_real_escape_string($conn, $_POST["endringBildenr"]);
+  $beskrivelse = mysqli_real_escape_string($conn, $_POST["endringBeskrivelse"]);
   if(!empty($bildenr) && !empty($beskrivelse)) {
     $sql = "UPDATE bilde SET beskrivelse='$beskrivelse' WHERE bildenr='$bildenr'";
 
@@ -89,12 +59,7 @@ function endreBilde() {
 
 function slettBilde() {
   include("db.php");
-  if(isset($_POST["velgBildenrSlett"])) {
-    $bildenr = mysqli_real_escape_string($conn, $_POST["velgBildenrSlett"]);
-  }
-  else if(isset($_POST["delete_id"])) {
-    $bildenr = mysqli_real_escape_string($conn, $_POST["delete_id"]);
-  }
+  $bildenr = mysqli_real_escape_string($conn, $_POST["slettBildenr"]);
   if(!empty($bildenr)) {
     // Sjekk at bildet ikke brukes
     $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
@@ -126,6 +91,23 @@ function slettBilde() {
         }
       }
     }
+  }
+  mysqli_close($conn);
+}
+
+include("db.php");
+if(@$_GET["action"] == "endre") {
+  $bildenr = mysqli_real_escape_string($conn, $_GET["bildenr"]);
+  $sql = "SELECT bildenr, beskrivelse FROM bilde WHERE bildenr='$bildenr'";
+  $result = mysqli_query($conn, $sql);
+
+  while($row = mysqli_fetch_array($result)) {
+    echo "<h3>Endring</h3>\n";
+    echo "<form action=\"\" method=\"post\">\n";
+    echo "<label>Bildenr</label><input type=\"text\" name=\"endringBildenr\"  value=\"". htmlspecialchars($row['bildenr']) ."\" readonly required/><br/>\n";
+    echo "<label>Beskrivelse</label><input type=\"text\" name=\"endringBeskrivelse\"  value=\"". htmlspecialchars($row['beskrivelse']) ."\" required/><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
+    echo "</form>\n";
   }
   mysqli_close($conn);
 }

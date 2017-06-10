@@ -64,6 +64,7 @@ include("libs/listeboks.php");
       <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Yrkesgruppe</label>
         <select name="slettYrkesgruppe">
+          <option>-Velg yrkesgruppe-</option>
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettYrkesgruppe">

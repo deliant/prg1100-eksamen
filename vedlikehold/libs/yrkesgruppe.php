@@ -83,7 +83,7 @@ if(@$_GET["action"] == "endre") {
   while($row = mysqli_fetch_array($result)) {
     echo "<h3>Endring</h3>\n";
     echo "<form action=\"\" method=\"post\">\n";
-    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"endringYrkesgruppe\"  value=". htmlspecialchars($row['yrkesgruppenavn']) ." required/><br/>\n";
+    echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"endringYrkesgruppe\"  value=\"". htmlspecialchars($row['yrkesgruppenavn']) ."\" required/><br/>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreYrkesgruppe\"><br/><br/>\n";
     echo "</form>\n";
   }
