@@ -2,12 +2,12 @@
 $target_dir = "../bilder/";
 $target_file = $target_dir . basename($_FILES["regFilnavn"]["name"]);
 $uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+$bildeFiltype = pathinfo($target_file,PATHINFO_EXTENSION);
 
-// Check if image file is a actual image or fake image
+// Sjekk om fake
 if(isset($_POST["submitRegBilde"])) {
-  $check = getimagesize($_FILES["regFilnavn"]["tmp_name"]);
-  if($check !== false) {
+  $sjekk = getimagesize($_FILES["regFilnavn"]["tmp_name"]);
+  if($sjekk !== false) {
     $uploadOk = 1;
   } else {
     echo "Filen er ikke ett gyldig bilde.<br/>";
@@ -15,34 +15,33 @@ if(isset($_POST["submitRegBilde"])) {
   }
 }
 
-// Check if file already exists
+// Sjekk om filen eksisterer
 if(file_exists($target_file)) {
-  echo "Filen eksisterer allerede.<br/>";
+  echo "<div class=\"alert alert-danger\">Filen eksisterer allerede.</div>\n";
   $uploadOk = 0;
 }
 
-// Check file size
+// Sjekk filstørrelse
 if($_FILES["regFilnavn"]["size"] > 500000) {
-  echo "Filen er for stor. (over 0,5MB)<br/>";
+  echo "<div class=\"alert alert-danger\">Filen er for stor. (over 0,5MB)</div>\n";
   $uploadOk = 0;
 }
 
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-  echo "Filen er ikke gyldig format (kun jpg, jpeg, png eller gif).<br/>";
+// Sjekk filformat
+if($bildeFiltype != "jpg" && $bildeFiltype != "png" && $bildeFiltype != "jpeg" && $bildeFiltype != "gif" ) {
+  echo "<div class=\"alert alert-danger\">Filen er ikke gyldig format (kun jpg, jpeg, png eller gif).</div>\n";
   $uploadOk = 0;
 }
 
-// Check if $uploadOk is set to 0 by an error
 if($uploadOk == 0) {
-  echo "Filen ble ikke lastet opp.";
-  // if everything is ok, try to upload file
+  echo "<div class=\"alert alert-danger\">Filen ble ikke lastet opp.</div>";
+  // Upload
 } else {
   if(move_uploaded_file($_FILES["regFilnavn"]["tmp_name"], $target_file)) {
-    echo "Filen ". basename($_FILES['regFilnavn']['name']) ." har blitt lastet opp.<br/>";
+    echo "<div class=\"alert alert-success\">Filen ". basename($_FILES['regFilnavn']['name']) ." har blitt lastet opp.</div>\n";
   } else {
     $uploadOk = 0;
-    echo "Beklager, det var en feil med opplastning av bildefil.<br/>";
+    echo "<div class=\"alert alert-danger\">Beklager, det var en feil med opplastning av bildefil.</div>\n";
   }
 }
 ?>

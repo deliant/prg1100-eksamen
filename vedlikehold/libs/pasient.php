@@ -33,10 +33,10 @@ function registrerPasient() {
     VALUES ('$personnr', '$navn', '$brukernavn')";
 
     if(mysqli_query($conn, $sql)) {
-      echo "$navn ($personnr) registrert i pasient databasen.";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\">$navn ($personnr) registrert i pasient databasen.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
     mysqli_close($conn);
   }
@@ -57,10 +57,10 @@ function endrePasient() {
     }
 
     if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/>";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -72,19 +72,15 @@ function slettPasient() {
   /* Kan ikke slette om pasient har booket time?
   $sql = "SELECT bildenr FROM behandler WHERE brukernavn='$behandler'";
   $result = mysqli_query($conn, $sql);
-
-  if(mysqli_num_rows($result) > 0) {
-    echo "Kan ikke slette behandler når bilde er valgt.<br />";
-  } else {
   */
   if(!empty($personnr)) {
     $sql = "DELETE FROM pasient WHERE personnr='$personnr'";
 
     if (mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/><br />";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -100,7 +96,7 @@ if(@$_GET["action"] == "endre") {
   ORDER BY pasientnavn";
   $result = mysqli_query($conn, $sql);
 
-  while($row = mysqli_fetch_array($result)) {
+  while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
     echo "<form action=\"\" method=\"post\">\n";
     echo "<label>Personnr</label><input type=\"text\" name=\"endringPersonnr\" value=\"" . htmlspecialchars($row['personnr']) . "\" readonly required/><br/>\n";
@@ -124,7 +120,7 @@ if(@$_GET["action"] == "endre") {
       echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
     }
     echo "</select><br/>\n";
-    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndrePasient\"><br/><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndrePasient\">\n";
     echo "</form>\n";
   }
   mysqli_close($conn);

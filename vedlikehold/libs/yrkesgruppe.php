@@ -26,10 +26,10 @@ function registrerYrkesgruppe() {
     VALUES ('$yrkesgruppenavn')";
 
     if(mysqli_query($conn, $sql)) {
-      echo "$yrkesgruppe registrert i yrkesgruppe databasen.";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\" align=\"top\">$yrkesgruppe registrert i yrkesgruppe databasen.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -43,10 +43,10 @@ function endreYrkesgruppe() {
     $sql = "UPDATE yrkesgruppe SET yrkesgruppenavn='$yrkesgruppenavn' WHERE yrkesgruppenr='$yrkesgruppenr'";
 
     if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/>";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -56,18 +56,23 @@ function slettYrkesgruppe() {
   include("db.php");
   $yrkesgruppenr = mysqli_real_escape_string($conn, $_POST["slettYrkesgruppe"]);
   if(!empty($yrkesgruppenr)) {
-    $sql = "SELECT brukernavn FROM behandler WHERE yrkesgruppenr='$yrkesgruppenr'";
-    $result = mysqli_query($conn, $sql);
+    $slettYrkesgruppeOk = 1;
 
-    if (mysqli_num_rows($result) > 0) {
-      echo "Kan ikke slette yrkesgruppen når det finnes behandlere i den.<br />";
-    } else {
+    // Sjekk om yrkesgruppe er tilknyttet behandler
+    $sql = "SELECT yrkesgruppenr FROM behandler WHERE yrkesgruppenr='$yrkesgruppenr'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div class=\"alert alert-danger\" align=\"top\">Kan ikke slette yrkesgruppe når det finnes tilknyttede behandlere.</div>\n";
+      $slettYrkesgruppeOk = 0;
+    }
+
+    if($slettYrkesgruppeOk == 1) {
       $sql = "DELETE FROM yrkesgruppe WHERE yrkesgruppenr='$yrkesgruppenr'";
       if (mysqli_query($conn, $sql)) {
-        echo "Databasen oppdatert.<br/><br />";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">";
+        echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
       } else {
-        echo "Feil under database forespørsel: " . mysqli_error($conn);
+        echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
     }
   }
@@ -80,11 +85,11 @@ if(@$_GET["action"] == "endre") {
   $sql = "SELECT yrkesgruppenavn FROM yrkesgruppe WHERE yrkesgruppenr='$yrkesgruppenr'";
   $result = mysqli_query($conn, $sql);
 
-  while($row = mysqli_fetch_array($result)) {
+  while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
     echo "<form action=\"\" method=\"post\">\n";
     echo "<label>Yrkesgruppe</label><input type=\"text\" name=\"endringYrkesgruppe\"  value=\"". htmlspecialchars($row['yrkesgruppenavn']) ."\" required/><br/>\n";
-    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreYrkesgruppe\"><br/><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreYrkesgruppe\">\n";
     echo "</form>\n";
   }
   mysqli_close($conn);
