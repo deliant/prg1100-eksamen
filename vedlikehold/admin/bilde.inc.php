@@ -11,7 +11,6 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
-      <p id="alert"></p>
       <h3>
         Vis bilder
         <a data-toggle="tooltip" class="tooltipLink">

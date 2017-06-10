@@ -75,7 +75,8 @@ include("libs/listeboks.php");
           <option value="Torsdag">Torsdag</option>
           <option value="Fredag">Fredag</option>
         </select><br/>
-        <label>Tidspunkt</label><select name="velgTimeinndelingTidspunkt" id="velgTimeinndelingTidspunkt">
+        <label>Tidspunkt</label>
+        <select name="velgTimeinndelingTidspunkt" id="velgTimeinndelingTidspunkt"><br/>
           <option>-Velg tidspunkt-</option>
           <?php listeboksTimeinndeling(); ?>
         </select><br/>
