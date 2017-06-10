@@ -22,6 +22,7 @@ include("libs/listeboks.php");
         <table class="table table-striped">
           <tr>
             <th>Bildenr</th>
+            <th>Bilde</th>
             <th>Opplastingsdato</th>
             <th>Filnavn</th>
             <th>Beskrivelse</th>
