@@ -11,9 +11,9 @@ function visBehandler() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
       echo "<td><img class=\"thumbnail\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
       echo "</tr>\n";
     }

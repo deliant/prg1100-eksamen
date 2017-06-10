@@ -21,8 +21,8 @@ include("libs/listeboks.php");
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
-            <th>Bildenr</th>
             <th>Bilde</th>
+            <th>Bildenr</th>
             <th>Opplastingsdato</th>
             <th>Filnavn</th>
             <th>Beskrivelse</th>

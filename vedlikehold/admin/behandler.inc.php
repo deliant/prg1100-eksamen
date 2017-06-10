@@ -21,9 +21,9 @@ include("libs/listeboks.php");
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
-            <th>Brukernavn</th>
             <th>Bilde</th>
             <th>Navn</th>
+            <th>Brukernavn</th>
             <th>Yrkesgruppe</th>
           </tr>
           <?php visBehandler(); ?>
