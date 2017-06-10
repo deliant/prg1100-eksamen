@@ -82,6 +82,7 @@ include("libs/listeboks.php");
           <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
+        <label>Slett bilde tilknyttet</label><input type="checkbox" name="checkboxbilde" /><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBehandler">
       </form>
     </div>
