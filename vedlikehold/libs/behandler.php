@@ -142,8 +142,7 @@ if(@$_GET["action"] == "endre") {
   $sql = "SELECT b.brukernavn, b.behandlernavn, y.yrkesgruppenavn, b.yrkesgruppenr, b.bildenr 
   FROM behandler AS b
   LEFT JOIN yrkesgruppe AS y ON b.yrkesgruppenr = y.yrkesgruppenr
-  WHERE brukernavn='$brukernavn'
-  ORDER BY behandlernavn";
+  WHERE brukernavn='$brukernavn'";
   $result = mysqli_query($conn, $sql);
 
   while($row = mysqli_fetch_assoc($result)) {

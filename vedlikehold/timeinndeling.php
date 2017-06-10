@@ -22,7 +22,7 @@
   <script src="js/ajax.js"></script>
   <script>
     $(function() {
-      $('#fratidspunkt, #tiltidspunkt').timepicker({
+      $('#regFraTidspunkt, #regTilTidspunkt, #endringFraTidspunkt, #endringTilTidspunkt').timepicker({
         timeFormat: 'HH:mm',
         interval: '15',
         minTime: '08',

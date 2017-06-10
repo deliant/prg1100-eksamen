@@ -69,18 +69,25 @@ function endrePasient() {
 function slettPasient() {
   include("db.php");
   $personnr = mysqli_real_escape_string($conn, $_POST["slettPasient"]);
-  /* Kan ikke slette om pasient har booket time?
-  $sql = "SELECT bildenr FROM behandler WHERE brukernavn='$behandler'";
-  $result = mysqli_query($conn, $sql);
-  */
   if(!empty($personnr)) {
-    $sql = "DELETE FROM pasient WHERE personnr='$personnr'";
+    $slettPasientOk = 1;
+    // Sjekk om pasient har timebestilling
+    $sql = "SELECT personnr FROM timebestilling WHERE personnr='$personnr'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Kan ikke slette pasient når det finnes aktive timebestillinger.</div>\n";
+      $slettPasientOk = 0;
+    }
 
-    if (mysqli_query($conn, $sql)) {
-      echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
-    } else {
-      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+    if($slettPasientOk == 1) {
+      $sql = "DELETE FROM pasient WHERE personnr='$personnr'";
+
+      if (mysqli_query($conn, $sql)) {
+        echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      } else {
+        echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      }
     }
   }
   mysqli_close($conn);

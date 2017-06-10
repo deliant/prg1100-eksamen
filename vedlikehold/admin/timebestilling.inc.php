@@ -61,17 +61,17 @@ include("libs/listeboks.php");
       </h3>
         <form>
         <label>Pasient</label>
-        <select id="pasient" name="pasient">
+        <select id="velgPasient" name="velgPasient">
           <option>-Velg pasient-</option>
           <?php listeboksPasient(); ?>
         </select><br/>
         <label>Behandler</label>
-        <select id="behandler" name="behandler" onchange="listeboksTimebestilling(this.value)">
+        <select id="velgBehandler" name="velgBehandler" onchange="listeboksEndreTimebestilling(this.value)">
           <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>Tidspunkt</label>
-        <select id="timebestillingnr" name="timebestillingnr" onchange="endreTimebestilling(this.value)">
+        <select id="velgTidspunkt" name="velgTidspunkt" onchange="endreTimebestilling(this.value)">
           <option>-Velg pasient og behandler-</option>
         </select><br/>
         </form>
@@ -85,10 +85,19 @@ include("libs/listeboks.php");
         </a>
       </h3>
       <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-        <label>Personnr</label>
-        <select name="slettTimebestilling">
-          <option>-Velg timebestilling-</option>
-          <?php listeboksTimebestilling(); ?>
+        <label>Pasient</label>
+        <select id="slettPasient" name="slettPasient">
+          <option>-Velg pasient-</option>
+          <?php listeboksPasient(); ?>
+        </select><br/>
+        <label>Behandler</label>
+        <select id="slettBehandler" name="slettBehandler" onchange="listeboksSlettTimebestilling(this.value)">
+          <option>-Velg behandler-</option>
+          <?php listeboksBehandler(); ?>
+        </select><br/>
+        <label>Tidspunkt</label>
+        <select name="slettTidspunkt">
+          <option>-Velg pasient og behandler-</option>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettTimebestilling">
       </form>
