@@ -5,6 +5,7 @@ include("libs/listeboks.php");
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#vis"><span class="glyphicon glyphminiadjust glyphicon-folder-open"></span>Vis</a></li>
     <li><a data-toggle="tab" href="#registrer"><span class="glyphicon glyphminiadjust glyphicon-file"></span>Registrer</a></li>
+    <li><a data-toggle="tab" href="#endre"><span class="glyphicon glyphminiadjust glyphicon-list-alt"></span>Endre</a></li>
     <li><a data-toggle="tab" href="#slett"><span class="glyphicon glyphminiadjust glyphicon-trash"></span>Slett</a></li>
   </ul>
 
@@ -35,23 +36,53 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny timeinndeling"></span>
         </a>
       </h3>
-      <form method="post" name="regtimeinndeling" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Brukernavn</label>
-        <select name="velgBrukernavn">
+        <select name="regBrukernavn">
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>Ukedag</label>
-        <select name="velgUkedag">
+        <select name="regUkedag">
+          <option>-Velg ukedag-</option>
           <option value="Mandag">Mandag</option>
           <option value="Tirsdag">Tirsdag</option>
           <option value="Onsdag">Onsdag</option>
           <option value="Torsdag">Torsdag</option>
           <option value="Fredag">Fredag</option>
         </select><br/>
-        <label>Tidspunkt</label><input type="time" id="fratidspunkt" name="fratidspunkt" required />
-        <input type="time" id="tiltidspunkt" name="tiltidspunkt" required /><br/>
+        <label>Tidspunkt</label><input type="time" id="regFraTidspunkt" name="regFraTidspunkt" required />
+        <input type="time" id="regTilTidspunkt" name="regTilTidspunkt" required /><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegTimeinndeling">
       </form>
+    </div>
+    <div id="endre" class="tab-pane fade">
+      <h3>
+        Endre timeinndeling
+        <a data-toggle="tooltip" class="tooltipLink">
+          <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende timeinndeling"></span>
+        </a>
+      </h3>
+      <form>
+        <label>Behandler</label>
+        <select id="velgBehandler" name="velgBehandler">
+          <option>-Velg behandler-</option>
+          <?php listeboksBehandler(); ?>
+        </select><br/>
+        <label>Ukedag</label>
+        <select id="velgUkedag" name="velgUkedag" onchange="listeboksEndreTimeinndeling(this.value)">
+          <option>-Velg ukedag-</option>
+          <option value="Mandag">Mandag</option>
+          <option value="Tirsdag">Tirsdag</option>
+          <option value="Onsdag">Onsdag</option>
+          <option value="Torsdag">Torsdag</option>
+          <option value="Fredag">Fredag</option>
+        </select><br/>
+        <label>Tidspunkt</label>
+        <select id="velgTidspunkt" name="velgTidspunkt" onchange="endreTimeinndeling(this.value)">
+          <option>-Velg behandler og ukedag-</option>
+        </select><br/>
+      </form>
+      <div id="endring"></div>
     </div>
     <div id="slett" class="tab-pane fade">
       <h3>
@@ -60,15 +91,15 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende timeinndeling"></span>
         </a>
       </h3>
-      <p>
-      <form method="post" name="slettTimeinndeling" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Behandler</label>
-        <select name="velgTimeinndelingBehandler">
+        <select id="slettBehandler" name="slettBehandler">
           <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>Ukedag</label>
-        <select name="velgTimeinndelingUkedag">
+        <select id="slettUkedag" name="slettUkedag" onchange="listeboksSlettTimeinndeling(this.value)">
+          <option>-Velg ukedag-</option>
           <option value="Mandag">Mandag</option>
           <option value="Tirsdag">Tirsdag</option>
           <option value="Onsdag">Onsdag</option>
@@ -76,16 +107,13 @@ include("libs/listeboks.php");
           <option value="Fredag">Fredag</option>
         </select><br/>
         <label>Tidspunkt</label>
-        <select name="velgTimeinndelingTidspunkt" id="velgTimeinndelingTidspunkt"><br/>
-          <option>-Velg tidspunkt-</option>
-          <?php listeboksTimeinndeling(); ?>
+        <select id="slettTidspunkt" name="slettTidspunkt">
+          <option>-Velg behandler og ukedag-</option>
         </select><br/>
-        <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Søk" name="submitSokTimeinndeling"><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettTimeinndeling">
+        <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettTimeinndeling">
       </form>
-      </p>
     </div>
   </div>
-  <div id="endring"></div>
 <?php
 if(isset($_POST["submitRegTimeinndeling"])) {
   registrerTimeinndeling();

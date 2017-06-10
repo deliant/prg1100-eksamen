@@ -47,7 +47,7 @@ function registrerTimebestilling() {
 
 function endreTimebestilling() {
   include("db.php");
-  $timebestillingnr = mysqli_real_escape_string($conn, $_POST["timebestillingnr"]);
+  $timebestillingnr = mysqli_real_escape_string($conn, $_POST["velgTidspunkt"]);
   $dato = mysqli_real_escape_string($conn, $_POST["endringDato"]);
   $tidspunkt = mysqli_real_escape_string($conn, $_POST["endringTidspunkt"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringBehandler"]);
@@ -67,7 +67,7 @@ function endreTimebestilling() {
 
 function slettTimebestilling() {
   include("db.php");
-  $timebestillingnr = mysqli_real_escape_string($conn, $_POST["timebestillingnr"]);
+  $timebestillingnr = mysqli_real_escape_string($conn, $_POST["slettTidspunkt"]);
 
   if(!empty($timebestillingnr)) {
     $sql = "DELETE FROM timebestilling WHERE timebestillingnr='$timebestillingnr'";
@@ -83,9 +83,25 @@ function slettTimebestilling() {
 }
 
 include("db.php");
-if(@$_GET["action"] == "listeboks") {
-  $personnr = mysqli_real_escape_string($conn, $_GET["pasient"]);
-  $brukernavn = mysqli_real_escape_string($conn, $_GET["behandler"]);
+if(@$_GET["action"] == "listeboksEndre") {
+  $personnr = mysqli_real_escape_string($conn, $_GET["velgPasient"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_GET["velgBehandler"]);
+  $sql = "SELECT * FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
+  $result = mysqli_query($conn, $sql);
+
+  if(mysqli_num_rows($result) > 0) {
+    echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
+    while($row = mysqli_fetch_assoc($result)) {
+      echo "<option value=\"" . htmlspecialchars($row['timebestillingnr']) . "\">". htmlspecialchars($row['dato']) ." kl.". htmlspecialchars($row['tidspunkt']) ."</option>\n";
+    }
+  } else {
+    echo "<option value=\"NULL\">Ingen timebestillinger funnet</option>\n";
+  }
+}
+
+if(@$_GET["action"] == "listeboksSlett") {
+  $personnr = mysqli_real_escape_string($conn, $_GET["slettPasient"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_GET["slettBehandler"]);
   $sql = "SELECT * FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
   $result = mysqli_query($conn, $sql);
 
@@ -100,12 +116,12 @@ if(@$_GET["action"] == "listeboks") {
 }
 
 if(@$_GET["action"] == "endre") {
-  $timebestillingnr = mysqli_real_escape_string($conn, $_GET["timebestillingnr"]);
+  $timebestillingnr = mysqli_real_escape_string($conn, $_GET["velgTidspunkt"]);
   $sql = "SELECT t.timebestillingnr, t.dato, t.tidspunkt, t.brukernavn, b.behandlernavn, t.personnr, p.pasientnavn
   FROM timebestilling AS t
   LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
   LEFT JOIN pasient AS p ON t.personnr = p.personnr
-  ORDER BY dato";
+  WHERE timebestillingnr='$timebestillingnr'";
   $result = mysqli_query($conn, $sql);
 
   while($row = mysqli_fetch_assoc($result)) {
