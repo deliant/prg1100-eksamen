@@ -22,9 +22,9 @@ include("libs/listeboks.php");
         <table class="table table-striped">
           <tr>
             <th>Brukernavn</th>
+            <th>Bilde</th>
             <th>Navn</th>
             <th>Yrkesgruppe</th>
-            <th>Bildenr</th>
           </tr>
           <?php visBehandler(); ?>
         </table>

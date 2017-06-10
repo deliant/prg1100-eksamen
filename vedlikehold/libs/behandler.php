@@ -1,8 +1,10 @@
 <?php
 function visBehandler() {
   include("db.php");
-  $sql = "SELECT brukernavn, behandlernavn, yrkesgruppenavn, bildenr FROM behandler
-  LEFT JOIN yrkesgruppe ON behandler.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
+  $sql = "SELECT b.brukernavn, b.behandlernavn, yrkesgruppe.yrkesgruppenavn, bilde.filnavn
+  FROM behandler AS b
+  LEFT JOIN yrkesgruppe ON b.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
+  LEFT JOIN bilde ON b.bildenr = bilde.bildenr
   ORDER BY behandlernavn";
   $result = mysqli_query($conn, $sql);
 
@@ -10,9 +12,9 @@ function visBehandler() {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
       echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
+      echo "<td><img class=\"thumbnail\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
-      echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
       echo "</tr>\n";
     }
   } else {
