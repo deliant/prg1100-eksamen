@@ -68,14 +68,7 @@ function endreTimebestilling() {
 function slettTimebestilling() {
   include("db.php");
   $timebestillingnr = mysqli_real_escape_string($conn, $_POST["timebestillingnr"]);
-  /* Kan ikke slette om pasient har booket time?
-  $sql = "SELECT bildenr FROM behandler WHERE brukernavn='$behandler'";
-  $result = mysqli_query($conn, $sql);
 
-  if(mysqli_num_rows($result) > 0) {
-    echo "Kan ikke slette behandler når bilde er valgt.<br />";
-  } else {
-  */
   if(!empty($timebestillingnr)) {
     $sql = "DELETE FROM timebestilling WHERE timebestillingnr='$timebestillingnr'";
 
