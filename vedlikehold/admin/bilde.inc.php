@@ -23,9 +23,9 @@ include("libs/listeboks.php");
           <tr>
             <th>Bilde</th>
             <th>Bildenr</th>
+            <th>Beskrivelse</th>
             <th>Opplastingsdato</th>
             <th>Filnavn</th>
-            <th>Beskrivelse</th>
           </tr>
           <?php visBilde(); ?>
         </table>

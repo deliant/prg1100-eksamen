@@ -11,7 +11,7 @@ function visBehandler() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td><img class=\"thumbnail\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
+      echo "<td><img class=\"thumbnail-bilde\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
@@ -121,15 +121,15 @@ if(@$_GET["action"] == "endre") {
     }
     echo "</select><br/>\n";
     echo "<label>Bilde</label><select name=\"endringBildenr\">\n";
-    $sql3 = "SELECT bildenr, beskrivelse FROM bilde ORDER BY beskrivelse";
+    $sql3 = "SELECT bildenr, beskrivelse FROM bilde ORDER BY bildenr DESC";
     $result3 = mysqli_query($conn, $sql3);
 
     if(mysqli_num_rows($result3) > 0) {
       while($row3 = mysqli_fetch_assoc($result3)) {
         if($row3["bildenr"] === $row["bildenr"]) {
-          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\" selected=\"selected\">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
+          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\" selected=\"selected\">". htmlspecialchars($row3['bildenr']) ." - ". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
         } else {
-          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
+          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\">". htmlspecialchars($row3['bildenr']) ." - ". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
         }
       }
     } else {
