@@ -114,6 +114,11 @@ select {
   height: 28px;
 }
 
+.thumbnail {
+  width: 225px;
+  height: 200px;
+}
+
 .glyphicon {
   top: 4px;
 }
