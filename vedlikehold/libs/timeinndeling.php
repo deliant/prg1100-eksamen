@@ -31,8 +31,13 @@ function registrerTimeinndeling() {
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
     $regTimeinndelingOk = 1;
+    // Sjekk at verdiene for fratidspunkt og tiltidspunkt ikke er like
+    if($fratidspunkt == $tiltidspunkt) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Kan ikke registrere timeinndeling med samme fra og til verdi.</div>\n";
+      $regTimeinndelingOk = 0;
+    }
     // Sjekk om timeinndeling allerede eksisterer
-    $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$tidpunkt'";
+    $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$tidspunkt'";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Timeinndeling eksisterer allerede.</div>\n";
@@ -53,6 +58,46 @@ function registrerTimeinndeling() {
     }
     mysqli_close($conn);
   }
+}
+
+function endreTimeinndeling() {
+  include("db.php");
+  $timeinndelingnr = mysqli_real_escape_string($conn, $_POST["velgTidspunkt"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_POST["endringBehandler"]);
+  $ukedag = mysqli_real_escape_string($conn, $_POST["endringUkedag"]);
+  $fratidspunkt = mysqli_real_escape_string($conn, $_POST["endringFraTidspunkt"]);
+  $tiltidspunkt = mysqli_real_escape_string($conn, $_POST["endringTilTidspunkt"]);
+  $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
+  // Sjekk at tekstfeltene har input
+  if(!empty($timeinndelingnr) && !empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
+    $regTimeinndelingOk = 1;
+    // Sjekk at verdiene for fratidspunkt og tiltidspunkt ikke er like
+    if($fratidspunkt == $tiltidspunkt) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Kan ikke registrere timeinndeling med samme fra og til verdi.</div>\n";
+      $regTimeinndelingOk = 0;
+    }
+    // Sjekk om timeinndeling allerede eksisterer
+    $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$tidspunkt'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Timeinndeling eksisterer allerede.</div>\n";
+      $regTimeinndelingOk = 0;
+    }
+
+    if($regTimeinndelingOk == 1) {
+      // Sett inn i databasen
+      $sql = "UPDATE timeinndeling SET brukernavn='$brukernavn', ukedag='$ukedag', tidspunkt='$tidspunkt'
+      WHERE timeinndelingnr='$timeinndelingnr'";
+
+      if(mysqli_query($conn, $sql)) {
+        echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      } else {
+        echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      }
+    }
+  }
+  mysqli_close($conn);
 }
 
 function slettTimeinndeling() {
@@ -107,15 +152,16 @@ if(@$_GET["action"] == "listeboksSlett") {
 
 if(@$_GET["action"] == "endre") {
   $timeinndelingnr = mysqli_real_escape_string($conn, $_GET["velgTidspunkt"]);
-  $sql = "SELECT t.timeinndelingnr, t.tidspunkt, t.brukernavn, b.behandlernavn
+  $sql = "SELECT t.timeinndelingnr, t.ukedag, t.tidspunkt, t.brukernavn, b.behandlernavn
   FROM timeinndeling AS t
   LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
   WHERE timeinndelingnr='$timeinndelingnr'";
   $result = mysqli_query($conn, $sql);
 
   while($row = mysqli_fetch_assoc($result)) {
+    $fratidspunkt = substr($row["tidspunkt"], 0,5);
+    $tiltidspunkt = substr($row["tidspunkt"], 6,5);
     echo "<h3>Endring</h3>\n";
-    echo "<form action=\"\" method=\"post\">\n";
     echo "<label>Behandler</label><select name=\"endringBehandler\">\n";
     $sql2 = "SELECT brukernavn, behandlernavn, yrkesgruppe.yrkesgruppenavn FROM behandler
     LEFT JOIN yrkesgruppe ON behandler.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
@@ -136,15 +182,25 @@ if(@$_GET["action"] == "endre") {
     echo "</select><br/>\n";
     echo "<label>Ukedag</label><select name=\"endringUkedag\">\n";
     echo "<option>-Velg ukedag-</option>\n";
-    echo "<option value=\"Mandag\">Mandag</option>\n";
-    echo "<option value=\"Tirsdag\">Tirsdag</option>\n";
-    echo "<option value=\"Onsdag\">Onsdag</option>\n";
-    echo "<option value=\"Torsdag\">Torsdag</option>\n";
-    echo "<option value=\"Fredag\">Fredag</option>\n";
+    echo "<option value=\"Mandag\"";
+    if($row["ukedag"] == "Mandag") { print " selected=\"selected\""; }
+    echo ">Mandag</option>\n";
+    echo "<option value=\"Tirsdag\"";
+    if($row["ukedag"] == "Tirsdag") { print " selected=\"selected\""; }
+    echo ">Tirsdag</option>\n";
+    echo "<option value=\"Onsdag\"";
+    if($row3["ukedag"] == "Onsdag") { print " selected=\"selected\""; }
+    echo ">Onsdag</option>\n";
+    echo "<option value=\"Torsdag\"";
+    if($row3["ukedag"] == "Torsdag") { print " selected=\"selected\""; }
+    echo ">Torsdag</option>\n";
+    echo "<option value=\"Fredag\"";
+    if($row3["ukedag"] == "Fredag") { print " selected=\"selected\""; }
+    echo ">Fredag</option>\n";
     echo "</select><br/>\n";
-    echo "<label>Tidspunkt</label><input type=\"time\" id=\"endringFraTidspunkt\" name=\"endringFraTidspunkt\" required />\n";
-    echo "<input type=\"time\" id=\"endringTilTidspunkt\" name=\"endringTilTidspunkt\" required /><br/>\n";
-    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\">\n";
+    echo "<label>Tidspunkt</label><input type=\"time\" id=\"endringFraTidspunkt\" name=\"endringFraTidspunkt\" value=\"". htmlspecialchars($fratidspunkt) ."\" required />\n";
+    echo "<input type=\"time\" id=\"endringTilTidspunkt\" name=\"endringTilTidspunkt\" value=\"". htmlspecialchars($tiltidspunkt) ."\" required /><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimeinndeling\">\n";
     echo "</form>\n";
   }
   mysqli_close($conn);
