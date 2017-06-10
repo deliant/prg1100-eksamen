@@ -114,6 +114,12 @@ select {
   height: 28px;
 }
 
+.thumbnail-bilde {
+  width: 175px;
+  height: 150px;
+  padding: 1px;
+}
+
 .glyphicon {
   top: 4px;
 }

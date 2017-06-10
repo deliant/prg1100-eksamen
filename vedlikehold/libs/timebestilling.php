@@ -36,10 +36,10 @@ function registrerTimebestilling() {
     VALUES ('$dato', '$tidspunkt', '$brukernavn', '$personnr')";
 
     if(mysqli_query($conn, $sql)) {
-      echo "$personnr registrert til time $dato kl. $tidspunkt i timebestilling databasen.";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\" align=\"top\">$personnr registrert til time $dato kl. $tidspunkt i timebestilling databasen.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -56,10 +56,10 @@ function endreTimebestilling() {
     $sql = "UPDATE timebestilling SET dato='$dato', tidspunkt='$tidspunkt', brukernavn='$brukernavn', personnr='$personnr' WHERE timebestillingnr='$timebestillingnr'";
 
     if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/>";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -80,10 +80,10 @@ function slettTimebestilling() {
     $sql = "DELETE FROM timebestilling WHERE timebestillingnr='$timebestillingnr'";
 
     if (mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/><br />";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -115,7 +115,7 @@ if(@$_GET["action"] == "endre") {
   ORDER BY dato";
   $result = mysqli_query($conn, $sql);
 
-  while($row = mysqli_fetch_array($result)) {
+  while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
     echo "<form action=\"\" method=\"post\">\n";
     echo "<label>Pasient</label><select name=\"endringPasient\">\n";
@@ -154,7 +154,7 @@ if(@$_GET["action"] == "endre") {
     echo "</select><br/>\n";
     echo "<label>Dato</label><input type=\"text\" id=\"endringDato\"  name=\"endringDato\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
     echo "<label>Tidspunkt</label><input type=\"text\" name=\"endringTidspunkt\"  value=\"". htmlspecialchars($row['tidspunkt']) ."\" required/><br/>\n";
-    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\"><br/><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\">\n";
     echo "</form>\n";
   }
   mysqli_close($conn);

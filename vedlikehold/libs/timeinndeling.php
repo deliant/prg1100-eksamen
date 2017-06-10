@@ -1,25 +1,18 @@
 <?php
 function visTimeinndeling() {
   include("db.php");
-  $sql = "SELECT * FROM timeinndeling";
+  $sql = "SELECT t.ukedag, t.tidspunkt, b.behandlernavn
+  FROM timeinndeling AS t
+  LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
+  ORDER BY behandlernavn";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['ukedag']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['tidspunkt']) ."</td>\n";
-      /*
-      echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"edit_id\" value=". htmlspecialchars($row['brukernavn']) ." />\n";
-      echo "<button class=\"btn btn-primary btn-xs\" type=\"submit\" title=\"Endre\"><span class=\"glyphicon glyphicon-edit\"></span></button>\n";
-      echo "</form></td>\n";w
-      echo "<td><form action=". $_SERVER['PHP_SELF'] ." method=\"post\">\n";
-      echo "<input type=\"hidden\" name=\"delete_id\" value=". htmlspecialchars($row['brukernavn']) ." />\n";
-      echo "<button class=\"btn btn-danger btn-xs\" type=\"submit\" title=\"Slett\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n";
-      echo "</form></td>\n";
-      */
       echo "</tr>\n";
     }
   } else {

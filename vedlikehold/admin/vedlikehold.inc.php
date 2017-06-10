@@ -5,7 +5,6 @@
 
   <div class="tab-content">
     <div id="endre" class="tab-pane fade in active">
-      <p id="alert"></p>
       <h3>
         Endre passord
         <a data-toggle="tooltip" class="tooltipLink">

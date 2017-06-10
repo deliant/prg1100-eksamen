@@ -1,18 +1,20 @@
 <?php
 function visBehandler() {
   include("db.php");
-  $sql = "SELECT brukernavn, behandlernavn, yrkesgruppenavn, bildenr FROM behandler
-  LEFT JOIN yrkesgruppe ON behandler.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
+  $sql = "SELECT b.brukernavn, b.behandlernavn, yrkesgruppe.yrkesgruppenavn, bilde.filnavn
+  FROM behandler AS b
+  LEFT JOIN yrkesgruppe ON b.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
+  LEFT JOIN bilde ON b.bildenr = bilde.bildenr
   ORDER BY behandlernavn";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
+      echo "<td><img class=\"thumbnail-bilde\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
-      echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
       echo "</tr>\n";
     }
   } else {
@@ -34,10 +36,10 @@ function registrerBehandler() {
     VALUES ('$brukernavn', '$navn', '$yrkesgruppenr', '$bildenr')";
 
     if(mysqli_query($conn, $sql)) {
-      echo "$navn registrert i behandler databasen.";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\">$navn registrert i behandler databasen.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
     mysqli_close($conn);
   }
@@ -53,10 +55,10 @@ function endreBehandler() {
     $sql = "UPDATE behandler SET behandlernavn='$navn', yrkesgruppenr='$yrkesgruppenr', bildenr='$bildenr' WHERE brukernavn='$brukernavn'";
 
     if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/>";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
   }
   mysqli_close($conn);
@@ -65,26 +67,73 @@ function endreBehandler() {
 function slettBehandler() {
   include("db.php");
   $brukernavn = mysqli_real_escape_string($conn, $_POST["slettBehandler"]);
-  /* Kan ikke slette om lege har booket time med pasient?
-  $sql = "SELECT bildenr FROM behandler WHERE brukernavn='$behandler'";
-  $result = mysqli_query($conn, $sql);
-
-  if(mysqli_num_rows($result) > 0) {
-    echo "Kan ikke slette behandler når bilde er valgt.<br />";
-  } else {
-  */
   if(!empty($brukernavn)) {
-    $sql = "DELETE FROM behandler WHERE brukernavn='$brukernavn'";
+    $slettBehandlerOk = 1;
 
-    if (mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/><br />";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
-    } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+    // Sjekk om timebestillinger er tilknyttet behandler
+    $sql = "SELECT timebestillingnr FROM timebestilling WHERE brukernavn='$brukernavn'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Kan ikke slette behandler når det finnes aktive timebestillinger.</div>\n";
+      $slettBehandlerOk = 0;
+    }
+
+    // Sjekk om timeinndelinger er tilknyttet behandler
+    $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div class=\"alert alert-danger\">Kan ikke slette behandler når det finnes aktive timeinndelinger.</div>\n";
+      $slettBehandlerOk = 0;
+    }
+
+    // Sjekk om pasienter er tilknyttet behandler
+    $sql = "SELECT personnr FROM pasient WHERE brukernavn='$brukernavn'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div class=\"alert alert-danger\">Kan ikke slette behandler når vedkommende står som fastlege for pasient.</div>\n";
+      $slettBehandlerOk = 0;
+    }
+
+    if($slettBehandlerOk == 1) {
+      if(isset($_POST["checkboxbilde"])) {
+        $sql = "SELECT bildenr FROM behandler WHERE brukernavn='$brukernavn'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $bildenr = $row["bildenr"];
+
+        $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $filbane = "/../bilder/" . $row["filnavn"];
+
+        if(is_writable($filbane)) {
+          if(unlink($filbane)) {
+            $slettBildeOk = 1;
+            echo "<div class=\"alert alert-success\">Bildefil " . $row['filnavn'] . " slettet.</div>\n";
+          } else {
+            $slettBildeOk = 0;
+            echo "<div class=\"alert alert-danger\">Bildefil kunne ikke slettes automatisk.</div>\n";
+          }
+        }
+        if($slettBildeOk == 1) {
+          $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
+          if(mysqli_query($conn, $sql)) {
+            echo "<div class=\"alert alert-success\">Bilde slettet fra database.</div>\n";
+          } else {
+            echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
+          }
+        }
+      }
+      $sql = "DELETE FROM behandler WHERE brukernavn='$brukernavn'";
+      if(mysqli_query($conn, $sql)) {
+        echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      } else {
+        echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      }
     }
   }
   mysqli_close($conn);
-  //}
 }
 
 include("db.php");
@@ -97,7 +146,7 @@ if(@$_GET["action"] == "endre") {
   ORDER BY behandlernavn";
   $result = mysqli_query($conn, $sql);
 
-  while($row = mysqli_fetch_array($result)) {
+  while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
     echo "<form action=\"\" method=\"post\">\n";
     echo "<label>Brukernavn</label><input type=\"text\" name=\"endringBrukernavn\" value=\"" . htmlspecialchars($row['brukernavn']) . "\" readonly required/><br/>\n";
@@ -119,22 +168,22 @@ if(@$_GET["action"] == "endre") {
     }
     echo "</select><br/>\n";
     echo "<label>Bilde</label><select name=\"endringBildenr\">\n";
-    $sql3 = "SELECT bildenr, beskrivelse FROM bilde ORDER BY beskrivelse";
+    $sql3 = "SELECT bildenr, beskrivelse FROM bilde ORDER BY bildenr DESC";
     $result3 = mysqli_query($conn, $sql3);
 
     if(mysqli_num_rows($result3) > 0) {
       while($row3 = mysqli_fetch_assoc($result3)) {
         if($row3["bildenr"] === $row["bildenr"]) {
-          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\" selected=\"selected\">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
+          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\" selected=\"selected\">". htmlspecialchars($row3['bildenr']) ." - ". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
         } else {
-          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\">". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
+          echo "<option value=\"". htmlspecialchars($row3['bildenr']) ."\">". htmlspecialchars($row3['bildenr']) ." - ". htmlspecialchars($row3['beskrivelse']) ."</option>\n";
         }
       }
     } else {
       echo "<option value=\"NULL\">Ingen bilder funnet</option>\n";
     }
     echo "</select><br/>\n";
-    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBehandler\"><br/><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBehandler\">\n";
     echo "</form>\n";
   }
   mysqli_close($conn);

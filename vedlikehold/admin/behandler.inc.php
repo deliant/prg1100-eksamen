@@ -11,7 +11,6 @@ include("libs/listeboks.php");
 
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
-      <p id="alert"></p>
       <h3>
         Vis behandlere
         <a data-toggle="tooltip" class="tooltipLink">
@@ -21,10 +20,10 @@ include("libs/listeboks.php");
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
-            <th>Brukernavn</th>
+            <th>Bilde</th>
             <th>Navn</th>
+            <th>Brukernavn</th>
             <th>Yrkesgruppe</th>
-            <th>Bildenr</th>
           </tr>
           <?php visBehandler(); ?>
         </table>
@@ -82,6 +81,7 @@ include("libs/listeboks.php");
           <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
+        <label>Slett bilde tilknyttet</label><input type="checkbox" name="checkboxbilde" /><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBehandler">
       </form>
     </div>

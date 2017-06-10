@@ -7,10 +7,11 @@ function visBilde() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
+      echo "<td><img class=\"thumbnail-bilde\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['beskrivelse']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['opplastingsdato']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['filnavn']) ."</td>\n";
-      echo "<td>". htmlspecialchars($row['beskrivelse']) ."</td>\n";
       echo "</tr>\n";
     }
   } else {
@@ -31,10 +32,10 @@ function registrerBilde() {
     VALUES ('$dato', '$filnavn', '$beskrivelse')";
 
     if(mysqli_query($conn, $sql)) {
-      echo "$beskrivelse registrert i bilde databasen.";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\">$beskrivelse registrert i bilde databasen.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
     mysqli_close($conn);
   }
@@ -48,10 +49,10 @@ function endreBilde() {
     $sql = "UPDATE bilde SET beskrivelse='$beskrivelse' WHERE bildenr='$bildenr'";
 
     if(mysqli_query($conn, $sql)) {
-      echo "Databasen oppdatert.<br/>";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">";
+      echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
+      echo "<meta http-equiv=\"refresh\" content=\"1\"\n>";
     } else {
-      echo "Feil under database forespørsel: " . mysqli_error($conn);
+      echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
   mysqli_close($conn);
@@ -65,29 +66,29 @@ function slettBilde() {
     $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
-      echo "Kan ikke slette bilde når det brukes av behandler.<br/>";
+      echo "<div class=\"alert alert-danger\">Kan ikke slette bilde når det brukes av behandler.</div>\n";
     } else {
       $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
       $result = mysqli_query($conn, $sql);
       $row = mysqli_fetch_assoc($result);
-      $filbane = "../bilder/" . $row['filnavn'];
+      $filbane = "../bilder/" . $row["filnavn"];
 
       if(is_writable($filbane)) {
         if(unlink($filbane)) {
-          $slettOk = 1;
-          echo "Bildefil " . $row['filnavn'] . " slettet.<br/>";
+          $slettBildeOk = 1;
+          echo "<div class=\"alert alert-sucess\">Bildefil " . $row['filnavn'] . " slettet.</div>\n";
         } else {
-          $slettOk = 0;
-          echo "Bildefil kunne ikke slettes automatisk.<br/>";
+          $slettBildeOk = 0;
+          echo "<div class=\"alert alert-danger\">Bildefil kunne ikke slettes automatisk.</div>\n";
         }
       }
-      if($slettOk == 1) {
+      if($slettBildeOk == 1) {
         $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
         if(mysqli_query($conn, $sql)) {
-          echo "Databasen oppdatert.<br />";
-          echo "<meta http-equiv=\"refresh\" content=\"1\">";
+          echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
+          echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
         } else {
-          echo "Feil under database forespørsel: " . mysqli_error($conn);
+          echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
         }
       }
     }
@@ -101,12 +102,12 @@ if(@$_GET["action"] == "endre") {
   $sql = "SELECT bildenr, beskrivelse FROM bilde WHERE bildenr='$bildenr'";
   $result = mysqli_query($conn, $sql);
 
-  while($row = mysqli_fetch_array($result)) {
+  while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
     echo "<form action=\"\" method=\"post\">\n";
     echo "<label>Bildenr</label><input type=\"text\" name=\"endringBildenr\"  value=\"". htmlspecialchars($row['bildenr']) ."\" readonly required/><br/>\n";
     echo "<label>Beskrivelse</label><input type=\"text\" name=\"endringBeskrivelse\"  value=\"". htmlspecialchars($row['beskrivelse']) ."\" required/><br/>\n";
-    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\"><br/><br/>\n";
+    echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\">\n";
     echo "</form>\n";
   }
   mysqli_close($conn);

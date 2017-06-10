@@ -20,7 +20,7 @@ include("libs/listeboks.php");
       <div class="table-responsive">
         <table class="table table-striped">
           <tr>
-            <th>Brukernavn</th>
+            <th>Behandler</th>
             <th>Ukedag</th>
             <th>Tidspunkt</th>
           </tr>
@@ -64,6 +64,7 @@ include("libs/listeboks.php");
       <form method="post" name="slettTimeinndeling" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <label>Behandler</label>
         <select name="velgTimeinndelingBehandler">
+          <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>Ukedag</label>
@@ -74,7 +75,9 @@ include("libs/listeboks.php");
           <option value="Torsdag">Torsdag</option>
           <option value="Fredag">Fredag</option>
         </select><br/>
-        <label>Tidspunkt</label><select name="velgTimeinndelingTidspunkt" id="velgTimeinndelingTidspunkt">
+        <label>Tidspunkt</label>
+        <select name="velgTimeinndelingTidspunkt" id="velgTimeinndelingTidspunkt"><br/>
+          <option>-Velg tidspunkt-</option>
           <?php listeboksTimeinndeling(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-default" type="submit" value="Søk" name="submitSokTimeinndeling"><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettTimeinndeling">
