@@ -47,8 +47,23 @@ function registrerTimeinndeling() {
       $regTimeinndelingOk = 0;
     }
 
+    // Sjekk om det er mulig å dele tidspunkt med intervall
+    /*
+    if(isset($_POST["checkboxbulk"])){
+      $intervall = mysqli_real_escape_string($conn, $_POST["regIntervall"]);
+      $tidspunktintervall = $intervall * 60;
+      $tidspunktdiff = strtotime($tiltidspunkt) - strtotime($fratidspunkt);
+      var_dump ($tidspunktdiff);
+      $antall = $tidspunktdiff / $tidspunktintervall;
+      $check = (double)filter_var($antall, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+
+      if(!abs($check - round($check)) < 0.0001) {
+        $regTimeinndelingOk = 0;
+      }
+    }
+    */
+
     if($regTimeinndelingOk == 1) {
-      // Sett inn i databasen
       $sql = "INSERT INTO timeinndeling (brukernavn, ukedag, tidspunkt)
       VALUES ('$brukernavn', '$ukedag', '$tidspunkt')";
 

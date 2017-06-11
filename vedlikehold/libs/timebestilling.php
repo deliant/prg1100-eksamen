@@ -177,11 +177,13 @@ if(@$_GET["action"] == "listeboksReg") {
     }
 
   } else {
-    $sql = "SELECT dato, ti.tidspunkt, ti.brukernavn
-    FROM timebestilling AS tb
-    LEFT JOIN timeinndeling AS ti ON ti.brukernavn = tb.brukernavn AND ti.tidspunkt != tb.tidspunkt
-    WHERE tb.brukernavn='$brukernavn' AND dato='$dato'
-    ORDER BY tidspunkt";
+    $sql = "SELECT tidspunkt
+    FROM timeinndeling
+    WHERE tidspunkt NOT IN ( 
+    SELECT DISTINCT tidspunkt 
+      FROM timebestilling
+      WHERE dato='$dato' )";
+
     $result = mysqli_query($conn, $sql);
 
     if(mysqli_num_rows($result) > 0) {
@@ -244,11 +246,12 @@ if(@$_GET["action"] == "listeboksVisLedig") {
     }
 
   } else {
-    $sql = "SELECT dato, ti.tidspunkt, ti.brukernavn
-    FROM timebestilling AS tb
-    LEFT JOIN timeinndeling AS ti ON ti.brukernavn = tb.brukernavn AND ti.tidspunkt != tb.tidspunkt
-    WHERE tb.brukernavn='$brukernavn' AND dato='$dato'
-    ORDER BY tidspunkt";
+    $sql = "SELECT tidspunkt
+    FROM timeinndeling
+    WHERE tidspunkt NOT IN ( 
+    SELECT DISTINCT tidspunkt 
+      FROM timebestilling
+      WHERE dato='$dato' )";
     $result = mysqli_query($conn, $sql);
 
     if(mysqli_num_rows($result) > 0) {
