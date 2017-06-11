@@ -28,9 +28,7 @@ function registrerTimebestilling() {
   $brukernavn = mysqli_real_escape_string($conn, $_POST["regBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_POST["regPasient"]);
   $dato = mysqli_real_escape_string($conn, $_POST["regDato"]);
-  $fratidspunkt = mysqli_real_escape_string($conn, $_POST["regFraTidspunkt"]);
-  $tiltidspunkt = mysqli_real_escape_string($conn, $_POST["regTilTidspunkt"]);
-  $tidspunkt = $fratidspunkt ."-". $tiltidspunkt;
+  $tidspunkt = mysqli_real_escape_string($conn, $_POST["regTidspunkt"]);
   setlocale(LC_TIME, "nb_NO.UTF-8");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
@@ -38,7 +36,7 @@ function registrerTimebestilling() {
   $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
+  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($tidspunkt)) {
     $regTimebestillingOk = 1;
     // Sjekk om tidspunkt for timebestilling er i timeinndeling
     $sql = "SELECT timeinndelingnr FROM timeinndeling
@@ -63,8 +61,11 @@ function registrerTimebestilling() {
     VALUES ('$dato', '$tidspunkt', '$brukernavn', '$personnr')";
 
       if(mysqli_query($conn, $sql)) {
-        echo "<div class=\"alert alert-success\" align=\"top\">$personnr registrert til time $dato kl. $tidspunkt i timebestilling databasen.</div>\n";
-        //echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        $sql = "SELECT pasientnavn FROM pasient WHERE personnr='$personnr'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        echo "<div class=\"alert alert-success\" align=\"top\">". $row['pasientnavn'] ." registrert til time $dato kl. $tidspunkt i timebestilling databasen.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
       } else {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
