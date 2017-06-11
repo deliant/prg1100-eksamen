@@ -104,7 +104,7 @@ function slettTimeinndeling() {
   include("db.php");
   $timeinndelingnr = mysqli_real_escape_string($conn, $_POST["slettTidspunkt"]);
   // Sjekk at tekstfeltene har input
-  if(!empty($timeinndelingnr)) {
+  if(!empty($timeinndelingnr) && $timeinndelingnr != "NULL") {
     // Slett fra databasen
     $sql = "DELETE FROM timeinndeling WHERE timeinndelingnr='$timeinndelingnr'";
     if(mysqli_query($conn, $sql)) {
