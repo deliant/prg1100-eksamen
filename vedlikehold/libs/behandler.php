@@ -1,7 +1,7 @@
 <?php
 function visBehandler() {
   include("db.php");
-  $sql = "SELECT b.brukernavn, b.behandlernavn, yrkesgruppe.yrkesgruppenavn, bilde.filnavn
+  $sql = "SELECT b.brukernavn, b.behandlernavn, b.bildenr, yrkesgruppe.yrkesgruppenavn, bilde.filnavn
   FROM behandler AS b
   LEFT JOIN yrkesgruppe ON b.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
   LEFT JOIN bilde ON b.bildenr = bilde.bildenr
@@ -15,6 +15,7 @@ function visBehandler() {
       echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
+      echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
       echo "</tr>\n";
     }
   } else {
