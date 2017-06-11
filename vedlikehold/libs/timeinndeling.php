@@ -189,13 +189,13 @@ if(@$_GET["action"] == "endre") {
     if($row["ukedag"] == "Tirsdag") { print " selected=\"selected\""; }
     echo ">Tirsdag</option>\n";
     echo "<option value=\"Onsdag\"";
-    if($row3["ukedag"] == "Onsdag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Onsdag") { print " selected=\"selected\""; }
     echo ">Onsdag</option>\n";
     echo "<option value=\"Torsdag\"";
-    if($row3["ukedag"] == "Torsdag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Torsdag") { print " selected=\"selected\""; }
     echo ">Torsdag</option>\n";
     echo "<option value=\"Fredag\"";
-    if($row3["ukedag"] == "Fredag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Fredag") { print " selected=\"selected\""; }
     echo ">Fredag</option>\n";
     echo "</select><br/>\n";
     echo "<label>Tidspunkt</label><input type=\"time\" id=\"endringFraTidspunkt\" name=\"endringFraTidspunkt\" value=\"". htmlspecialchars($fratidspunkt) ."\" required />\n";
