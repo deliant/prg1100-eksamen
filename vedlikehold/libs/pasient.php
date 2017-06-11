@@ -71,6 +71,12 @@ function slettPasient() {
   $personnr = mysqli_real_escape_string($conn, $_POST["slettPasient"]);
   if(!empty($personnr) && $personnr != "NULL") {
     $slettPasientOk = 1;
+    // Slett timebestillinger hvis checkbox er på
+    if(isset($_POST["checkboxtimebestilling"])) {
+      $sql = "DELETE FROM timebestilling WHERE personnr='$personnr'";
+
+      mysqli_query($conn, $sql) or die("<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>");
+    }
     // Sjekk om pasient har timebestilling
     $sql = "SELECT personnr FROM timebestilling WHERE personnr='$personnr'";
     $result = mysqli_query($conn, $sql);

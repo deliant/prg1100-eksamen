@@ -24,6 +24,7 @@ include("libs/listeboks.php");
             <th>Navn</th>
             <th>Brukernavn</th>
             <th>Yrkesgruppe</th>
+            <th>Bildenr</th>
           </tr>
           <?php visBehandler(); ?>
         </table>
