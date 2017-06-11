@@ -114,6 +114,10 @@ select {
   height: 28px;
 }
 
+.alert {
+  margin: 15px 0;
+}
+
 .thumbnail-bilde {
   width: 175px;
   height: 150px;

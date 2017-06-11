@@ -70,7 +70,7 @@ include("libs/listeboks.php");
       <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Bilde</label>
         <select name="slettBildenr">
-          <option>-Velg bilde-</option>
+          <option value="NULL">-Velg bilde-</option>
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettBilde">

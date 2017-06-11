@@ -61,7 +61,7 @@ function endreBilde() {
 function slettBilde() {
   include("db.php");
   $bildenr = mysqli_real_escape_string($conn, $_POST["slettBildenr"]);
-  if(!empty($bildenr)) {
+  if(!empty($bildenr) && $bildenr != "NULL") {
     // Sjekk at bildet ikke brukes
     $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
     $result = mysqli_query($conn, $sql);
