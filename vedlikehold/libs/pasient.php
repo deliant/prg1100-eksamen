@@ -69,7 +69,7 @@ function endrePasient() {
 function slettPasient() {
   include("db.php");
   $personnr = mysqli_real_escape_string($conn, $_POST["slettPasient"]);
-  if(!empty($personnr)) {
+  if(!empty($personnr) && $personnr != "NULL") {
     $slettPasientOk = 1;
     // Sjekk om pasient har timebestilling
     $sql = "SELECT personnr FROM timebestilling WHERE personnr='$personnr'";
@@ -82,7 +82,7 @@ function slettPasient() {
     if($slettPasientOk == 1) {
       $sql = "DELETE FROM pasient WHERE personnr='$personnr'";
 
-      if (mysqli_query($conn, $sql)) {
+      if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
         echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
       } else {

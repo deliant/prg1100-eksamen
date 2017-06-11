@@ -9,6 +9,7 @@ include("libs/listeboks.php");
     <li><a data-toggle="tab" href="#slett"><span class="glyphicon glyphminiadjust glyphicon-trash"></span>Slett</a></li>
   </ul>
 
+  <div id="#top"></div>
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
       <h3>
@@ -40,7 +41,6 @@ include("libs/listeboks.php");
         <label>Navn</label><input type="text" name="regNavn" required /><br />
         <label>Fastlege</label>
         <select name="velgFastlege">
-          <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegPasient">
@@ -72,7 +72,7 @@ include("libs/listeboks.php");
       <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Pasient</label>
         <select name="slettPasient">
-          <option>-Velg pasient-</option>
+          <option value="NULL">-Velg pasient-</option>
           <?php listeboksPasient(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettPasient">
