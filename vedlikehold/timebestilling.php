@@ -20,13 +20,6 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/ajax.js"></script>
-  <script>
-    $(function() {
-      $('#regdato, #dato').datepicker({
-        dateFormat:"yy-mm-dd",
-      });
-    });
-  </script>
 </head>
 <body>
 
@@ -72,6 +65,18 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(function() {
+    $('#regDato, #endringDato').datepicker({
+      dateFormat: 'yy-mm-dd',
+      prevText:'',
+      nextText:'',
+      minDate: "-10",
+      maxDate: "+365"
+    });
+  });
+</script>
 
 </body>
 </html>

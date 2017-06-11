@@ -5,7 +5,7 @@ function visTimebestilling() {
   FROM timebestilling AS t
   LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
   LEFT JOIN pasient AS p ON t.personnr = p.personnr
-  ORDER BY t.dato";
+  ORDER BY dato";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
@@ -28,18 +28,46 @@ function registrerTimebestilling() {
   $brukernavn = mysqli_real_escape_string($conn, $_POST["regBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_POST["regPasient"]);
   $dato = mysqli_real_escape_string($conn, $_POST["regDato"]);
-  $tidspunkt = mysqli_real_escape_string($conn, $_POST["regTidspunkt"]);
+  $fratidspunkt = mysqli_real_escape_string($conn, $_POST["regFraTidspunkt"]);
+  $tiltidspunkt = mysqli_real_escape_string($conn, $_POST["regTilTidspunkt"]);
+  $tidspunkt = $fratidspunkt ."-". $tiltidspunkt;
+  setlocale(LC_TIME, "nb_NO.UTF-8");
+  $year = substr($dato, 0, 4);
+  $month = substr($dato, 5, 2);
+  $day = substr($dato, 8, 2);
+  $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
+
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($tidspunkt)) {
-    // Sett inn i databasen
-    $sql = "INSERT INTO timebestilling (dato, tidspunkt, brukernavn, personnr)
+  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
+    $regTimebestillingOk = 1;
+    // Sjekk om tidspunkt for timebestilling er i timeinndeling
+    $sql = "SELECT timeinndelingnr FROM timeinndeling
+    WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$tidspunkt'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) == 0) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Timebestilling er utenfor timeinndeling.</div>\n";
+      $regTimebestillingOk = 0;
+    }
+    // Sjekk om timebestilling allerede eksisterer
+    $sql = "SELECT timebestillingnr FROM timebestilling
+    WHERE brukernavn='$brukernavn' AND dato='$dato' AND tidspunkt='$tidspunkt'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Timebestilling for aktuelt tidspunkt eksisterer allerede.</div>\n";
+      $regTimebestillingOk = 0;
+    }
+
+    if($regTimebestillingOk == 1) {
+      // Sett inn i databasen
+      $sql = "INSERT INTO timebestilling (dato, tidspunkt, brukernavn, personnr)
     VALUES ('$dato', '$tidspunkt', '$brukernavn', '$personnr')";
 
-    if(mysqli_query($conn, $sql)) {
-      echo "<div class=\"alert alert-success\" align=\"top\">$personnr registrert til time $dato kl. $tidspunkt i timebestilling databasen.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
-    } else {
-      echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      if(mysqli_query($conn, $sql)) {
+        echo "<div class=\"alert alert-success\" align=\"top\">$personnr registrert til time $dato kl. $tidspunkt i timebestilling databasen.</div>\n";
+        //echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      } else {
+        echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      }
     }
   }
   mysqli_close($conn);
@@ -49,17 +77,47 @@ function endreTimebestilling() {
   include("db.php");
   $timebestillingnr = mysqli_real_escape_string($conn, $_POST["velgTidspunkt"]);
   $dato = mysqli_real_escape_string($conn, $_POST["endringDato"]);
-  $tidspunkt = mysqli_real_escape_string($conn, $_POST["endringTidspunkt"]);
+  $fratidspunkt = mysqli_real_escape_string($conn, $_POST["endringFraTidspunkt"]);
+  $tiltidspunkt = mysqli_real_escape_string($conn, $_POST["endringTilTidspunkt"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_POST["endringPasient"]);
-  if(!empty($timebestillingnr) && !empty($dato) && !empty($tidspunkt) && !empty($brukernavn) && !empty($personnr)) {
-    $sql = "UPDATE timebestilling SET dato='$dato', tidspunkt='$tidspunkt', brukernavn='$brukernavn', personnr='$personnr' WHERE timebestillingnr='$timebestillingnr'";
+  $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
+  setlocale(LC_TIME, "nb_NO.UTF-8");
+  $year = substr($dato, 0, 4);
+  $month = substr($dato, 5, 2);
+  $day = substr($dato, 8, 2);
+  $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
 
-    if(mysqli_query($conn, $sql)) {
-      echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
-    } else {
-      echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+  if(!empty($timebestillingnr) && !empty($dato) && !empty($fratidspunkt) && !empty($tiltidspunkt) && !empty($brukernavn) && !empty($personnr)) {
+    echo "$dato er en: $ukedag<br/>";
+    $regTimebestillingOk = 1;
+    // Sjekk om tidspunkt for timebestilling er i timeinndeling
+    $sql = "SELECT timeinndelingnr FROM timeinndeling
+    WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$tidspunkt'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) == 0) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Timebestilling er utenfor timeinndeling.</div>\n";
+      $regTimebestillingOk = 0;
+    }
+    // Sjekk om timebestilling allerede eksisterer
+    $sql = "SELECT timebestillingnr FROM timebestilling
+    WHERE brukernavn='$brukernavn' AND dato='$dato' AND tidspunkt='$tidspunkt'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+      echo "<div  class=\"alert alert-danger\" align=\"top\">Timebestilling for aktuelt tidspunkt eksisterer allerede.</div>\n";
+      $regTimebestillingOk = 0;
+    }
+
+    if($regTimebestillingOk == 1) {
+      $sql = "UPDATE timebestilling SET dato='$dato', tidspunkt='$tidspunkt', brukernavn='$brukernavn', personnr='$personnr'
+    WHERE timebestillingnr='$timebestillingnr'";
+
+      if(mysqli_query($conn, $sql)) {
+        echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      } else {
+        echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      }
     }
   }
   mysqli_close($conn);
@@ -83,32 +141,130 @@ function slettTimebestilling() {
 }
 
 include("db.php");
+if(@$_GET["action"] == "listeboksReg") {
+  $brukernavn = mysqli_real_escape_string($conn, $_GET["regBehandler"]);
+  $dato = mysqli_real_escape_string($conn, $_GET["regDato"]);
+  setlocale(LC_TIME, "nb_NO.UTF-8");
+  $year = substr($dato, 0, 4);
+  $month = substr($dato, 5, 2);
+  $day = substr($dato, 8, 2);
+  $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
+
+  // Sjekk om det finnes timebestillinger for dato
+  $sql = "SELECT timebestillingnr FROM timebestilling
+  WHERE brukernavn='$brukernavn' AND dato='$dato'";
+  $result = mysqli_query($conn, $sql);
+  if(mysqli_num_rows($result) == 0) {
+    // Sjekk om det finnes timeinndeling for ukedag
+    $sql = "SELECT timeinndelingnr FROM timeinndeling
+    WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) == 0) {
+      echo "<option value=\"NULL\">Ingen timeinndeling for denne ukedagen</option>\n";
+    } else {
+      // List select options fra timeinndeling hvis ingen timebestillinger
+      $sql = "SELECT timeinndelingnr, tidspunkt FROM timeinndeling
+      WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
+      $result = mysqli_query($conn, $sql);
+      echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
+      while ($row = mysqli_fetch_assoc($result)) {
+        echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">" . htmlspecialchars($row['tidspunkt']) . "</option>\n";
+      }
+    }
+  } else {
+    $sql = "SELECT dato, ti.tidspunkt, ti.brukernavn
+    FROM timebestilling AS tb
+    LEFT JOIN timeinndeling AS ti ON ti.brukernavn = tb.brukernavn AND ti.tidspunkt != tb.tidspunkt
+    WHERE tb.brukernavn='$brukernavn' AND dato='$dato'
+    ORDER BY tidspunkt";
+    $result = mysqli_query($conn, $sql);
+
+    if(mysqli_num_rows($result) > 0) {
+      echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
+      while($row = mysqli_fetch_assoc($result)) {
+        echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">". htmlspecialchars($row['tidspunkt']) ."</option>\n";
+      }
+    } else {
+      echo "<option value=\"NULL\">Ingen ledige timebestillinger</option>\n";
+    }
+  }
+}
+
 if(@$_GET["action"] == "listeboksEndre") {
-  $personnr = mysqli_real_escape_string($conn, $_GET["velgPasient"]);
   $brukernavn = mysqli_real_escape_string($conn, $_GET["velgBehandler"]);
+  $personnr = mysqli_real_escape_string($conn, $_GET["velgPasient"]);
   $sql = "SELECT * FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=\"" . htmlspecialchars($row['timebestillingnr']) . "\">". htmlspecialchars($row['dato']) ." kl.". htmlspecialchars($row['tidspunkt']) ."</option>\n";
+      echo "<option value=\"" . htmlspecialchars($row['timebestillingnr']) . "\">". htmlspecialchars($row['dato']) ." (". htmlspecialchars($row['tidspunkt']) .")</option>\n";
     }
   } else {
     echo "<option value=\"NULL\">Ingen timebestillinger funnet</option>\n";
   }
 }
 
+if(@$_GET["action"] == "listeboksVisLedig") {
+  $brukernavn = mysqli_real_escape_string($conn, $_GET["endringBehandler"]);
+  $dato = mysqli_real_escape_string($conn, $_GET["endringDato"]);
+  setlocale(LC_TIME, "nb_NO.UTF-8");
+  $year = substr($dato, 0, 4);
+  $month = substr($dato, 5, 2);
+  $day = substr($dato, 8, 2);
+  $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
+
+  // Sjekk om det finnes timebestillinger for dato
+  $sql = "SELECT timebestillingnr FROM timebestilling
+  WHERE brukernavn='$brukernavn' AND dato='$dato'";
+  $result = mysqli_query($conn, $sql);
+  if(mysqli_num_rows($result) == 0) {
+    // Sjekk om det finnes timeinndeling for ukedag
+    $sql = "SELECT timeinndelingnr FROM timeinndeling
+    WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) == 0) {
+      echo "<option value=\"NULL\">Ingen timeinndeling for denne ukedagen</option>\n";
+    } else {
+      // List select options fra timeinndeling hvis ingen timebestillinger
+      $sql = "SELECT timeinndelingnr, tidspunkt FROM timeinndeling
+      WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
+      $result = mysqli_query($conn, $sql);
+      echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
+      while ($row = mysqli_fetch_assoc($result)) {
+        echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">" . htmlspecialchars($row['tidspunkt']) . "</option>\n";
+      }
+    }
+  } else {
+    $sql = "SELECT dato, ti.tidspunkt, ti.brukernavn
+    FROM timebestilling AS tb
+    LEFT JOIN timeinndeling AS ti ON ti.brukernavn = tb.brukernavn AND ti.tidspunkt != tb.tidspunkt
+    WHERE tb.brukernavn='$brukernavn' AND dato='$dato'
+    ORDER BY tidspunkt";
+    $result = mysqli_query($conn, $sql);
+
+    if(mysqli_num_rows($result) > 0) {
+      echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
+      while($row = mysqli_fetch_assoc($result)) {
+        echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">". htmlspecialchars($row['tidspunkt']) ."</option>\n";
+      }
+    } else {
+      echo "<option value=\"NULL\">Ingen ledige timebestillinger</option>\n";
+    }
+  }
+}
+
 if(@$_GET["action"] == "listeboksSlett") {
-  $personnr = mysqli_real_escape_string($conn, $_GET["slettPasient"]);
   $brukernavn = mysqli_real_escape_string($conn, $_GET["slettBehandler"]);
+  $personnr = mysqli_real_escape_string($conn, $_GET["slettPasient"]);
   $sql = "SELECT * FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
     echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=\"" . htmlspecialchars($row['timebestillingnr']) . "\">". htmlspecialchars($row['dato']) ." kl.". htmlspecialchars($row['tidspunkt']) ."</option>\n";
+      echo "<option value=\"" . htmlspecialchars($row['timebestillingnr']) . "\">". htmlspecialchars($row['dato']) ." (". htmlspecialchars($row['tidspunkt']) .")</option>\n";
     }
   } else {
     echo "<option value=\"NULL\">Ingen timebestillinger funnet</option>\n";
@@ -143,7 +299,7 @@ if(@$_GET["action"] == "endre") {
       echo "<option value=\"NULL\">Ingen pasienter funnet</option>\n";
     }
     echo "</select><br/>\n";
-    echo "<label>Behandler</label><select name=\"endringBehandler\">\n";
+    echo "<label>Behandler</label><select id=\"endringBehandler\" name=\"endringBehandler\">\n";
     $sql3 = "SELECT brukernavn, behandlernavn, yrkesgruppenavn FROM behandler
     LEFT JOIN yrkesgruppe ON behandler.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
     ORDER BY behandlernavn";
@@ -161,8 +317,11 @@ if(@$_GET["action"] == "endre") {
       echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
     }
     echo "</select><br/>\n";
-    echo "<label>Dato</label><input type=\"text\" id=\"endringDato\"  name=\"endringDato\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
-    echo "<label>Tidspunkt</label><input type=\"text\" name=\"endringTidspunkt\"  value=\"". htmlspecialchars($row['tidspunkt']) ."\" required/><br/>\n";
+    echo "<label>Dato</label><input type=\"text\" id=\"endringDato\"  name=\"endringDato\" onkeyup=\"listeboksVisLedigTimebestilling(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
+    echo "<label>Tidspunkt</label>";
+    echo "<select id=\"endringTidspunkt\" name=\"endringTidspunkt\">\n";
+    echo "<option>-Velg behandler og dato-</option>\n";
+    echo "</select><br/>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\">\n";
     echo "</form>\n";
   }

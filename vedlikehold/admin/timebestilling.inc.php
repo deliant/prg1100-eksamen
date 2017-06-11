@@ -43,12 +43,15 @@ include("libs/listeboks.php");
           <?php listeboksPasient(); ?>
         </select><br/>
         <label>Behandler</label>
-        <select name="regBehandler">
+        <select id="regBehandler" name="regBehandler">
           <option>-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
-        <label>Dato</label><input type="text" id="regDato" name="regDato" required /><br />
-        <label>Tidspunkt</label><input type="text" name="regTidspunkt" required /><br />
+        <label>Dato</label><input type="text" id="regDato" name="regDato" onchange="listeboksRegTimebestilling(this.value)" required /><br />
+        <label>Tidspunkt</label>
+        <select id="regTidspunkt" name="regTidspunkt">
+          <option>-Velg behandler og dato-</option>
+        </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegTimebestilling">
       </form>
     </div>
@@ -59,7 +62,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende timebestilling"></span>
         </a>
       </h3>
-        <form>
+        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Pasient</label>
         <select id="velgPasient" name="velgPasient">
           <option>-Velg pasient-</option>
@@ -74,7 +77,6 @@ include("libs/listeboks.php");
         <select id="velgTidspunkt" name="velgTidspunkt" onchange="endreTimebestilling(this.value)">
           <option>-Velg pasient og behandler-</option>
         </select><br/>
-        </form>
       <div id="endring"></div>
     </div>
     <div id="slett" class="tab-pane fade">

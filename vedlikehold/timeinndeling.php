@@ -20,21 +20,6 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/ajax.js"></script>
-  <script>
-    $(function() {
-      $('#regFraTidspunkt, #regTilTidspunkt, #endringFraTidspunkt, #endringTilTidspunkt').timepicker({
-        timeFormat: 'HH:mm',
-        interval: '15',
-        minTime: '08',
-        maxTime: '16',
-        defaultTime: '08',
-        startTime: '08:00',
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
-      });
-    });
-  </script>
 </head>
 <body>
 
@@ -80,6 +65,21 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(function() {
+    $('#regFraTidspunkt, #regTilTidspunkt, #endringFraTidspunkt, #endringTilTidspunkt').timepicker({
+      timeFormat: 'HH:mm',
+      interval: '15',
+      minTime: '08',
+      maxTime: '16',
+      startTime: '08:00',
+      dynamic: true,
+      dropdown: true,
+      scrollbar: true
+    });
+  });
+</script>
 
 </body>
 </html>

@@ -62,7 +62,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende timeinndeling"></span>
         </a>
       </h3>
-      <form>
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Behandler</label>
         <select id="velgBehandler" name="velgBehandler">
           <option>-Velg behandler-</option>
@@ -81,7 +81,6 @@ include("libs/listeboks.php");
         <select id="velgTidspunkt" name="velgTidspunkt" onchange="endreTimeinndeling(this.value)">
           <option>-Velg behandler og ukedag-</option>
         </select><br/>
-      </form>
       <div id="endring"></div>
     </div>
     <div id="slett" class="tab-pane fade">
