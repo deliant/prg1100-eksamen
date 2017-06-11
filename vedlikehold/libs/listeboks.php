@@ -13,6 +13,7 @@ function listeboksBehandler() {
   } else {
     echo "<option value=\"Ingen\">Ingen behandlere funnet</option>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -28,6 +29,7 @@ function listeboksBilde() {
   } else {
     echo "<option value=\"Ingen\">Ingen bilder funnet</option>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -43,6 +45,7 @@ function listeboksPasient() {
   } else {
     echo "<option value=\"Ingen\">Ingen pasienter funnet</option>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -58,6 +61,7 @@ function listeboksYrkesgruppe() {
   } else {
     echo "<option value=\"Ingen\">Ingen yrkesgrupper funnet</option>\n";
   }
+
   mysqli_close($conn);
 }
 ?>

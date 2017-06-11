@@ -18,6 +18,7 @@ function visTimeinndeling() {
   } else {
     echo "<tr><td>Ingen timeinndelinger funnet</td></tr>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -28,6 +29,7 @@ function registrerTimeinndeling() {
   $fratidspunkt = mysqli_real_escape_string($conn, $_POST["regFraTidspunkt"]);
   $tiltidspunkt = mysqli_real_escape_string($conn, $_POST["regTilTidspunkt"]);
   $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
+
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
     $regTimeinndelingOk = 1;
@@ -36,6 +38,7 @@ function registrerTimeinndeling() {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Kan ikke registrere timeinndeling med samme fra og til verdi.</div>\n";
       $regTimeinndelingOk = 0;
     }
+
     // Sjekk om timeinndeling allerede eksisterer
     $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$tidspunkt'";
     $result = mysqli_query($conn, $sql);
@@ -56,8 +59,9 @@ function registrerTimeinndeling() {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
     }
-    mysqli_close($conn);
   }
+
+  mysqli_close($conn);
 }
 
 function endreTimeinndeling() {
@@ -68,6 +72,7 @@ function endreTimeinndeling() {
   $fratidspunkt = mysqli_real_escape_string($conn, $_POST["endringFraTidspunkt"]);
   $tiltidspunkt = mysqli_real_escape_string($conn, $_POST["endringTilTidspunkt"]);
   $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
+
   // Sjekk at tekstfeltene har input
   if(!empty($timeinndelingnr) && !empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
     $regTimeinndelingOk = 1;
@@ -76,6 +81,7 @@ function endreTimeinndeling() {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Kan ikke registrere timeinndeling med samme fra og til verdi.</div>\n";
       $regTimeinndelingOk = 0;
     }
+
     // Sjekk om timeinndeling allerede eksisterer
     $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$tidspunkt'";
     $result = mysqli_query($conn, $sql);
@@ -97,12 +103,14 @@ function endreTimeinndeling() {
       }
     }
   }
+
   mysqli_close($conn);
 }
 
 function slettTimeinndeling() {
   include("db.php");
   $timeinndelingnr = mysqli_real_escape_string($conn, $_POST["slettTidspunkt"]);
+
   // Sjekk at tekstfeltene har input
   if(!empty($timeinndelingnr) && $timeinndelingnr != "NULL") {
     // Slett fra databasen
@@ -114,6 +122,7 @@ function slettTimeinndeling() {
       echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
+
   mysqli_close($conn);
 }
 
@@ -179,6 +188,7 @@ if(@$_GET["action"] == "endre") {
     } else {
       echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
     }
+
     echo "</select><br/>\n";
     echo "<label>Ukedag</label><select name=\"endringUkedag\">\n";
     echo "<option>-Velg ukedag-</option>\n";

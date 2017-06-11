@@ -17,6 +17,7 @@ function visBilde() {
   } else {
     echo "<tr><td>Ingen bilder funnet</td><td>&nbsp;</td></tr>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -25,6 +26,7 @@ function registrerBilde() {
   $filnavn = basename($_FILES["regFilnavn"]["name"]);
   $beskrivelse = mysqli_real_escape_string($conn, $_POST["regBeskrivelse"]);
   $dato = date("Y-m-d");
+
   // Sjekk at tekstfeltene har input
   if(!empty($filnavn) && !empty($beskrivelse)) {
     // Sett inn i databasen
@@ -37,14 +39,16 @@ function registrerBilde() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
-    mysqli_close($conn);
   }
+
+  mysqli_close($conn);
 }
 
 function endreBilde() {
   include("db.php");
   $bildenr = mysqli_real_escape_string($conn, $_POST["endringBildenr"]);
   $beskrivelse = mysqli_real_escape_string($conn, $_POST["endringBeskrivelse"]);
+
   if(!empty($bildenr) && !empty($beskrivelse)) {
     $sql = "UPDATE bilde SET beskrivelse='$beskrivelse' WHERE bildenr='$bildenr'";
 
@@ -55,12 +59,14 @@ function endreBilde() {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
+
   mysqli_close($conn);
 }
 
 function slettBilde() {
   include("db.php");
   $bildenr = mysqli_real_escape_string($conn, $_POST["slettBildenr"]);
+
   if(!empty($bildenr) && $bildenr != "NULL") {
     // Sjekk at bildet ikke brukes
     $sql = "SELECT brukernavn FROM behandler WHERE bildenr='$bildenr'";
@@ -82,6 +88,7 @@ function slettBilde() {
           echo "<div class=\"alert alert-danger\">Bildefil kunne ikke slettes automatisk.</div>\n";
         }
       }
+
       if($slettBildeOk == 1) {
         $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
         if(mysqli_query($conn, $sql)) {
@@ -93,6 +100,7 @@ function slettBilde() {
       }
     }
   }
+
   mysqli_close($conn);
 }
 

@@ -18,6 +18,7 @@ function visPasient() {
   } else {
     echo "<tr><td>Ingen pasienter funnet</td></tr>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -26,6 +27,7 @@ function registrerPasient() {
   $personnr = mysqli_real_escape_string($conn, $_POST["regPersonnr"]);
   $navn = mysqli_real_escape_string($conn, $_POST["regNavn"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["velgFastlege"]);
+
   // Sjekk at tekstfeltene har input
   if(!empty($personnr) && !empty($navn) && !empty($brukernavn)) {
     // Sett inn i databasen
@@ -38,8 +40,9 @@ function registrerPasient() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
-    mysqli_close($conn);
   }
+
+  mysqli_close($conn);
 }
 
 function endrePasient() {
@@ -48,9 +51,10 @@ function endrePasient() {
   $navn = mysqli_real_escape_string($conn, $_POST["endringNavn"]);
   @$passord = mysqli_real_escape_string($conn, $_POST["endringPassord"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringFastlege"]);
+
   if(!empty($personnr) && !empty($navn) && !empty($brukernavn)) {
     if(isset($passord) && !empty($passord)) {
-      $kryptert_passord = mysqli_real_escape_string($conn, password_hash($passord, PASSWORD_DEFAULT));
+      $kryptert_passord = password_hash($passord, PASSWORD_DEFAULT);
       $sql = "UPDATE pasient SET pasientnavn='$navn', passord='$kryptert_passord' brukernavn='$brukernavn' WHERE personnr='$personnr'";
     } else {
       $sql = "UPDATE pasient SET pasientnavn='$navn', brukernavn='$brukernavn' WHERE personnr='$personnr'";
@@ -63,20 +67,22 @@ function endrePasient() {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
+
   mysqli_close($conn);
 }
 
 function slettPasient() {
   include("db.php");
   $personnr = mysqli_real_escape_string($conn, $_POST["slettPasient"]);
+
   if(!empty($personnr) && $personnr != "NULL") {
     $slettPasientOk = 1;
     // Slett timebestillinger hvis checkbox er på
     if(isset($_POST["checkboxtimebestilling"])) {
       $sql = "DELETE FROM timebestilling WHERE personnr='$personnr'";
-
       mysqli_query($conn, $sql) or die("<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>");
     }
+
     // Sjekk om pasient har timebestilling
     $sql = "SELECT personnr FROM timebestilling WHERE personnr='$personnr'";
     $result = mysqli_query($conn, $sql);
@@ -96,6 +102,7 @@ function slettPasient() {
       }
     }
   }
+
   mysqli_close($conn);
 }
 
@@ -132,10 +139,12 @@ if(@$_GET["action"] == "endre") {
     } else {
       echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
     }
+
     echo "</select><br/>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndrePasient\">\n";
     echo "</form>\n";
   }
+
   mysqli_close($conn);
 }
 ?>
