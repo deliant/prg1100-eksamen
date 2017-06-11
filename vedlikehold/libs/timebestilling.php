@@ -77,19 +77,16 @@ function endreTimebestilling() {
   include("db.php");
   $timebestillingnr = mysqli_real_escape_string($conn, $_POST["velgTidspunkt"]);
   $dato = mysqli_real_escape_string($conn, $_POST["endringDato"]);
-  $fratidspunkt = mysqli_real_escape_string($conn, $_POST["endringFraTidspunkt"]);
-  $tiltidspunkt = mysqli_real_escape_string($conn, $_POST["endringTilTidspunkt"]);
+  $tidspunkt = mysqli_real_escape_string($conn, $_POST["endringTidspunkt"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_POST["endringPasient"]);
-  $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
   setlocale(LC_TIME, "nb_NO.UTF-8");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
   $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
 
-  if(!empty($timebestillingnr) && !empty($dato) && !empty($fratidspunkt) && !empty($tiltidspunkt) && !empty($brukernavn) && !empty($personnr)) {
-    echo "$dato er en: $ukedag<br/>";
+  if(!empty($timebestillingnr) && !empty($dato) && !empty($tidspunkt) && !empty($brukernavn) && !empty($personnr)) {
     $regTimebestillingOk = 1;
     // Sjekk om tidspunkt for timebestilling er i timeinndeling
     $sql = "SELECT timeinndelingnr FROM timeinndeling

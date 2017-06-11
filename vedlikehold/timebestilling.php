@@ -76,6 +76,11 @@
       maxDate: "+365"
     });
   });
+  $(function() {
+    $('#endringDato').on('click', function() {
+      $(this).datepicker({showOn:'focus'}).focus();
+    });
+  });
 </script>
 
 </body>
