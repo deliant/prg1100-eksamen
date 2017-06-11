@@ -67,7 +67,7 @@ function endreBehandler() {
 function slettBehandler() {
   include("db.php");
   $brukernavn = mysqli_real_escape_string($conn, $_POST["slettBehandler"]);
-  if(!empty($brukernavn)) {
+  if(!empty($brukernavn) && $brukernavn != "NULL") {
     $slettBehandlerOk = 1;
 
     // Sjekk om timebestillinger er tilknyttet behandler

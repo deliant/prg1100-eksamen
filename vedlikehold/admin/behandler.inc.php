@@ -41,12 +41,10 @@ include("libs/listeboks.php");
         <label>Navn</label><input type="text" name="regNavn" required /><br />
         <label>Yrkesgruppe</label>
         <select name="regYrkesgruppenr">
-          <option>-Velg yrkesgruppe-</option>
           <?php listeboksYrkesgruppe(); ?>
         </select><br/>
         <label>Bildenr</label>
         <select name="regBildenr">
-          <option>-Velg bilde-</option>
           <?php listeboksBilde(); ?>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBehandler">
@@ -78,7 +76,7 @@ include("libs/listeboks.php");
       <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Behandler</label>
         <select name="slettBehandler">
-          <option>-Velg behandler-</option>
+          <option value="NULL">-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>Slett bilde tilknyttet</label><input type="checkbox" name="checkboxbilde" /><br/>
