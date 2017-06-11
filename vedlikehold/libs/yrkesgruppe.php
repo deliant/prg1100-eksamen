@@ -13,6 +13,7 @@ function visYrkesgruppe() {
   } else {
     echo "<tr><td>Ingen yrkesgrupper funnet</td><td>&nbsp;</td></tr>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -32,6 +33,7 @@ function registrerYrkesgruppe() {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
+
   mysqli_close($conn);
 }
 
@@ -39,6 +41,7 @@ function endreYrkesgruppe() {
   include("db.php");
   $yrkesgruppenr = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppe"]);
   $yrkesgruppenavn = mysqli_real_escape_string($conn, $_POST["endringYrkesgruppe"]);
+
   if(!empty($yrkesgruppenr) && !empty($yrkesgruppenavn)) {
     $sql = "UPDATE yrkesgruppe SET yrkesgruppenavn='$yrkesgruppenavn' WHERE yrkesgruppenr='$yrkesgruppenr'";
 
@@ -49,12 +52,14 @@ function endreYrkesgruppe() {
       echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
+
   mysqli_close($conn);
 }
 
 function slettYrkesgruppe() {
   include("db.php");
   $yrkesgruppenr = mysqli_real_escape_string($conn, $_POST["slettYrkesgruppe"]);
+
   if(!empty($yrkesgruppenr)) {
     $slettYrkesgruppeOk = 1;
 
@@ -76,6 +81,7 @@ function slettYrkesgruppe() {
       }
     }
   }
+
   mysqli_close($conn);
 }
 

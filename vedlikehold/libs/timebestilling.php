@@ -20,6 +20,7 @@ function visTimebestilling() {
   } else {
     echo "<tr><td>Ingen timebestillinger funnet</td></tr>\n";
   }
+
   mysqli_close($conn);
 }
 
@@ -46,6 +47,7 @@ function registrerTimebestilling() {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Timebestilling er utenfor timeinndeling.</div>\n";
       $regTimebestillingOk = 0;
     }
+
     // Sjekk om timebestilling allerede eksisterer
     $sql = "SELECT timebestillingnr FROM timebestilling
     WHERE brukernavn='$brukernavn' AND dato='$dato' AND tidspunkt='$tidspunkt'";
@@ -97,6 +99,7 @@ function endreTimebestilling() {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Timebestilling er utenfor timeinndeling.</div>\n";
       $regTimebestillingOk = 0;
     }
+
     // Sjekk om timebestilling allerede eksisterer
     $sql = "SELECT timebestillingnr FROM timebestilling
     WHERE brukernavn='$brukernavn' AND dato='$dato' AND tidspunkt='$tidspunkt'";
@@ -118,6 +121,7 @@ function endreTimebestilling() {
       }
     }
   }
+
   mysqli_close($conn);
 }
 
@@ -125,7 +129,7 @@ function slettTimebestilling() {
   include("db.php");
   $timebestillingnr = mysqli_real_escape_string($conn, $_POST["slettTidspunkt"]);
 
-  if(!empty($timebestillingnr)) {
+  if(!empty($timebestillingnr && $timebestillingnr != "NULL")) {
     $sql = "DELETE FROM timebestilling WHERE timebestillingnr='$timebestillingnr'";
 
     if (mysqli_query($conn, $sql)) {
@@ -135,6 +139,7 @@ function slettTimebestilling() {
       echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
   }
+
   mysqli_close($conn);
 }
 
@@ -157,6 +162,7 @@ if(@$_GET["action"] == "listeboksReg") {
     $sql = "SELECT timeinndelingnr FROM timeinndeling
     WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
     $result = mysqli_query($conn, $sql);
+
     if(mysqli_num_rows($result) == 0) {
       echo "<option value=\"NULL\">Ingen timeinndeling for denne ukedagen</option>\n";
     } else {
@@ -169,6 +175,7 @@ if(@$_GET["action"] == "listeboksReg") {
         echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">" . htmlspecialchars($row['tidspunkt']) . "</option>\n";
       }
     }
+
   } else {
     $sql = "SELECT dato, ti.tidspunkt, ti.brukernavn
     FROM timebestilling AS tb
@@ -222,6 +229,7 @@ if(@$_GET["action"] == "listeboksVisLedig") {
     $sql = "SELECT timeinndelingnr FROM timeinndeling
     WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
     $result = mysqli_query($conn, $sql);
+
     if(mysqli_num_rows($result) == 0) {
       echo "<option value=\"NULL\">Ingen timeinndeling for denne ukedagen</option>\n";
     } else {
@@ -234,6 +242,7 @@ if(@$_GET["action"] == "listeboksVisLedig") {
         echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">" . htmlspecialchars($row['tidspunkt']) . "</option>\n";
       }
     }
+
   } else {
     $sql = "SELECT dato, ti.tidspunkt, ti.brukernavn
     FROM timebestilling AS tb
@@ -296,6 +305,7 @@ if(@$_GET["action"] == "endre") {
     } else {
       echo "<option value=\"NULL\">Ingen pasienter funnet</option>\n";
     }
+
     echo "</select><br/>\n";
     echo "<label>Behandler</label><select id=\"endringBehandler\" name=\"endringBehandler\">\n";
     $sql3 = "SELECT brukernavn, behandlernavn, yrkesgruppenavn FROM behandler
@@ -314,6 +324,7 @@ if(@$_GET["action"] == "endre") {
     } else {
       echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
     }
+
     echo "</select><br/>\n";
     echo "<label>Dato</label><input type=\"text\" id=\"endringDato\"  name=\"endringDato\" onkeyup=\"listeboksVisLedigTimebestilling(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
     echo "<label>Tidspunkt</label>";
@@ -323,6 +334,7 @@ if(@$_GET["action"] == "endre") {
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreTimebestilling\">\n";
     echo "</form>\n";
   }
+
   mysqli_close($conn);
 }
 ?>
