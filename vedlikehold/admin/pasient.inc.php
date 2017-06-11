@@ -75,6 +75,7 @@ include("libs/listeboks.php");
           <option value="NULL">-Velg pasient-</option>
           <?php listeboksPasient(); ?>
         </select><br/>
+        <label>Slett timebestillinger tilknyttet</label><input type="checkbox" name="checkboxtimebestilling" /><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettPasient">
       </form>
     </div>
