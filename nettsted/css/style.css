@@ -1,9 +1,10 @@
 .navbar-default {
   background-color: #f7f7f7;
-  border-color: #a0a0a0;
+  border-color: #000000;
 }
 .navbar-default .navbar-brand {
   color: #000000;
+  line-height: 24px;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -30,6 +31,7 @@
   color: #000000;
   background-color: #337ab7;
 }
+
 .navbar-default .navbar-nav > li > .dropdown-menu > li.divider {
   background-color: #337ab7;
 }
@@ -51,6 +53,7 @@
   color: #000000;
   background-color: #337ab7;
 }
+
 .navbar-default .navbar-toggle {
   border-color: #337ab7;
 }
@@ -66,10 +69,15 @@
   border-color: #000000;
 }
 .navbar-default .navbar-link {
+  text-transform: uppercase;
   color: #000000;
 }
 .navbar-default .navbar-link:hover {
   color: #000000;
+}
+.navbar-nav > li > a {
+  line-height: 23px;
+  padding: 15px 30px;
 }
 
 @media (max-width: 767px) {
@@ -88,6 +96,22 @@
   }
 }
 
+.dropdown-menu {
+  font-size: 15px;
+}
+
+.listheader {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.glyphmenuadjust {
+  float: left;
+  left: 5px;
+  top: 20px;
+  z-index: 1;
+}
+
 .jumbotron {
   background: #eee url("../images/doctor.jpg") no-repeat scroll center;
   height: 600px;
@@ -95,6 +119,17 @@
   margin-bottom: 30px;
   padding-bottom: 48px;
   padding-top: 72px;
+}
+
+.bg-big {
+  background: #3C3C3C;
+  color: #F7F7F7;
+  float: left;
+  opacity: 0.75;
+  filter: alpha(opacity=65); /* For IE8 and earlier */
+  margin-left: 40px;
+  padding: 20px;
+  width: 60%;
 }
 
 .footer {
