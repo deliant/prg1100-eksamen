@@ -33,7 +33,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><span class="glyphicon glyphmenuadjust glyphicon-home"></span><a href="#">Hjem</a></li>
+        <li class="active"><span class="glyphicon glyphmenuadjust glyphicon-home"></span><a href="index.php">Hjem</a></li>
         <li><span class="glyphicon glyphmenuadjust glyphicon-calendar"></span><a href="timebestilling.php">Bestill time</a></li>
         <li class="dropdown">
           <span class="glyphicon glyphmenuadjust glyphicon-user"></span>
@@ -50,11 +50,14 @@
   </div>
 </nav>
 <!-- Jumbotron -->
-<div class="jumbotron">
-  <div class="container bg-big">
+<div class="jumbotron-front">
+  <div class="container bg-big--front">
     <h1>Bjarum Medical</h1>
     <p>Her kan du enkelt bestille ledige timer hos våre høyt kvalifiserte leger</p>
-    <p><a class="btn btn-primary btn-lg" href="timebestilling.php" role="button">Finn ledig time &raquo;</a></p>
+    <p>
+      <a class="btn btn-success btn-lg" href="timebestilling.php" role="button"><strong>Finn ledig time &raquo;</strong></a>
+      <a class="btn btn-primary btn-lg" href="ukesoversikt.php" role="button"><strong>Se ukesoversikt &raquo;</strong></a>
+    </p>
   </div>
 </div>
 <!-- Columns -->
@@ -73,8 +76,9 @@
   </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/bootstrap.js"></script>
 
 </body>
 </html>
