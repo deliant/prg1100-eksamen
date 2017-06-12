@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Timebestilling | Bjarum Medical</title>
+  <title>Min side | Bjarum Medical</title>
 
   <link rel="icon" href="images/favicon.ico">
   <link href="css/bootstrap.css" rel="stylesheet">
@@ -15,7 +15,6 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 
@@ -52,37 +51,42 @@
 </nav>
 <?php
 include("libs/listeboks.php");
-include("libs/timebestilling.php");
+include("libs/minside.php");
 ?>
 <!-- Jumbotron -->
-<div class="jumbotron-timebestilling">
+<div class="jumbotron-minside">
   <div class="container bg-jumbo">
-    <h1>Bestill time</h1>
+    <h1>Min side</h1>
     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
       <div class="form-group">
-        <label>Behandler</label>
-        <select class="form-control" id="regBehandler" name="regBehandler" onchange="listeboksRegTimebestillingBehandler(this.value)">
-          <option>Hvem ønsker du time hos?</option>
-          <?php listeboksBehandler(); ?>
-        </select>
-        <label>Dato</label>
-        <input type="text" class="form-control" id="regDato" name="regDato" onchange="listeboksRegTimebestillingDato(this.value)" required />
-        <label>Tidspunkt</label>
-        <select class="form-control" id="regTidspunkt" name="regTidspunkt">
-          <option value="NULL">Velg behandler og dato</option>
-        </select><br/>
-        <a class="btn btn-success btn-lg" type="submit" name="regTimebestilling" role="button"><strong>Bestill time &raquo;</strong></a>
-        <a class="btn btn-primary btn-lg" type="submit" name="visUkesoversikt" role="button"><strong>Se ukesoversikt &raquo;</strong></a>
+        <label>Personnr</label><input type="text" class="form-control" name="personnr" required />
+        <label>Passord</label><input type="text" class="form-control" name="passord" required />
       </div>
+      <a class="btn btn-primary btn-lg" type="submit" name="submitLogin" role="button"><strong>Logg inn &raquo;</strong></a>
     </form>
+    <p>Har du ikke brukerkonto? Registrer deg <a href="#registrer" onclick="ajaxMinsideRegistrering()">her</a></p>
   </div>
 </div>
+<?php
+if(isset($_POST["submitLogin"])) {
+  include("libs/db.php");
+  $personnr = mysqli_real_escape_string($conn, $_POST["personnr"]);
+  $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
+  if(!sjekkLogin($personnr, $passord)) {
+    echo "Feil brukernavn eller passord.";
+  } else {
+    $_SESSION["personnr"] = $personnr;
+    echo "<meta http-equiv=\"refresh\" content=\"0;url=minside.php\">";
+  }
+  mysqli_close($conn);
+}
+?>
 <!-- Columns -->
 <div class="cover-bottom">
   <div class="container">
     <div class="bg-bottom">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" id="ajax">
           <h2>Bestill time</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
@@ -92,21 +96,11 @@ include("libs/timebestilling.php");
   </div>
 </div>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
-<script>
-  $(function() {
-    $('#regDato').datepicker({
-      dateFormat: 'yy-mm-dd',
-      prevText:'',
-      nextText:'',
-      minDate: "+0",
-      maxDate: "+365"
-    });
-  });
-</script>
 
 </body>
 </html>

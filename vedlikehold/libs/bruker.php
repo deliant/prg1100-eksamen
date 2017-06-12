@@ -1,8 +1,8 @@
 <?php
 function registrerBruker() {
   include("db.php");
-  $brukernavn = mysqli_real_escape_string($conn, $_POST["regbrukernavn"]);
-  $passord = mysqli_real_escape_string($conn, $_POST["regpassord"]);
+  $brukernavn = mysqli_real_escape_string($conn, $_POST["regBrukernavn"]);
+  $passord = mysqli_real_escape_string($conn, $_POST["regPassord"]);
 
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($passord)) {
@@ -26,7 +26,7 @@ function registrerBruker() {
 function endrePassord() {
   include("db.php");
   $brukernavn = mysqli_real_escape_string($conn, $_SESSION["brukernavn"]);
-  $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
+  $passord = mysqli_real_escape_string($conn, $_POST["endrePassord"]);
 
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($passord)) {
