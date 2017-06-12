@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bjarum Medical</title>
+  <title>Timebestilling | Bjarum Medical</title>
 
   <link rel="icon" href="images/favicon.ico">
   <link href="css/bootstrap.css" rel="stylesheet">
@@ -50,23 +50,23 @@
     </div>
   </div>
 </nav>
-<?php ;
+<?php
 include("libs/listeboks.php");
 include("libs/timebestilling.php");
 ?>
 <!-- Jumbotron -->
 <div class="jumbotron-timebestilling">
-  <div class="container bg-big">
+  <div class="container bg-jumbo">
     <h1>Bestill time</h1>
     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
       <div class="form-group">
         <label>Behandler</label>
-        <select class="form-control" id="regBehandler" name="regBehandler">
+        <select class="form-control" id="regBehandler" name="regBehandler" onchange="listeboksRegTimebestillingBehandler(this.value)">
           <option>Hvem ønsker du time hos?</option>
           <?php listeboksBehandler(); ?>
         </select>
         <label>Dato</label>
-        <input type="text" class="form-control" id="regDato" name="regDato" onchange="listeboksRegTimebestilling(this.value)" required />
+        <input type="text" class="form-control" id="regDato" name="regDato" onchange="listeboksRegTimebestillingDato(this.value)" required />
         <label>Tidspunkt</label>
         <select class="form-control" id="regTidspunkt" name="regTidspunkt">
           <option value="NULL">Velg behandler og dato</option>
@@ -78,12 +78,16 @@ include("libs/timebestilling.php");
   </div>
 </div>
 <!-- Columns -->
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Bestill time</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+<div class="cover-bottom">
+  <div class="container">
+    <div class="bg-bottom">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Bestill time</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

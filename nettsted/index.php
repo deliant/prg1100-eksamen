@@ -51,7 +51,7 @@
 </nav>
 <!-- Jumbotron -->
 <div class="jumbotron-front">
-  <div class="container bg-big--front">
+  <div class="container bg-jumbo--front">
     <h1>Bjarum Medical</h1>
     <p>Her kan du enkelt bestille ledige timer hos våre høyt kvalifiserte leger</p>
     <p>
@@ -61,17 +61,21 @@
   </div>
 </div>
 <!-- Columns -->
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <h2>Bestill time</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-    </div>
-    <div class="col-md-6">
-      <h2>Ansatte</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+<div class="cover-bottom">
+  <div class="container">
+    <div class="bg-bottom">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Bestill time</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-6">
+          <h2>Ansatte</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
