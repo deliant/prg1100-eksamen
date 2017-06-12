@@ -111,7 +111,7 @@
 
 .glyphmenuadjust {
   float: left;
-  left: 8px;
+  left: 15px;
   top: 20px;
   z-index: 1;
 }
@@ -120,17 +120,17 @@
   background: #eee url("../images/doctor.jpg") no-repeat scroll center;
   height: 550px;
   color: inherit;
-  margin-bottom: 30px;
   padding-bottom: 48px;
   padding-top: 72px;
 }
 
-.bg-big--front {
+.bg-jumbo--front {
   background: #3C3C3C;
   color: #F7F7F7;
-  opacity: 0.75;
-  filter: alpha(opacity=65); /* For IE8 and earlier */
-  margin-left: 30px;
+  opacity: 0.8;
+  filter: alpha(opacity=8); /* For IE8 and earlier */
+  margin: auto auto;
+  margin-top: 25px;
   padding: 20px;
   width: 60%;
 }
@@ -139,19 +139,44 @@
   background: #eee url("../images/timebestilling.jpg") no-repeat scroll bottom;
   height: 550px;
   color: inherit;
-  margin-bottom: 30px;
   padding-bottom: 48px;
   padding-top: 72px;
 }
 
-.bg-big {
+.bg-jumbo {
   background: #3C3C3C;
   color: #F7F7F7;
-  opacity: 0.75;
-  filter: alpha(opacity=75); /* For IE8 and earlier */
+  opacity: 0.8;
+  filter: alpha(opacity=8); /* For IE8 and earlier */
   margin: auto auto;
+  margin-top: 50px;
   padding: 20px;
   width: 60%;
+}
+
+.jumbotron-minside {
+  background: #eee url("../images/minside.jpg") no-repeat scroll center;
+  height: 550px;
+  color: inherit;
+  padding-bottom: 48px;
+  padding-top: 72px;
+}
+
+.cover-bottom {
+  background: #eee url("../images/bg.jpg") no-repeat scroll center;
+}
+
+.bg-bottom {
+  background: #337ab7;
+  border-color: #0F0F0F;
+  color: #f7f7f7;
+  opacity: 0.8;
+  filter: alpha(opacity=8); /* For IE8 and earlier */
+  margin: auto auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 90%;
 }
 
 .footer {
