@@ -11,8 +11,8 @@
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre passord på din nåværende bruker"></span>
         </a>
       </h3>
-      <form method="post" name="endrepassord" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Passord</label><input type="password" name="passord" required /><br />
+      <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <label>Passord</label><input type="password" name="endrePassord" required /><br />
         <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Endre" name="submitEndrePassord"><br /><br />
       </form>
     </div>
@@ -23,9 +23,9 @@
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer ny administrator superbruker (høyeste administrator nivå)"></span>
         </a>
       </h3>
-      <form method="post" name="regbruker" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Brukernavn</label><input type="text" name="regbrukernavn" required /><br />
-        <label>Passord</label><input type="password" name="regpassord" required /><br />
+      <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <label>Brukernavn</label><input type="text" name="regBrukernavn" required /><br />
+        <label>Passord</label><input type="password" name="regPassord" required /><br />
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBruker"><br /><br />
       </form>
     </div>
