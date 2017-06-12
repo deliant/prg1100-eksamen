@@ -15,11 +15,10 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 
+<?php include("libs/menu.php"); ?>
 <!-- Navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
@@ -34,29 +33,28 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Hjem</a></li>
-        <li><a href="#about">Bestill time</a></li>
+        <li class="active"><span class="glyphicon glyphmenuadjust glyphicon-home"></span><a href="#">Hjem</a></li>
+        <li><span class="glyphicon glyphmenuadjust glyphicon-calendar"></span><a href="timebestilling.php">Bestill time</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ansatte<span class="caret"></span></a>
+          <span class="glyphicon glyphmenuadjust glyphicon-user"></span>
+          <a href="ansatte.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ansatte<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Våre ansatte</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <?php populateMenu(); ?>
           </ul>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="minside.php">Min side</a></li>
+        <li><span class="glyphicon glyphmenuadjust glyphicon-cog"></span><a href="minside.php">Min side</a></li>
       </ul>
     </div>
   </div>
 </nav>
 <!-- Jumbotron -->
 <div class="jumbotron">
-  <div class="container">
+  <div class="container bg-big">
     <h1>Bjarum Medical</h1>
-    <p>Her kan du enkelt finne og bestille ledige timer</p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Se timeliste &raquo;</a></p>
+    <p>Her kan du enkelt bestille ledige timer hos våre høyt kvalifiserte leger</p>
+    <p><a class="btn btn-primary btn-lg" href="timebestilling.php" role="button">Finn ledig time &raquo;</a></p>
   </div>
 </div>
 <!-- Columns -->
@@ -74,6 +72,9 @@
     </div>
   </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 </body>
 </html>
