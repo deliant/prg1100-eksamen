@@ -32,7 +32,7 @@
   </div>
 
 <?php
-include("libs/bruker.php");
+include("libs/vedlikehold.php");
 if(isset($_POST["submitRegBruker"])) {
   registrerBruker();
 }
