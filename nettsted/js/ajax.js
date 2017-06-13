@@ -15,7 +15,75 @@ function ajaxMinsideRegistrering(str) {
         document.getElementById("ajax").innerHTML = this.responseText;
       }
     };
-    xmlhttp.open("GET","libs/minside.php?action=ajaxReg",true);
+    xmlhttp.open("GET","libs/minside.php?action=registrerbruker",true);
+    xmlhttp.send();
+  }
+}
+
+function endreTimebestilling(str) {
+  if (str == "") {
+    document.getElementById("ajax").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("ajax").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/minside.php?action=endre&velgTidspunkt="+str,true);
+    xmlhttp.send();
+  }
+}
+
+function listeboksVisLedigTimebestillingBehandler(str) {
+  var dato = document.getElementById("endringDato").value;
+  if (str == "") {
+    document.getElementById("endringTidspunkt").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("endringTidspunkt").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/minside.php?action=listeboksVisLedig&endringBehandler="+str+"&endringDato="+dato,true);
+    xmlhttp.send();
+  }
+}
+
+function listeboksVisLedigTimebestillingDato(str) {
+  var behandler = document.getElementById("endringBehandler").value;
+  if (str == "") {
+    document.getElementById("endringTidspunkt").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("endringTidspunkt").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/minside.php?action=listeboksVisLedig&endringBehandler="+behandler+"&endringDato="+str,true);
     xmlhttp.send();
   }
 }

@@ -59,39 +59,54 @@ include("libs/minside.php");
 if(!$innloggetBruker) {
   include("login.php");
 } else { ?>
-<div class="container minside-fix">
-  <div class="col-md-3 list-group">
-    <a href="minside.php" class="list-group-item active">Se timebestillinger</a>
-    <a href="minside_endre.php" class="list-group-item">Endre timebestilling</a>
-    <a href="minside_slett.php" class="list-group-item">Slett timebestilling</a>
-    <a href="minside_passord.php" class="list-group-item">Endre passord</a>
-  </div>
-  <div class="col-md-9">
-    <div class="panel panel-default" id="ajax">
-      <div class="panel-heading"><strong>Se timebestillinger</strong></div>
-      <table class="table">
-        <tr>
-          <th>Pasient</th>
-          <th>Dato</th>
-          <th>Tidspunkt</th>
-          <th>Behandler</th>
-          </tr>
-        <?php visTimebestilling(); ?>
-        </table>
+  <div class="container minside-fix">
+    <div class="col-md-3 list-group">
+      <a href="minside.php" class="list-group-item">Se timebestillinger</a>
+      <a href="minside_endre.php" class="list-group-item">Endre timebestilling</a>
+      <a href="minside_slett.php" class="list-group-item">Slett timebestilling</a>
+      <a href="minside_passord.php" class="list-group-item active">Endre passord</a>
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Endre passord</strong></div>
+        <div class="panel-body">
+          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+              <div class="col-md-3">Nytt passord</div>
+              <div class="col-md-5"><input class="form-control" type="password" name="endrePassord" required /></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">&nbsp;</div>
+              <div class="col-md-5"><input class="btn btn-primary btn-lg" type="submit" name="submitEndrePassord" value="Endre &raquo;"></div>
+            </div>
+            <div id="ajax">
+            </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<?php
+  <?php
 }
 
-if(isset($_POST["submitRegBruker"])) {
-  registrerBruker();
+if(isset($_POST["submitEndrePassord"])) {
+  endrePassord();
 }
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
+<script>
+  $(function() {
+    $('#endringDato').datepicker({
+      dateFormat: 'yy-mm-dd',
+      prevText:'',
+      nextText:'',
+      minDate: "+0",
+      maxDate: "+365"
+    });
+  });
+</script>
 
 </body>
 </html>
