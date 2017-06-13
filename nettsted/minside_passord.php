@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bjarum Medical</title>
+  <title>Min side | Bjarum Medical</title>
 
   <link rel="icon" href="images/favicon.ico">
   <link href="css/bootstrap.css" rel="stylesheet">
@@ -27,7 +27,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><span class="glyphicon glyphmenuadjust glyphicon-home"></span><a href="index.php">Hjem</a></li>
+        <li><span class="glyphicon glyphmenuadjust glyphicon-home"></span><a href="index.php">Hjem</a></li>
         <li><span class="glyphicon glyphmenuadjust glyphicon-calendar"></span><a href="timebestilling.php">Timebestilling</a></li>
         <li class="dropdown">
           <span class="glyphicon glyphmenuadjust glyphicon-user"></span>
@@ -42,48 +42,71 @@
         session_start();
         @$innloggetBruker = $_SESSION["personnr"];
         if(!$innloggetBruker) {
-          echo "        <li><span class=\"glyphicon glyphmenuadjust glyphicon-cog\"></span><a href=\"minside.php\">Min side</a></li>";
+          echo "        <li class=\"active\"><span class=\"glyphicon glyphmenuadjust glyphicon-cog\"></span><a href=\"minside.php\">Min side</a></li>";
         } else {
-          echo "        <li><span class=\"glyphicon glyphmenuadjust glyphicon-cog\"></span><a href=\"minside.php\">Min side</a></li>";
+          echo "        <li class=\"active\"><span class=\"glyphicon glyphmenuadjust glyphicon-cog\"></span><a href=\"minside.php\">Min side</a></li>";
           echo "        <li><span class=\"glyphicon glyphmenuadjust glyphicon-log-out\"></span><a href=\"minside.php?action=loggut\">Logg ut</a></li>";
         }
         ?>
       </ul>
+
     </div>
   </div>
 </nav>
-<!-- Jumbotron -->
-<div class="jumbotron-front">
-  <div class="container bg-jumbo--front">
-    <h1>Bjarum Medical</h1>
-    <p>Her kan du enkelt bestille ledige timer hos våre høyt kvalifiserte leger</p>
-    <p>
-      <a class="btn btn-success btn-lg" href="timebestilling.php" role="button"><strong>Finn ledig time &raquo;</strong></a>
-    </p>
-  </div>
-</div>
-<!-- Columns -->
-<div class="cover-bottom">
-  <div class="container">
-    <div class="bg-bottom">
-      <div class="row">
-        <div class="col-md-6">
-          <h2>Bestill time</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-6">
-          <h2>Ansatte</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+<?php
+include("libs/minside.php");
+
+if(!$innloggetBruker) {
+  include("login.php");
+} else { ?>
+  <div class="container minside-fix">
+    <div class="col-md-3 list-group">
+      <a href="minside.php" class="list-group-item">Se timebestillinger</a>
+      <a href="minside_endre.php" class="list-group-item">Endre timebestilling</a>
+      <a href="minside_slett.php" class="list-group-item">Slett timebestilling</a>
+      <a href="minside_passord.php" class="list-group-item active">Endre passord</a>
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Endre passord</strong></div>
+        <div class="panel-body">
+          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+            <div class="row">
+              <div class="col-md-3">Nytt passord</div>
+              <div class="col-md-5"><input class="form-control" type="password" name="endrePassord" required /></div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">&nbsp;</div>
+              <div class="col-md-5"><input class="btn btn-primary btn-lg" type="submit" name="submitEndrePassord" value="Endre &raquo;"></div>
+            </div>
+            <div id="ajax">
+            </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <?php
+}
+
+if(isset($_POST["submitEndrePassord"])) {
+  endrePassord();
+}
+?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/ajax.js"></script>
+<script>
+  $(function() {
+    $('#endringDato').datepicker({
+      dateFormat: 'yy-mm-dd',
+      prevText:'',
+      nextText:'',
+      minDate: "+0",
+      maxDate: "+365"
+    });
+  });
+</script>
 
 </body>
 </html>

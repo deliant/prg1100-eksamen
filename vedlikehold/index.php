@@ -70,11 +70,12 @@
             $brukernavn = mysqli_real_escape_string($conn, $_POST["brukernavn"]);
             $passord = mysqli_real_escape_string($conn, $_POST["passord"]);
             if(!sjekkLogin($brukernavn, $passord)) {
-              echo "Feil brukernavn eller passord.";
+              echo "<div class=\"alert alert-danger\">Feil brukernavn eller passord.</div>\n";
             } else {
               $_SESSION["brukernavn"] = $brukernavn;
-              echo "<meta http-equiv=\"refresh\" content=\"0;url=vedlikehold.php\">";
+              echo "<meta http-equiv=\"refresh\" content=\"0;url=vedlikehold.php\">\n";
             }
+
             mysqli_close($conn);
           }
           ?>

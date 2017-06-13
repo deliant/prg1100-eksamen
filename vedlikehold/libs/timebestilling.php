@@ -73,6 +73,7 @@ function registrerTimebestilling() {
       }
     }
   }
+
   mysqli_close($conn);
 }
 
@@ -329,7 +330,7 @@ if(@$_GET["action"] == "endre") {
     }
 
     echo "</select><br/>\n";
-    echo "<label>Dato</label><input type=\"text\" id=\"endringDato\"  name=\"endringDato\" onkeyup=\"listeboksVisLedigTimebestilling(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
+    echo "<label>Dato</label><input type=\"text\" id=\"endringDato\" name=\"endringDato\" onkeyup=\"listeboksVisLedigTimebestilling(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
     echo "<label>Tidspunkt</label>";
     echo "<select id=\"endringTidspunkt\" name=\"endringTidspunkt\">\n";
     echo "<option>-Velg behandler og dato-</option>\n";
