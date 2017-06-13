@@ -113,6 +113,10 @@
   padding-top: 30px;
 }
 
+.timebestilling-fix {
+  color: #000000;
+}
+
 .listheader {
   text-align: center;
   text-transform: uppercase;
@@ -178,7 +182,7 @@
 .bg-bottom {
   background: #286090;
   border-color: #0F0F0F;
-  color: #f7f7f7;
+  color: #262626;
   opacity: 0.85;
   filter: alpha(opacity=8.5); /* For IE8 and earlier */
   margin: auto auto;

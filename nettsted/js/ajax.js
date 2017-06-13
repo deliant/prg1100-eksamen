@@ -21,6 +21,7 @@ function ajaxMinsideRegistrering(str) {
 }
 
 function endreTimebestilling(str) {
+  tidspunkt = document.getElementById("velgTidspunkt").value;
   if (str == "") {
     document.getElementById("ajax").innerHTML = "";
     return;
@@ -37,7 +38,7 @@ function endreTimebestilling(str) {
         document.getElementById("ajax").innerHTML = this.responseText;
       }
     };
-    xmlhttp.open("GET","libs/minside.php?action=endre&velgTidspunkt="+str,true);
+    xmlhttp.open("GET","libs/minside.php?action=endre&velgTidspunkt="+tidspunkt,true);
     xmlhttp.send();
   }
 }
@@ -130,6 +131,54 @@ function listeboksRegTimebestillingBehandler(str) {
       }
     };
     xmlhttp.open("GET","libs/timebestilling.php?action=listeboksReg&regBehandler="+str+"&regDato="+dato,true);
+    xmlhttp.send();
+  }
+}
+
+function visUkesliste(str) {
+  var behandler = document.getElementById("velgBehandler").value
+  var dato = document.getElementById("velgDato").value
+  if (str == "") {
+    document.getElementById("ajax").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("ajax").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/ukesliste.php?action=visUkesliste&velgBehandler="+behandler+"&velgDato="+dato,true);
+    xmlhttp.send();
+  }
+}
+
+function visDato(str) {
+  var behandler = document.getElementById("velgBehandler").value;
+  var dato = document.getElementById("velgDato").value;
+  if (str == "") {
+    document.getElementById("ajax").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("ajax").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/ukesliste.php?action=visDato&velgBehandler="+behandler+"&velgDato="+dato,true);
     xmlhttp.send();
   }
 }

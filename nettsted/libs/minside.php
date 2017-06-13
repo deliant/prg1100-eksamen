@@ -299,8 +299,7 @@ if(@$_GET["action"] == "endre") {
   $result = mysqli_query($conn, $sql);
 
   while($row = mysqli_fetch_assoc($result)) {
-    echo "<div class=\"panel-heading\"><strong>Endring</strong></div>\n";
-    echo "<div class=\"panel-body\">";
+    echo "<hr/>\n";
     echo "<div class=\"row\">\n";
     echo "<div class=\"col-md-3\">Behandler</div>\n";
     echo "<div class=\"col-md-5\"><select class=\"form-control\" id=\"endringBehandler\" name=\"endringBehandler\" onchange=\"listeboksVisLedigTimebestillingBehandler(this.value)\">\n";

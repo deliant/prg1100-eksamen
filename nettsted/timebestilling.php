@@ -30,6 +30,7 @@
       <ul class="nav navbar-nav">
         <li><span class="glyphicon glyphmenuadjust glyphicon-home"></span><a href="index.php">Hjem</a></li>
         <li class="active"><span class="glyphicon glyphmenuadjust glyphicon-calendar"></span><a href="timebestilling.php">Timebestilling</a></li>
+        <li><span class="glyphicon glyphmenuadjust glyphicon-time"></span><a href="ukesliste.php">Ukesliste</a></li>
         <li class="dropdown">
           <span class="glyphicon glyphmenuadjust glyphicon-user"></span>
           <a href="ansatte.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ansatte<span class="caret"></span></a>
@@ -74,23 +75,17 @@ include("libs/timebestilling.php");
         <select class="form-control" id="regTidspunkt" name="regTidspunkt">
           <option value="NULL">Velg behandler og dato</option>
         </select><br/>
-        <input class="btn btn-success btn-lg" type="submit" name="submitRegTimebestilling" role="button" value="Bestill time &raquo;">
-        <a class="btn btn-primary btn-lg" type="submit" onclick="" role="button"><strong>Vis ukesliste &raquo;</strong></a>
+          <input class="btn btn-success btn-lg" type="submit" name="submitRegTimebestilling" role="button" value="Bestill time &raquo;">
       </div>
     </form>
+    <p>Du må være <a href="minside.php" role="button">innlogget</a> for å registrere time</p>
   </div>
 </div>
 <!-- Columns -->
 <div class="cover-bottom">
   <div class="container">
-    <div class="bg-bottom">
-      <div class="row">
-        <div class="col-md-12">
-          <h2>Bestill time</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
+    <div class="bg-bottom" id="ajax">
+
     </div>
   </div>
 </div>
@@ -98,6 +93,9 @@ include("libs/timebestilling.php");
 <?php
 if(isset($_POST["submitRegTimebestilling"])) {
   registrerTimebestilling();
+}
+if(isset($_POST["submitVelgUkesliste"])) {
+  //velgUkesliste();
 }
 ?>
 
