@@ -64,7 +64,7 @@
           </form>
           </p>
           <?php
-          include("libs/bruker.php");
+          include("libs/vedlikehold.php");
           if(isset($_POST["submitLogin"])) {
             include("libs/db.php");
             $brukernavn = mysqli_real_escape_string($conn, $_POST["brukernavn"]);
