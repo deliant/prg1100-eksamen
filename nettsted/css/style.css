@@ -1,6 +1,3 @@
-.body {
-  font-size: 15px;
-}
 .navbar-default {
   background-color: #f7f7f7;
   border-color: #000000;
@@ -33,37 +30,37 @@
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
   color: #000000;
-  background-color: #337ab7;
+  background-color: #2B669A;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu > li.divider {
-  background-color: #337ab7;
+  background-color: #2B669A;
 }
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
   color: #000000;
-  background-color: #337ab7;
+  background-color: #2B669A;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #000000;
-  background-color: #337ab7;
+  background-color: #2B669A;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   color: #000000;
-  background-color: #337ab7;
+  background-color: #2B669A;
 }
 
 .navbar-default .navbar-toggle {
-  border-color: #337ab7;
+  border-color: #2B669A;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #337ab7;
+  background-color: #2B669A;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #000000;
@@ -88,6 +85,14 @@
   font-size: 15px;
 }
 
+.p {
+  font-size: 15px;
+}
+
+.row {
+  margin: 2px -15px;
+}
+
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #000000;
@@ -104,6 +109,10 @@
   }
 }
 
+.minside-fix {
+  padding-top: 30px;
+}
+
 .listheader {
   text-align: center;
   text-transform: uppercase;
@@ -117,7 +126,7 @@
 }
 
 .jumbotron-front {
-  background: #eee url("../images/doctor.jpg") no-repeat scroll center;
+  background: #fff url("../images/doctor.jpg") no-repeat scroll center;
   height: 550px;
   color: inherit;
   padding-bottom: 48px;
@@ -127,16 +136,16 @@
 .bg-jumbo--front {
   background: #3C3C3C;
   color: #F7F7F7;
-  opacity: 0.8;
-  filter: alpha(opacity=8); /* For IE8 and earlier */
+  opacity: 0.85;
+  filter: alpha(opacity=8.5); /* For IE8 and earlier */
   margin: auto auto;
   margin-top: 25px;
   padding: 20px;
-  width: 60%;
+  width: 50%;
 }
 
 .jumbotron-timebestilling {
-  background: #eee url("../images/timebestilling.jpg") no-repeat scroll bottom;
+  background: #fff url("../images/timebestilling.jpg") no-repeat scroll bottom;
   height: 550px;
   color: inherit;
   padding-bottom: 48px;
@@ -146,16 +155,16 @@
 .bg-jumbo {
   background: #3C3C3C;
   color: #F7F7F7;
-  opacity: 0.8;
-  filter: alpha(opacity=8); /* For IE8 and earlier */
+  opacity: 0.85;
+  filter: alpha(opacity=8.5); /* For IE8 and earlier */
   margin: auto auto;
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 20px;
-  width: 60%;
+  width: 50%;
 }
 
 .jumbotron-minside {
-  background: #eee url("../images/minside.jpg") no-repeat scroll center;
+  background: #fff url("../images/minside.jpg") no-repeat scroll center;
   height: 550px;
   color: inherit;
   padding-bottom: 48px;
@@ -163,20 +172,19 @@
 }
 
 .cover-bottom {
-  background: #eee url("../images/bg.jpg") no-repeat scroll center;
+  background: #fff url("../images/bg.jpg") no-repeat scroll center;
 }
 
 .bg-bottom {
-  background: #337ab7;
+  background: #286090;
   border-color: #0F0F0F;
   color: #f7f7f7;
-  opacity: 0.8;
-  filter: alpha(opacity=8); /* For IE8 and earlier */
+  opacity: 0.85;
+  filter: alpha(opacity=8.5); /* For IE8 and earlier */
   margin: auto auto;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
-  width: 90%;
 }
 
 .footer {
