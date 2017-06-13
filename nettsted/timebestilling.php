@@ -24,18 +24,12 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="#">Bjarum Medical</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li><span class="glyphicon glyphmenuadjust glyphicon-home"></span><a href="index.php">Hjem</a></li>
-        <li class="active"><span class="glyphicon glyphmenuadjust glyphicon-calendar"></span><a href="timebestilling.php">Bestill time</a></li>
+        <li class="active"><span class="glyphicon glyphmenuadjust glyphicon-calendar"></span><a href="timebestilling.php">Timebestilling</a></li>
         <li class="dropdown">
           <span class="glyphicon glyphmenuadjust glyphicon-user"></span>
           <a href="ansatte.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ansatte<span class="caret"></span></a>
@@ -45,7 +39,16 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><span class="glyphicon glyphmenuadjust glyphicon-cog"></span><a href="minside.php">Min side</a></li>
+        <?php
+        session_start();
+        @$innloggetBruker = $_SESSION["personnr"];
+        if(!$innloggetBruker) {
+          echo "        <li><span class=\"glyphicon glyphmenuadjust glyphicon-cog\"></span><a href=\"minside.php\">Min side</a></li>";
+        } else {
+          echo "        <li><span class=\"glyphicon glyphmenuadjust glyphicon-cog\"></span><a href=\"minside.php\">Min side</a></li>";
+          echo "        <li><span class=\"glyphicon glyphmenuadjust glyphicon-log-out\"></span><a href=\"minside.php?action=loggut\">Logg ut</a></li>";
+        }
+        ?>
       </ul>
     </div>
   </div>
@@ -71,8 +74,8 @@ include("libs/timebestilling.php");
         <select class="form-control" id="regTidspunkt" name="regTidspunkt">
           <option value="NULL">Velg behandler og dato</option>
         </select><br/>
-        <a class="btn btn-success btn-lg" type="submit" name="regTimebestilling" role="button"><strong>Bestill time &raquo;</strong></a>
-        <a class="btn btn-primary btn-lg" type="submit" name="visUkesoversikt" role="button"><strong>Se ukesoversikt &raquo;</strong></a>
+        <input class="btn btn-success btn-lg" type="submit" name="submitRegTimebestilling" role="button" value="Bestill time &raquo;">
+        <a class="btn btn-primary btn-lg" type="submit" onclick="" role="button"><strong>Vis ukesliste &raquo;</strong></a>
       </div>
     </form>
   </div>
@@ -91,6 +94,12 @@ include("libs/timebestilling.php");
     </div>
   </div>
 </div>
+
+<?php
+if(isset($_POST["submitRegTimebestilling"])) {
+  registrerTimebestilling();
+}
+?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
