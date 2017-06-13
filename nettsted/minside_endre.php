@@ -15,6 +15,7 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 
@@ -76,15 +77,19 @@ if(!$innloggetBruker) {
             <div class="row">
               <div class="col-md-3">Tidspunkt</div>
               <div class="col-md-5">
-                <select class="form-control" id="velgTidspunkt" name="velgTidspunkt" onchange="endreTimebestilling(this.value)">
+                <select class="form-control" id="velgTidspunkt" name="velgTidspunkt">
                   <option value="NULL">-Velg tidspunkt-</option>
                   <?php listeboksTimebestilling(); ?>
                 </select>
               </div>
             </div>
-            <div id="ajax">
+            <div class="row">
+              <div class="col-md-3">&nbsp;</div>
+              <div class="col-md-5"><a class="btn btn-primary btn-lg" type="submit" role="button" onclick="endreTimebestilling(this.value)">Velg &raquo;</a></div>
             </div>
-         </div>
+          <div id="ajax">
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -97,19 +102,9 @@ if(isset($_POST["submitEndreTimebestilling"])) {
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
-<script>
-  $(function() {
-    $('#endringDato').datepicker({
-      dateFormat: 'yy-mm-dd',
-      prevText:'',
-      nextText:'',
-      minDate: "+0",
-      maxDate: "+365"
-    });
-  });
-</script>
 
 </body>
 </html>

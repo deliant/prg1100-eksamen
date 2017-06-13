@@ -75,11 +75,10 @@ include("libs/timebestilling.php");
         <select class="form-control" id="regTidspunkt" name="regTidspunkt">
           <option value="NULL">Velg behandler og dato</option>
         </select><br/>
-        <div class="row">
-          <div class="col-md-3"><input class="btn btn-success btn-lg" type="submit" name="submitRegTimebestilling" role="button" value="Bestill time &raquo;"></form></div>
-          <div class="col-md-3"><form action="ukesliste.php" method="post"><input class="btn btn-primary btn-lg" type="submit" name="submitVelgUkesliste" role="button" value="Vis ukesliste &raquo;"></form></div>
-        </div>
+          <input class="btn btn-success btn-lg" type="submit" name="submitRegTimebestilling" role="button" value="Bestill time &raquo;">
       </div>
+    </form>
+    <p>Du må være <a href="minside.php" role="button">innlogget</a> for å registrere time</p>
   </div>
 </div>
 <!-- Columns -->

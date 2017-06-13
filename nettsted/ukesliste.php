@@ -55,36 +55,34 @@
   </div>
 </nav>
 <?php
-//include("libs/timebestilling.php");
+include("libs/ukesliste.php");
 include("libs/listeboks.php");
 ?>
 <!-- Jumbotron -->
 <div class="jumbotron-timebestilling">
   <div class="container bg-jumbo">
     <h1>Ukesliste</h1>
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-      <div class="form-group">
+    <div class="form-group">
+      <form>
         <label>Behandler</label>
-        <select class="form-control" id="velgBehandler" name="velgBehandler" onchange="listeboksRegTimebestillingBehandler(this.value)">
+        <select class="form-control" id="velgBehandler" name="velgBehandler">
           <option>Hvem ønsker du ukesliste for?</option>
           <?php listeboksBehandler(); ?>
         </select>
         <label>Dato</label>
-        <input type="text" class="form-control" id="velgDato" name="velgDato" onchange="listeboksRegTimebestillingDato(this.value)" required />
-        <input class="btn btn-primary btn-lg" type="submit" name="submitVelgUkesliste" role="button" value="Søk &raquo;">
-      </div>
-    </form>
+        <input type="text" class="form-control" id="velgDato" name="velgDato" required />
+    </div>
+    <div class="row">
+      <div class="col-md-2"><a class="btn btn-primary btn-lg" type="submit" role="button" onclick="visDato(this.value)">Søk dag &raquo;</a></div></form>
+      <div class="col-md-2"><a class="btn btn-success btn-lg" type="submit" role="button" onclick="visUkesliste(this.value)">Søk uke &raquo;</a></div></form>
+    </div>
   </div>
 </div>
 <!-- Columns -->
 <div class="cover-bottom">
   <div class="container">
-    <div class="bg-bottom">
-      <?php
-      if(isset($_POST["submitVelgUkesliste"])) {
-        //velgUkesliste();
-      }
-      ?>
+    <div class="bg-bottom" id="ajax">
+      <p>Brødtekst her</p>
     </div>
   </div>
 </div>
