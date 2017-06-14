@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,10 +71,11 @@ include("libs/listeboks.php");
         </select>
         <label>Dato</label>
         <input type="text" class="form-control" id="velgDato" name="velgDato" required />
-    </div>
-    <div class="row">
-      <div class="col-md-2"><a class="btn btn-primary btn-lg" type="submit" role="button" onclick="visDato(this.value)">Søk dag &raquo;</a></div></form>
-      <div class="col-md-2"><a class="btn btn-success btn-lg" type="submit" role="button" onclick="visUkesliste(this.value)">Søk uke &raquo;</a></div></form>
+        <div class="row">
+          <div class="col-md-3"><a class="btn btn-primary btn-lg" type="submit" role="button" onclick="visDato(this.value)">Søk dag &raquo;</a></div>
+          <div class="col-md-3"><a class="btn btn-success btn-lg" type="submit" role="button" onclick="visUkesliste(this.value)">Søk uke &raquo;</a></div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -91,6 +92,7 @@ include("libs/listeboks.php");
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
+<script src="js/validering.js"></script>
 <script>
   $(function() {
     $('#velgDato').datepicker({

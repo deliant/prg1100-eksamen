@@ -10,7 +10,7 @@ function populateMenu() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       $yrkesgruppenr = $row["yrkesgruppenr"];
-      $sql2 = "SELECT brukernavn, behandlernavn
+      $sql2 = "SELECT behandlernavn
       FROM behandler
       WHERE yrkesgruppenr='$yrkesgruppenr'
       ORDER BY behandlernavn";
@@ -21,7 +21,7 @@ function populateMenu() {
         echo "<li class=\"listheader\">". $row['yrkesgruppenavn'] ."</li>\n";
       }
       while($row2 = mysqli_fetch_assoc($result2)) {
-        echo "<li><a href=\"ansatte.php#". $row2['brukernavn'] ."\">". $row2['behandlernavn'] ."</a></li>";
+        echo "<li><a href=\"ansatte.php#". $row2['behandlernavn'] ."\">". $row2['behandlernavn'] ."</a></li>";
       }
     }
   } else {
