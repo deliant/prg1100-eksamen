@@ -23,6 +23,12 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand"><a href="index.php">Bjarum Medical</a></li>
+      <li>
+        <form action="sok.php" method="post">
+          <input class="search-fix" type="text" id="sokestreng" name="sokestreng" required />
+          <input class="btn btn-default" type="submit" name="submitSok" value="Søk">
+        </form>
+      </li>
       <li><span class="glyphicon glyphmenuadjust glyphicon-pencil"></span><a href="behandler.php">Behandler</a></li>
       <li><span class="glyphicon glyphmenuadjust glyphicon-file"></span><a href="bilde.php">Bilde</a></li>
       <li><span class="glyphicon glyphmenuadjust glyphicon-user"></span><a href="pasient.php">Pasient</a></li>

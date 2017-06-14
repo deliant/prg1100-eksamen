@@ -15,7 +15,6 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 
@@ -59,7 +58,7 @@
           if(!$innloggetBruker){
             echo "<p>Denne siden krever innlogging.</p>";
           } else {
-            include("admin/timebestilling.inc.php");
+            include("admin/sok.inc.php");
           }
           ?>
         </div>
@@ -69,26 +68,9 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
 <script src="js/validering.js"></script>
-<script>
-  $(function() {
-    $('#regDato, #endringDato').datepicker({
-      dateFormat: 'yy-mm-dd',
-      prevText:'',
-      nextText:'',
-      minDate: "-10",
-      maxDate: "+365"
-    });
-  });
-  $(function() {
-    $('#endringDato').on('click', function() {
-      $(this).datepicker({showOn:'focus'}).focus();
-    });
-  });
-</script>
 
 </body>
 </html>
