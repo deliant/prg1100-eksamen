@@ -73,7 +73,7 @@ include("libs/listeboks.php");
         <input type="text" class="form-control" id="velgDato" name="velgDato" required />
         <div class="row">
           <div class="col-md-3"><a class="btn btn-primary btn-lg" type="submit" role="button" onclick="visDato(this.value)">Søk dag &raquo;</a></div>
-          <div class="col-md-3"><a class="btn btn-success btn-lg" type="submit" role="button" onclick="visUkesliste(this.value)">Søk uke &raquo;</a></div>
+          <div class="col-md-3"><a class="btn btn-success btn-lg" type="submit" role="button" onclick="visUkesliste(this.value)" onsubmit="return validerUkesliste()">Søk uke &raquo;</a></div>
         </div>
       </form>
     </div>

@@ -55,7 +55,9 @@ function velgDato($brukernavn, $dato) {
 
   } else {
     echo "<tr>\n";
+    echo "<td>&nbsp;</td>\n";
     echo "<td>Ingen timeinndeling for denne ukedagen</td>\n";
+    echo "<td>&nbsp;</td>\n";
     echo "</tr>\n";
   }
 
@@ -74,7 +76,7 @@ function velgUkesliste($brukernavn, $dato) {
   if($ukedag == "Mandag") {
     $start = $dato;
   } else {
-    $start = date('Y-m-d', strtotime('last Monday', strtotime($dato)));
+    $start = date('Y-m-d', strtotime('monday this week', strtotime($dato)));
   }
 
   echo "<div class=\"panel panel-default\">\n";
