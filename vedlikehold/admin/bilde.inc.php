@@ -9,6 +9,7 @@ include("libs/listeboks.php");
     <li><a data-toggle="tab" href="#slett"><span class="glyphicon glyphminiadjust glyphicon-trash"></span>Slett</a></li>
   </ul>
 
+  <div id="validering"></div>
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
       <h3>
@@ -37,9 +38,9 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer et ny bilde"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data" method="post"">
-        <label>Fil</label><input type="file" name="regFilnavn" required /><br/>
-        <label>Beskrivelse</label><input type="text" name="regBeskrivelse" required /><br/>
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data" method="post" onsubmit="return validerBildeRegistrering()">
+        <label>Fil</label><input type="file" id="regFilnavn" name="regFilnavn" required /><br/>
+        <label>Beskrivelse</label><input type="text" id="regBeskrivelse" name="regBeskrivelse" required /><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBilde">
       </form>
     </div>

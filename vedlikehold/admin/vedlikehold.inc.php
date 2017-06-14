@@ -3,6 +3,7 @@
     <li><a data-toggle="tab" href="#registrer"><span class="glyphicon glyphminiadjust glyphicon-user"></span>Registrer superbruker</a></li>
   </ul>
 
+  <div id="validering"></div>
   <div class="tab-content">
     <div id="endre" class="tab-pane fade in active">
       <h3>
@@ -11,7 +12,7 @@
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre passord på din nåværende bruker"></span>
         </a>
       </h3>
-      <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label>Passord</label><input type="password" name="endrePassord" required /><br />
         <label>&nbsp;</label><input class="btn btn-primary" type="submit" value="Endre" name="submitEndrePassord"><br /><br />
       </form>
@@ -23,8 +24,8 @@
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer ny administrator superbruker (høyeste administrator nivå)"></span>
         </a>
       </h3>
-      <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <label>Brukernavn</label><input type="text" name="regBrukernavn" required /><br />
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerBrukerRegistrering()">
+        <label>Brukernavn</label><input type="text" id="regBrukernavn" name="regBrukernavn" required /><br />
         <label>Passord</label><input type="password" name="regPassord" required /><br />
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBruker"><br /><br />
       </form>

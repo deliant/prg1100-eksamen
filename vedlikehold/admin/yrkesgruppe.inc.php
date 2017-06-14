@@ -9,6 +9,7 @@ include("libs/listeboks.php");
     <li><a data-toggle="tab" href="#slett"><span class="glyphicon glyphminiadjust glyphicon-trash"></span>Slett</a></li>
   </ul>
 
+  <div id="validering"></div>
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
       <h3>
@@ -33,7 +34,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny yrkesgruppe"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerYrkesgruppeRegistrering()">
         <label>Yrkesgruppe</label><input type="text" name="regYrkesgruppe" required/><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegYrkesgruppe">
       </form>

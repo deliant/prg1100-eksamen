@@ -9,7 +9,7 @@ include("libs/listeboks.php");
     <li><a data-toggle="tab" href="#slett"><span class="glyphicon glyphminiadjust glyphicon-trash"></span>Slett</a></li>
   </ul>
 
-  <div id="#top"></div>
+  <div id="validering"></div>
   <div class="tab-content">
     <div id="vis" class="tab-pane fade in active">
       <h3>
@@ -36,9 +36,9 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Registrer en ny pasient"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-        <label>Personnr</label><input type="text" name="regPersonnr" required /><br />
-        <label>Navn</label><input type="text" name="regNavn" required /><br />
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerPasientRegistrering()">
+        <label>Personnr</label><input type="text" id="regPersonnr" name="regPersonnr" required /><br />
+        <label>Navn</label><input type="text" id="regNavn" name="regNavn" required /><br />
         <label>Fastlege</label>
         <select name="velgFastlege">
           <?php listeboksBehandler(); ?>
