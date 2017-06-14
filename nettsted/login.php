@@ -16,9 +16,9 @@
 <!-- Columns -->
 <div class="cover-bottom">
   <div class="container">
-    <div class="bg-bottom">
+    <div class="bg-bottom" id="ajax">
       <div class="row">
-        <div class="col-md-12" id="ajax">
+        <div class="col-md-12">
           <h2>Min side</h2>
           <p>Med brukerkonto hos Bjarum Medical kan du enkelt registrere og endre timeavtaler selv uten å måtte ringe kontoret</p>
           <p>Registrer deg med personnr og logg inn for å nyte fordelene</p>
