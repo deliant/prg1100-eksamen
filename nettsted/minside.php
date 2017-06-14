@@ -54,6 +54,7 @@
     </div>
   </div>
 </nav>
+<div id="validering"></div>
 <?php
 include("libs/minside.php");
 
@@ -93,6 +94,7 @@ if(isset($_POST["submitRegBruker"])) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
+<script src="js/validering.js"></script>
 
 </body>
 </html>

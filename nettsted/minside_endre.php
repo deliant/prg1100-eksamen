@@ -55,6 +55,7 @@
     </div>
   </div>
 </nav>
+<div id="validering"></div>
 <?php
 include("libs/minside.php");
 include("libs/listeboks.php");
@@ -73,7 +74,7 @@ if(!$innloggetBruker) {
       <div class="panel panel-default">
         <div class="panel-heading"><strong>Endre timebestilling</strong></div>
         <div class="panel-body">
-          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerTimebestillingEndring()">
             <div class="row">
               <div class="col-md-3">Tidspunkt</div>
               <div class="col-md-5">
@@ -105,6 +106,7 @@ if(isset($_POST["submitEndreTimebestilling"])) {
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
+<script src="js/validering.js"></script>
 
 </body>
 </html>

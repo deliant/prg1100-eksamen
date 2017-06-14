@@ -54,6 +54,7 @@
     </div>
   </div>
 </nav>
+<div id="validering"></div>
 <?php
 include("libs/listeboks.php");
 include("libs/timebestilling.php");
@@ -62,7 +63,7 @@ include("libs/timebestilling.php");
 <div class="jumbotron-timebestilling">
   <div class="container bg-jumbo">
     <h1>Bestill time</h1>
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerTimebestillingRegistrering()">
       <div class="form-group">
         <label>Behandler</label>
         <select class="form-control" id="regBehandler" name="regBehandler" onchange="listeboksRegTimebestillingBehandler(this.value)">
@@ -94,15 +95,13 @@ include("libs/timebestilling.php");
 if(isset($_POST["submitRegTimebestilling"])) {
   registrerTimebestilling();
 }
-if(isset($_POST["submitVelgUkesliste"])) {
-  //velgUkesliste();
-}
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
+<script src="js/validering.js"></script>
 <script>
   $(function() {
     $('#regDato').datepicker({

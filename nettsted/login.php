@@ -2,9 +2,9 @@
 <div class="jumbotron-minside">
   <div class="container bg-jumbo">
     <h1>Min side</h1>
-    <form action="" method="post">
+    <form action="" method="post" onsubmit="return validerBrukerInnlogging()">
       <div class="form-group">
-        <label>Personnr</label><input type="text" class="form-control" name="personnr" required />
+        <label>Personnr</label><input type="text" class="form-control" id="personnr" name="personnr" required />
         <label>Passord</label><input type="password" class="form-control" name="passord" required />
       </div>
       <input class="btn btn-success btn-lg" type="submit" name="submitLogin" value="Logg inn &raquo;">
