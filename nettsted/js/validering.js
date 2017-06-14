@@ -84,8 +84,7 @@ function validerTimebestillingRegistrering() {
   }
   if(lovligDato) {
     return true;
-  }
-  else {
+  } else {
     feilMelding = "Dato fylles ut i format: ÅÅÅÅ-MM-DD (1970-05-30)";
     document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
     return false;
@@ -101,8 +100,7 @@ function validerTimebestillingEndring() {
   }
   if(lovligDato) {
     return true;
-  }
-  else {
+  } else {
     feilMelding = "Dato fylles ut i format: ÅÅÅÅ-MM-DD (1970-05-30)";
     document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
     return false;
