@@ -117,6 +117,12 @@
   color: #000000;
 }
 
+.thumbnail-bilde {
+  width: 175px;
+  height: 150px;
+  padding: 1px;
+}
+
 .listheader {
   text-align: center;
   text-transform: uppercase;
@@ -167,6 +173,14 @@
   width: 50%;
 }
 
+.jumbotron-ansatte {
+  background: #fff url("../images/ansatte.jpg") no-repeat scroll center;
+  height: 400px;
+  color: inherit;
+  padding-bottom: 48px;
+  padding-top: 72px;
+}
+
 .jumbotron-minside {
   background: #fff url("../images/minside.jpg") no-repeat scroll center;
   height: 550px;
@@ -187,8 +201,8 @@
   filter: alpha(opacity=8.5); /* For IE8 and earlier */
   margin: auto auto;
   margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
+  margin-bottom: 25px;
+  padding: 15px;
 }
 
 .footer {
