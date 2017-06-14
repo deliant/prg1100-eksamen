@@ -8,8 +8,7 @@ function validerPersonnr(personnr) {
   var lovligPersonnr = true;
   if(personnr.length != 11) {
     lovligPersonnr = false;
-  }
-  else {
+  } else {
     tegn1 = personnr.substr(0,1);
     tegn2 = personnr.substr(1,1);
     tegn3 = personnr.substr(2,1);
