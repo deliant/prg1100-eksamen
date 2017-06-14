@@ -197,7 +197,7 @@ if(@$_GET["action"] == "registrerbruker") {
   include("listeboks.php");
   echo "<div class=\"form-group\">\n";
   echo "<h2>Registrering</h2>\n";
-  echo "<form method=\"post\" action=\"\">\n";
+  echo "<form method=\"post\" action=\"\" onsubmit=\"return validerBrukerRegistrering();\"'>\n";
   echo "<div class=\"row\">\n";
   echo "<div class=\"col-md-3\"><label>Personnr</label></div><div class=\"col-md-5\"><input type=\"text\" class=\"form-control\" name=\"regPersonnr\" required /></div>\n";
   echo "</div><div class=\"row\">\n";

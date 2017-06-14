@@ -27,36 +27,38 @@ function velgDato($brukernavn, $dato) {
     WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
   $result = mysqli_query($conn, $sql);
 
+  $sql2 = "SELECT tidspunkt
+    FROM timeinndeling
+    WHERE tidspunkt NOT IN ( 
+    SELECT DISTINCT tidspunkt 
+      FROM timebestilling
+      WHERE dato='$visdato'
+      )
+    GROUP BY tidspunkt";
+  $result2 = mysqli_query($conn, $sql2);
+
   // Sjekk timeinndeling for tider og print alle
   // if: tid og dag matcher timebestilling print som opptatt
   // else: print som ledig
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-      $sql2 = "SELECT tidspunkt
-        FROM timeinndeling
-        WHERE tidspunkt NOT IN ( 
-        SELECT DISTINCT tidspunkt 
-        FROM timebestilling
-        WHERE dato='$visdato'
-        )
-        ORDER BY tidspunkt";
-      $result2 = mysqli_query($conn, $sql2);
-      $row2 = mysqli_fetch_assoc($result2);
-
-      if($row["tidspunkt"] == $row2["tidspunkt"]) {
-        echo "<tr class=\"success\">\n";
-        echo "<th>". $visdato ."</th>\n";
-        echo "<th>". $row['ukedag'] ."</th>\n";
-        echo "<th>". $row['tidspunkt'] ."</th>\n";
-        echo "</tr>\n";
-      } else {
-        echo "<tr class=\"danger\">\n";
-        echo "<th>" . $visdato . "</th>\n";
-        echo "<th>" . $row['ukedag'] . "</th>\n";
-        echo "<th>" . $row['tidspunkt'] . "</th>\n";
-        echo "</tr>\n";
+      while($row2 = mysqli_fetch_assoc($result2)) {
+        $array_match = array_intersect($row, $row2);
+        var_dump($array_match);
+        if($row["tidspunkt"] == $row2["tidspunkt"]) {
+          echo "<tr class=\"success\">\n";
+          echo "<th>". $visdato ."</th>\n";
+          echo "<th>". $row['ukedag'] ."</th>\n";
+          echo "<th>". $row['tidspunkt'] ."</th>\n";
+          echo "</tr>\n";
+        } else {
+          echo "<tr class=\"danger\">\n";
+          echo "<th>" . $visdato . "</th>\n";
+          echo "<th>" . $row['ukedag'] . "</th>\n";
+          echo "<th>" . $row['tidspunkt'] . "</th>\n";
+          echo "</tr>\n";
+        }
       }
-
     }
 
   } else {
@@ -111,20 +113,20 @@ function velgUkesliste($brukernavn, $dato) {
     echo "<th>Ukedag</th>\n";
     echo "<th>Tidspunkt</th>\n";
     echo "</tr>\n";
+    $sql2 = "SELECT tidspunkt
+    FROM timeinndeling
+    WHERE tidspunkt NOT IN ( 
+    SELECT DISTINCT tidspunkt 
+      FROM timebestilling
+      WHERE dato='$visdato'
+      )
+    GROUP BY tidspunkt";
+
 
     if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)) {
-        $sql2 = "SELECT tidspunkt
-        FROM timeinndeling
-        WHERE tidspunkt NOT IN ( 
-        SELECT DISTINCT tidspunkt 
-        FROM timebestilling
-        WHERE dato='$visdato'
-        )
-        ORDER BY tidspunkt";
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_assoc($result2);
-
         if($row["tidspunkt"] == $row2["tidspunkt"]) {
           echo "<tr class=\"success\">\n";
           echo "<th>". htmlspecialchars($visdato) ."</th>\n";
