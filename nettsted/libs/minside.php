@@ -196,7 +196,8 @@ if(@$_GET["action"] == "loggut") {
 if(@$_GET["action"] == "registrerbruker") {
   include("listeboks.php");
   echo "<div class=\"form-group\">\n";
-  echo "<h2>Registrering</h2>\n";
+  echo "<div class=\"panel panel-default\">\n";
+  echo "<div class=\"panel-heading\">Registrering</div>\n";
   echo "<form method=\"post\" action=\"\" onsubmit=\"return validerBrukerRegistrering();\"'>\n";
   echo "<div class=\"row\">\n";
   echo "<div class=\"col-md-3\"><label>Personnr</label></div><div class=\"col-md-5\"><input type=\"text\" class=\"form-control\" name=\"regPersonnr\" required /></div>\n";
@@ -212,6 +213,7 @@ if(@$_GET["action"] == "registrerbruker") {
   echo "<div class=\"col-md-3\"><label>Passord</label></div><div class=\"col-md-5\"><input type=\"password\" class=\"form-control\" name=\"regPassord\" required /></div>\n";
   echo "</div><div class=\"row\">\n";
   echo "<div class=\"col-md-3\"><label>&nbsp;</label></div><div class=\"col-md-5\"><input class=\"btn btn-primary btn-lg\" type=\"submit\" value=\"Registrer\" name=\"submitRegBruker\"></div>\n";
+  echo "</div>\n";
   echo "</div>\n";
   echo "</div>\n";
   echo "</form>\n";
