@@ -50,8 +50,7 @@ function validerBrukerRegistrering() {
   }
   if(lovligPersonnr) {
     return true;
-  }
-  else {
+  } else {
     feilMelding = "Personnr inneholder 11 tall og er unikt";
     document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
     return false;
@@ -67,8 +66,7 @@ function validerBrukerInnlogging() {
   }
   if(lovligPersonnr) {
     return true;
-  }
-  else {
+  } else {
     feilMelding = "Personnr inneholder 11 tall og er unikt";
     document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
     return false;
