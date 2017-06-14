@@ -78,7 +78,6 @@ function velgUkesliste($brukernavn, $dato) {
   }
 
   echo "<div class=\"panel panel-default\">\n";
-  var_dump($start);
 
   for($x = 0;$x < 5;$x++) {
     if($x > 0) {
@@ -106,7 +105,6 @@ function velgUkesliste($brukernavn, $dato) {
     while($row2 = mysqli_fetch_assoc($result2)) {
       $array[] = $row2["tidspunkt"];
     }
-    var_dump($visdato);
 
     echo "<div class=\"panel-heading\"><strong>". htmlspecialchars($ukedag) ." ". htmlspecialchars($visdato) ."</strong></div>\n";
     echo "<table class=\"table\">\n";
