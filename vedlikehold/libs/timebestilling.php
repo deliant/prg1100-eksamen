@@ -293,7 +293,7 @@ if(@$_GET["action"] == "endre") {
 
   while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
-    echo "<form action=\"\" method=\"post\">\n";
+    echo "<form action=\"\" method=\"post\" onsubmit=\"return validerTimebestillingEndring()\">\n";
     echo "<label>Pasient</label><select name=\"endringPasient\">\n";
     $sql2 = "SELECT personnr, pasientnavn FROM pasient ORDER BY pasientnavn";
     $result2 = mysqli_query($conn, $sql2);

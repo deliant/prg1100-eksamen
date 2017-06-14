@@ -63,7 +63,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende timeinndeling"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerTimeinndelingEndring()">
         <label>Behandler</label>
         <select id="velgBehandler" name="velgBehandler">
           <option>-Velg behandler-</option>

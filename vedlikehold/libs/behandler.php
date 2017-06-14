@@ -171,9 +171,9 @@ if(@$_GET["action"] == "endre") {
 
   while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
-    echo "<form action=\"\" method=\"post\">\n";
+    echo "<form action=\"\" method=\"post\" onsubmit=\"return validerBehandlerEndring()\">\n";
     echo "<label>Brukernavn</label><input type=\"text\" name=\"endringBrukernavn\" value=\"" . htmlspecialchars($row['brukernavn']) . "\" readonly required/><br/>\n";
-    echo "<label>Navn</label><input type=\"text\" name=\"endringNavn\" value=\"" . htmlspecialchars($row['behandlernavn']) ."\" required/><br/>\n";
+    echo "<label>Navn</label><input type=\"text\" id=\"endringNavn\" name=\"endringNavn\" value=\"" . htmlspecialchars($row['behandlernavn']) ."\" required/><br/>\n";
     echo "<label>Yrkesgruppe</label><select name=\"endringYrkesgruppenr\">\n";
     $sql2 = "SELECT yrkesgruppenr, yrkesgruppenavn FROM yrkesgruppe ORDER BY yrkesgruppenavn";
     $result2 = mysqli_query($conn, $sql2);

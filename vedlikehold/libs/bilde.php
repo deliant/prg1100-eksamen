@@ -112,9 +112,9 @@ if(@$_GET["action"] == "endre") {
 
   while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
-    echo "<form action=\"\" method=\"post\">\n";
+    echo "<form action=\"\" method=\"post\" onsubmit=\"return validerBildeEndring()\">\n";
     echo "<label>Bildenr</label><input type=\"text\" name=\"endringBildenr\"  value=\"". htmlspecialchars($row['bildenr']) ."\" readonly required/><br/>\n";
-    echo "<label>Beskrivelse</label><input type=\"text\" name=\"endringBeskrivelse\"  value=\"". htmlspecialchars($row['beskrivelse']) ."\" required/><br/>\n";
+    echo "<label>Beskrivelse</label><input type=\"text\" id=\"endringBeskrivelse\" name=\"endringBeskrivelse\"  value=\"". htmlspecialchars($row['beskrivelse']) ."\" required/><br/>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndreBilde\">\n";
     echo "</form>\n";
   }

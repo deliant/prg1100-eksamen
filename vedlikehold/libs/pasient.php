@@ -118,9 +118,9 @@ if(@$_GET["action"] == "endre") {
 
   while($row = mysqli_fetch_assoc($result)) {
     echo "<h3>Endring</h3>\n";
-    echo "<form action=\"\" method=\"post\">\n";
+    echo "<form action=\"\" method=\"post\" onsubmit=\"return validerPasientEndring()\">\n";
     echo "<label>Personnr</label><input type=\"text\" name=\"endringPersonnr\" value=\"" . htmlspecialchars($row['personnr']) . "\" readonly required/><br/>\n";
-    echo "<label>Navn</label><input type=\"text\" name=\"endringNavn\" value=\"" . htmlspecialchars($row['pasientnavn']) ."\" required/><br/>\n";
+    echo "<label>Navn</label><input type=\"text\" id=\"endringNavn\" name=\"endringNavn\" value=\"" . htmlspecialchars($row['pasientnavn']) ."\" required/><br/>\n";
     echo "<label>Passord</label><input type=\"password\" name=\"endringPassord\" /><br/>\n";
     echo "<label>Fastlege</label><select name=\"endringFastlege\">\n";
     $sql2 = "SELECT brukernavn, behandlernavn, yrkesgruppenavn FROM behandler
