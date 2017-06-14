@@ -67,7 +67,7 @@ function velgDato($brukernavn, $dato) {
 
     mysqli_close($conn);
   } else {
-    echo "Fyll ut behandler og datofelt";
+    echo "<h2>Fyll ut behandler og datofelt</h2>\n";
   }
 }
 
@@ -154,7 +154,7 @@ function velgUkesliste($brukernavn, $dato) {
     echo "</div>\n";
     mysqli_close($conn);
   } else {
-    echo "Fyll ut behandler og datofelt";
+    echo "<h2>Fyll ut behandler og datofelt</h2>\n";
   }
 }
 
