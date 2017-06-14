@@ -106,24 +106,3 @@ function validerTimebestillingEndring() {
     return false;
   }
 }
-
-function validerUkesliste() {
-  var dato = document.getElementById("velgDato").value
-  var behandler = document.getElementById("velgBehandler").value
-  var lovligDato = validerDato(dato);
-  var lovligBehandler = validerBrukernavn(behandler);
-  var feilMelding = "";
-  if(!dato) {
-    feilMelding = "Dato er ikke fyllt ut<br/>";
-  }
-  if(!behandler) {
-    feilMelding = "Behandler er ikke fyllt ut<br/>";
-  }
-  if(lovligDato) {
-    return true;
-  } else {
-    feilMelding = "Dato fylles ut i format: ÅÅÅÅ-MM-DD (1970-05-30)<br/>";
-    document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
-    return false;
-  }
-}
