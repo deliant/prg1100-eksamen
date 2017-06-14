@@ -211,7 +211,7 @@ if(@$_GET["action"] == "registrerbruker") {
   echo "</div><div class=\"row\">\n";
   echo "<div class=\"col-md-3\"><label>Passord</label></div><div class=\"col-md-5\"><input type=\"password\" class=\"form-control\" name=\"regPassord\" required /></div>\n";
   echo "</div><div class=\"row\">\n";
-  echo "<div class=\"col-md-3\"><label>&nbsp;</label></div><div class=\"col-md-5\"><input class=\"btn btn-default btn-lg\" type=\"submit\" value=\"Registrer\" name=\"submitRegBruker\"></div>\n";
+  echo "<div class=\"col-md-3\"><label>&nbsp;</label></div><div class=\"col-md-5\"><input class=\"btn btn-primary btn-lg\" type=\"submit\" value=\"Registrer\" name=\"submitRegBruker\"></div>\n";
   echo "</div>\n";
   echo "</div>\n";
   echo "</form>\n";
