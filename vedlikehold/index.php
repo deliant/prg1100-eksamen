@@ -15,8 +15,6 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -50,7 +48,7 @@
       <div class="row">
         <div class="col-lg-12">
           <h1>BM Vedlikehold</h1>
-          <p>
+          <div id="validering"></div>
           <h3>
             Logg inn
             <a data-toggle="tooltip" class="tooltipLink">
@@ -62,7 +60,6 @@
             <label>Passord</label><input type="password" id="passord" name="passord" required /><br />
             <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Logg inn" name="submitLogin"><br /><br />
           </form>
-          </p>
           <?php
           include("libs/vedlikehold.php");
           if(isset($_POST["submitLogin"])) {
@@ -84,6 +81,10 @@
     </div>
   </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/validering.js"></script>
 
 </body>
 </html>

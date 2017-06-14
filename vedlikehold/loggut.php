@@ -15,8 +15,6 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -50,13 +48,14 @@
       <div class="row">
         <div class="col-lg-12">
           <h1>Vedlikehold</h1>
-          <p>
+          <div id="validering"></div>
           <h3>
             Logg ut
             <a data-toggle="tooltip" class="tooltipLink">
               <span class="glyphicon glyphicon-info-sign icon_info" title="Logg ut administrator bruker"></span>
             </a>
           </h3>
+          <p>
           Logger brukeren ut av systemet.
           <?php
           session_destroy();
@@ -68,6 +67,9 @@
     </div>
   </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
 
 </body>
 </html>
