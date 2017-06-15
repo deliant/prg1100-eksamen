@@ -83,7 +83,12 @@ include("libs/listeboks.php");
 <div class="cover-bottom">
   <div class="container">
     <div class="bg-bottom" id="ajax">
-      <p>Brødtekst her</p>
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Ukesoversikt</h2>
+          <p>Her kan du søke opp enkeltdager eller uker for å se hvilke timer som er ledige på den aktuelle tiden</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

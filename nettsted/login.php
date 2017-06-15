@@ -18,10 +18,19 @@
   <div class="container">
     <div class="bg-bottom" id="ajax">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <h2>Min side</h2>
-          <p>Med brukerkonto hos Bjarum Medical kan du enkelt registrere og endre timeavtaler selv uten å måtte ringe kontoret</p>
+          <p>Med brukerkonto hos Bjarum Medical kan du enkelt registrere og endre timeavtaler selv på vår kundeportal uten å måtte ringe kontoret</p>
           <p>Registrer deg med personnr og logg inn for å nyte fordelene</p>
+        </div>
+        <div class="col-md-6">
+          <h2>Fordeler</h2>
+          <ul class="list-group">
+            <li class="list-group-item">Bestill time</li>
+            <li class="list-group-item">Vis, endre eller slett timer</li>
+            <li class="list-group-item">Se når behandlere er ledig</li>
+            <li class="list-group-item">Slipp telefonkø</li>
+          </ul>
         </div>
       </div>
     </div>

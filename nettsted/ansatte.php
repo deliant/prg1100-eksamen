@@ -61,7 +61,7 @@ include("libs/listeboks.php");
 <div class="jumbotron-ansatte">
   <div class="container bg-jumbo">
     <h1>Ansatte</h1>
-    <p>Her finner du liste over våre dyktige ansatte</p>
+    <p>Bjarum Medical har mange dyktige medarbeidere over flere yrkesgrupper og kan garantert hjelpe deg med dine behov</p>
     <p>
       <a class="btn btn-success btn-lg" href="timebestilling.php" type="submit" role="button">Finn ledig time &raquo;</a>
     </p>

@@ -76,17 +76,35 @@ include("libs/timebestilling.php");
         <select class="form-control" id="regTidspunkt" name="regTidspunkt">
           <option value="NULL">Velg behandler og dato</option>
         </select><br/>
-          <input class="btn btn-success btn-lg" type="submit" name="submitRegTimebestilling" role="button" value="Bestill time &raquo;">
+          <input class="btn btn-success btn-lg text-center" type="submit" name="submitRegTimebestilling" role="button" value="Bestill time &raquo;">
       </div>
     </form>
-    <p>Du må være <a href="minside.php" role="button">innlogget</a> for å registrere time</p>
+    <?php
+    if(!$innloggetBruker) {
+      echo "<p>Du må være <a href=\"minside.php\" role=\"button\">innlogget</a> for å registrere time</p>\n";
+    }
+    ?>
   </div>
 </div>
 <!-- Columns -->
 <div class="cover-bottom">
   <div class="container">
     <div class="bg-bottom" id="ajax">
-
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Bestill time</h2>
+          <p>Her kan du enkelt finne oversikt og bestille ledige timer hos våre høyt kvalifiserte medarbeidere over mange yrkesgrupper. Din trygghet er vår suksess!</p>
+        </div>
+        <div class="col-md-6">
+          <h2>Kjerneverdier</h2>
+          <ul class="list-group">
+            <li class="list-group-item">Ærlighet</li>
+            <li class="list-group-item">Dyktighet</li>
+            <li class="list-group-item">Omsorg</li>
+            <li class="list-group-item">Service</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
