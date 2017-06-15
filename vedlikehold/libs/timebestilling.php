@@ -37,7 +37,8 @@ function registrerTimebestilling() {
   $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($tidspunkt)) {
+  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($tidspunkt) &&
+  $brukernavn != "NULL" && $personnr != "NULL" && $tidspunkt != "NULL") {
     $regTimebestillingOk = 1;
     // Sjekk om tidspunkt for timebestilling er i timeinndeling
     $sql = "SELECT timeinndelingnr FROM timeinndeling

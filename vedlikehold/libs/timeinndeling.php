@@ -40,7 +40,8 @@ function registrerTimeinndeling() {
   $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt) && $ukedag != "NULL") {
+  if(!empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt) &&
+    $brukernavn != "NULL" && $ukedag != "NULL") {
     $regTimeinndelingOk = 1;
     // Sjekk at verdiene for fratidspunkt og tiltidspunkt ikke er like
     if($fratidspunkt == $tiltidspunkt) {

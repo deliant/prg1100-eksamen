@@ -29,7 +29,7 @@ function registrerPasient() {
   $brukernavn = mysqli_real_escape_string($conn, $_POST["velgFastlege"]);
 
   // Sjekk at tekstfeltene har input
-  if(!empty($personnr) && !empty($navn) && !empty($brukernavn)) {
+  if(!empty($personnr) && !empty($navn) && !empty($brukernavn) && $brukernavn != "NULL") {
     // Sett inn i databasen
     $sql = "INSERT INTO pasient (personnr, pasientnavn, brukernavn)
     VALUES ('$personnr', '$navn', '$brukernavn')";
