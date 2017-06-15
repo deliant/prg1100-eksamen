@@ -1,10 +1,10 @@
 <?php
 function visTimeinndeling() {
   include("db.php");
-  $sql = "SELECT t.ukedag, t.tidspunkt, b.behandlernavn
+  $sql = "SELECT ukedag, tidspunkt, behandlernavn
   FROM timeinndeling AS t
   LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
-  ORDER BY behandlernavn";
+  ORDER BY behandlernavn, tidspunkt";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
@@ -31,7 +31,7 @@ function registrerTimeinndeling() {
   $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
+  if(!empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt) && $ukedag != "NULL") {
     $regTimeinndelingOk = 1;
     // Sjekk at verdiene for fratidspunkt og tiltidspunkt ikke er like
     if($fratidspunkt == $tiltidspunkt) {
@@ -48,32 +48,141 @@ function registrerTimeinndeling() {
     }
 
     // Sjekk om det er mulig å dele tidspunkt med intervall
-    /*
     if(isset($_POST["checkboxbulk"])){
+      $fratime = substr($fratidspunkt, 0, 2);
+      $tiltime = substr($tiltidspunkt, 0, 2);
+      $timer = $tiltime - $fratime;
       $intervall = mysqli_real_escape_string($conn, $_POST["regIntervall"]);
-      $tidspunktintervall = $intervall * 60;
-      $tidspunktdiff = strtotime($tiltidspunkt) - strtotime($fratidspunkt);
-      var_dump ($tidspunktdiff);
-      $antall = $tidspunktdiff / $tidspunktintervall;
-      $check = (double)filter_var($antall, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+      $check = (double)filter_var($timer, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
       if(!abs($check - round($check)) < 0.0001) {
         $regTimeinndelingOk = 0;
       }
-    }
-    */
 
-    if($regTimeinndelingOk == 1) {
-      $sql = "INSERT INTO timeinndeling (brukernavn, ukedag, tidspunkt)
-      VALUES ('$brukernavn', '$ukedag', '$tidspunkt')";
-
-      if(mysqli_query($conn, $sql)) {
-        echo "<div class=\"alert alert-success\" align=\"top\">$brukernavn registrert som åpen for å ta imot pasienter $ukedag kl. $tidspunkt i timeinndeling databasen.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
-      } else {
-        echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      // Sjekk om intervall er satt
+      if(empty($_POST["regIntervall"]) || $_POST["regIntervall"] == "NULL") {
+        $regTimeinndelingOk = 0;
       }
     }
+
+    if($regTimeinndelingOk == 1) {
+      if(isset($_POST["checkboxbulk"])) {
+        switch($intervall) {
+          case 15:
+            for($x = 0; $x < $timer; $x++) {
+              if($x == 0) {
+                $regtime = $fratime;
+              } else {
+                $regtime = sprintf("%02d", ($regtime + 1));
+              }
+
+              for($y = 0; $y < 4; $y++) {
+                if($y == 0) {
+                  $regminutt = "00";
+                } else {
+                  $regminutt = ($regminutt + 15);
+                }
+
+                $regtid = $regtime .":". $regminutt ."-". $regtime .":". ($regminutt + 15);
+                if(preg_match("/60/", "$regtid")) {
+                  preg_replace("/60/", "00", $regtid);
+                  $regtid = $regtime .":". $regminutt ."-". sprintf("%02d", ($regtime + 1)) .":00";
+                }
+
+                // Sjekk om timeinndeling allerede eksisterer
+                $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$regtid'";
+                $result = mysqli_query($conn, $sql);
+                if(mysqli_num_rows($result) > 0) {
+                  echo "<div class=\"alert alert-danger\" align=\"top\">Timeinndeling eksisterer allerede. Fortsetter med neste</div>\n";
+                } else {
+                  $sql = "INSERT INTO timeinndeling (brukernavn, ukedag, tidspunkt)
+                  VALUES ('$brukernavn', '$ukedag', '$regtid')";
+
+                  mysqli_query($conn, $sql) or die("<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>");
+                }
+              }
+            }
+          echo "<div class=\"alert alert-success\" align=\"top\">$brukernavn registrert som åpen for å ta imot pasienter i bulk $ukedag kl. $fratime - $tiltime i timeinndeling databasen.</div>\n";
+          echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
+          break;
+
+          case 30:
+            for($x = 0; $x < $timer; $x++) {
+              if($x == 0) {
+                $regtime = $fratime;
+              } else {
+                $regtime = sprintf("%02d", ($regtime + 1));
+              }
+
+              for($y = 0; $y < 2; $y++) {
+                if($y == 0) {
+                  $regminutt = "00";
+                } else {
+                  $regminutt = ($regminutt + 30);
+                }
+
+                $regtid = $regtime .":". $regminutt ."-". $regtime .":". ($regminutt + 30);
+                if(preg_match("/60/", "$regtid")) {
+                  preg_replace("/60/", "00", $regtid);
+                  $regtid = $regtime .":". $regminutt ."-". sprintf("%02d", ($regtime + 1)) .":00";
+                }
+
+                // Sjekk om timeinndeling allerede eksisterer
+                $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$regtid'";
+                $result = mysqli_query($conn, $sql);
+                if(mysqli_num_rows($result) > 0) {
+                  echo "<div class=\"alert alert-danger\" align=\"top\">Timeinndeling eksisterer allerede. Fortsetter med neste</div>\n";
+                } else {
+                  $sql = "INSERT INTO timeinndeling (brukernavn, ukedag, tidspunkt)
+                  VALUES ('$brukernavn', '$ukedag', '$regtid')";
+
+                  mysqli_query($conn, $sql) or die("<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>");
+                }
+              }
+            }
+            echo "<div class=\"alert alert-success\" align=\"top\">$brukernavn registrert som åpen for å ta imot pasienter i bulk $ukedag kl. $fratime - $tiltime i timeinndeling databasen.</div>\n";
+            echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
+            break;
+
+          case 60:
+            for($x = 0; $x < $timer; $x++) {
+              if($x == 0) {
+                $regtime = $fratime;
+              } else {
+                $regtime = sprintf("%02d", ($regtime + 1));
+              }
+
+              $regtid = $regtime . ":00-". $regtime + 1;
+
+              // Sjekk om timeinndeling allerede eksisterer
+              $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$regtid'";
+              $result = mysqli_query($conn, $sql);
+              if(mysqli_num_rows($result) > 0) {
+                echo "<div class=\"alert alert-danger\" align=\"top\">Timeinndeling eksisterer allerede. Fortsetter med neste</div>\n";
+              } else {
+                $sql = "INSERT INTO timeinndeling (brukernavn, ukedag, tidspunkt)
+                  VALUES ('$brukernavn', '$ukedag', '$regtid')";
+
+                mysqli_query($conn, $sql) or die("<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>");
+              }
+            }
+            echo "<div class=\"alert alert-success\" align=\"top\">$brukernavn registrert som åpen for å ta imot pasienter i bulk $ukedag kl. $fratime - $tiltime i timeinndeling databasen.</div>\n";
+            echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
+            break;
+        }
+      } else {
+        $sql = "INSERT INTO timeinndeling (brukernavn, ukedag, tidspunkt)
+        VALUES ('$brukernavn', '$ukedag', '$tidspunkt')";
+
+        if(mysqli_query($conn, $sql)) {
+          echo "<div class=\"alert alert-success\" align=\"top\">$brukernavn registrert som åpen for å ta imot pasienter $ukedag kl. $tidspunkt i timeinndeling databasen.</div>\n";
+          echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
+        } else {
+          echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
+        }
+      }
+    }
+
   }
 
   mysqli_close($conn);
@@ -124,17 +233,39 @@ function endreTimeinndeling() {
 
 function slettTimeinndeling() {
   include("db.php");
-  $timeinndelingnr = mysqli_real_escape_string($conn, $_POST["slettTidspunkt"]);
+  if(isset($_POST["checkboxslettbulk"])) {
+    $brukernavn = mysqli_real_escape_string($conn, $_POST["slettBehandler"]);
+    $ukedag = mysqli_real_escape_string($conn, $_POST["slettUkedag"]);
+  } else {
+    $timeinndelingnr = mysqli_real_escape_string($conn, $_POST["slettTidspunkt"]);
+  }
 
-  // Sjekk at tekstfeltene har input
-  if(!empty($timeinndelingnr) && $timeinndelingnr != "NULL") {
-    // Slett fra databasen
-    $sql = "DELETE FROM timeinndeling WHERE timeinndelingnr='$timeinndelingnr'";
-    if(mysqli_query($conn, $sql)) {
-      echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
-    } else {
-      echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+  // Sjekk om bulk
+  if(isset($_POST["checkboxslettbulk"])) {
+    // Sjekk om behandler og ukedag er satt
+    if(!empty($_POST["slettBehandler"]) && $_POST["slettBehandler"] != "NULL"
+      && !empty($_POST["slettUkedag"]) && $_POST["slettUkedag"] != "NULL") {
+
+      // Slett fra databasen
+      $sql = "DELETE FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
+      if(mysqli_query($conn, $sql)) {
+        echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      } else {
+        echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      }
+    }
+  } else {
+    // Sjekk at tekstfeltene har input
+    if(!empty($timeinndelingnr) && $timeinndelingnr != "NULL") {
+      // Slett fra databasen
+      $sql = "DELETE FROM timeinndeling WHERE timeinndelingnr='$timeinndelingnr'";
+      if(mysqli_query($conn, $sql)) {
+        echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
+        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      } else {
+        echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
+      }
     }
   }
 
