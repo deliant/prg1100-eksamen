@@ -53,7 +53,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende pasient"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerPasientEndring()">
         <label>Pasient</label>
         <select name="velgPasient" onchange="endrePasient(this.value)">
           <option>-Velg pasient-</option>
@@ -69,7 +69,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende pasient"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return confirm('Er du sikker?');>
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return slett_confirm()">
         <label>Pasient</label>
         <select name="slettPasient">
           <option value="NULL">-Velg pasient-</option>
