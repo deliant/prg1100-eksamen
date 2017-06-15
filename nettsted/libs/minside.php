@@ -92,7 +92,7 @@ function endreTimebestilling() {
   $tidspunkt = mysqli_real_escape_string($conn, $_POST["endringTidspunkt"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_SESSION["personnr"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
@@ -222,7 +222,7 @@ if(@$_GET["action"] == "registrerbruker") {
 if(@$_GET["action"] == "listeboksVisLedig") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["endringBehandler"]);
   $dato = mysqli_real_escape_string($conn, $_GET["endringDato"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);

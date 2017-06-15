@@ -30,7 +30,7 @@ function registrerTimebestilling() {
   $personnr = mysqli_real_escape_string($conn, $_POST["regPasient"]);
   $dato = mysqli_real_escape_string($conn, $_POST["regDato"]);
   $tidspunkt = mysqli_real_escape_string($conn, $_POST["regTidspunkt"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
@@ -84,7 +84,7 @@ function endreTimebestilling() {
   $tidspunkt = mysqli_real_escape_string($conn, $_POST["endringTidspunkt"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_POST["endringPasient"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
@@ -148,7 +148,7 @@ include("db.php");
 if(@$_GET["action"] == "listeboksReg") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["regBehandler"]);
   $dato = mysqli_real_escape_string($conn, $_GET["regDato"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
@@ -220,7 +220,7 @@ if(@$_GET["action"] == "listeboksEndre") {
 if(@$_GET["action"] == "listeboksVisLedig") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["endringBehandler"]);
   $dato = mysqli_real_escape_string($conn, $_GET["endringDato"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
