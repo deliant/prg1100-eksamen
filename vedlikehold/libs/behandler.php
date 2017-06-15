@@ -129,7 +129,7 @@ function slettBehandler() {
         $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        $filbane = "/../bilder/" . $row["filnavn"];
+        $filbane = "D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/" . $row["filnavn"];
 
         if(is_writable($filbane)) {
           // Slett fil
