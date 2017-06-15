@@ -71,7 +71,7 @@ function endreBehandler() {
 
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr) &&
-  $navn != "NULL" && $yrkesgruppnr != "NULL" && $bildenr != "NULL") {
+  $navn != "NULL" && $yrkesgruppenr != "NULL" && $bildenr != "NULL") {
     $sql = "UPDATE behandler SET behandlernavn='$navn', yrkesgruppenr='$yrkesgruppenr', bildenr='$bildenr' WHERE brukernavn='$brukernavn'";
 
     // Endre i databasen
