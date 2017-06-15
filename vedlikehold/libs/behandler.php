@@ -161,6 +161,10 @@ function slettBehandler() {
 }
 
 include("db.php");
+if(@$_GET["action"] == "visCheckbox") {
+  echo "<label>Passord</label><input type=\"password\" name=\"regPassord\"><br/>\n";
+}
+
 if(@$_GET["action"] == "endre") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["brukernavn"]);
   $sql = "SELECT b.brukernavn, b.behandlernavn, y.yrkesgruppenavn, b.yrkesgruppenr, b.bildenr 

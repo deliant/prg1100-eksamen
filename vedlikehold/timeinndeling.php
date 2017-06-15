@@ -74,21 +74,8 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
 <script src="js/validering.js"></script>
-<script>
-  $(function() {
-    $('#regFraTidspunkt, #regTilTidspunkt, #endringFraTidspunkt, #endringTilTidspunkt').timepicker({
-      timeFormat: 'HH:mm',
-      interval: '15',
-      minTime: '08',
-      maxTime: '16',
-      startTime: '08:00',
-      dynamic: false,
-      dropdown: true,
-      scrollbar: true
-    });
-  });
-</script>
-
+<script src="js/datepicker.js"></script>
+<script src="js/datepicker-no.js"></script>
 
 </body>
 </html>

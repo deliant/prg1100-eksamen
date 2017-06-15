@@ -273,6 +273,16 @@ function slettTimeinndeling() {
 }
 
 include("db.php");
+if(@$_GET["action"] == "visCheckbox") {
+  echo "<label>Intervall</label>\n";
+  echo "<select name=\"regIntervall\">\n";
+  echo "<option value=\"NULL\">-Velg intervall-</option>\n";
+  echo "<option value=\"15\">15min</option>\n";
+  echo "<option value=\"30\">30min</option>\n";
+  echo "<option value=\"60\">60min</option>\n";
+  echo "</select><br/>\n";
+}
+
 if(@$_GET["action"] == "listeboksEndre") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["velgBehandler"]);
   $ukedag = mysqli_real_escape_string($conn, $_GET["velgUkedag"]);

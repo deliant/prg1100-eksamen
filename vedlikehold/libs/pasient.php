@@ -107,6 +107,10 @@ function slettPasient() {
 }
 
 include("db.php");
+if(@$_GET["action"] == "visCheckbox") {
+  echo "<label>Passord</label><input type=\"password\" name=\"endringPassord\" /><br/>\n";
+}
+
 if(@$_GET["action"] == "endre") {
   $personnr = mysqli_real_escape_string($conn, $_GET["personnr"]);
   $sql = "SELECT p.personnr, p.pasientnavn, p.brukernavn, b.behandlernavn
@@ -121,7 +125,6 @@ if(@$_GET["action"] == "endre") {
     echo "<form action=\"\" method=\"post\" onsubmit=\"return validerPasientEndring()\">\n";
     echo "<label>Personnr</label><input type=\"text\" name=\"endringPersonnr\" value=\"" . htmlspecialchars($row['personnr']) . "\" readonly required/><br/>\n";
     echo "<label>Navn</label><input type=\"text\" id=\"endringNavn\" name=\"endringNavn\" value=\"" . htmlspecialchars($row['pasientnavn']) ."\" required/><br/>\n";
-    echo "<label>Passord</label><input type=\"password\" name=\"endringPassord\" /><br/>\n";
     echo "<label>Fastlege</label><select name=\"endringFastlege\">\n";
     $sql2 = "SELECT brukernavn, behandlernavn, yrkesgruppenavn FROM behandler
     LEFT JOIN yrkesgruppe ON behandler.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
@@ -141,6 +144,8 @@ if(@$_GET["action"] == "endre") {
     }
 
     echo "</select><br/>\n";
+    echo "<label>Endre passord</label><input type=\"checkbox\" name=\"checkboxpassord\" onchange=\"visCheckboxPasient()\" /><br/>\n";
+    echo "<div id=\"endreskjult\"></div>\n";
     echo "<label>&nbsp;</label><input class=\"btn btn-primary\" type=\"submit\" value=\"Endre\" name=\"submitEndrePasient\">\n";
     echo "</form>\n";
   }

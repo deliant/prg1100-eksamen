@@ -183,7 +183,10 @@ if(@$_GET["action"] == "listeboksReg") {
     WHERE tidspunkt NOT IN ( 
     SELECT DISTINCT tidspunkt 
       FROM timebestilling
-      WHERE dato='$dato' )";
+      WHERE dato='$dato')
+    AND brukernavn='$brukernavn'
+    AND ukedag='$ukedag'
+    GROUP BY tidspunkt";
 
     $result = mysqli_query($conn, $sql);
 
@@ -252,7 +255,10 @@ if(@$_GET["action"] == "listeboksVisLedig") {
     WHERE tidspunkt NOT IN ( 
     SELECT DISTINCT tidspunkt 
       FROM timebestilling
-      WHERE dato='$dato' )";
+      WHERE dato='$dato')
+    AND brukernavn='$brukernavn'
+    AND ukedag='$ukedag'
+    GROUP BY tidspunkt";
     $result = mysqli_query($conn, $sql);
 
     if(mysqli_num_rows($result) > 0) {
@@ -330,7 +336,7 @@ if(@$_GET["action"] == "endre") {
     }
 
     echo "</select><br/>\n";
-    echo "<label>Dato</label><input type=\"text\" id=\"endringDato\" name=\"endringDato\" onkeyup=\"listeboksVisLedigTimebestilling(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
+    echo "<label>Dato</label><input type=\"text\" id=\"endringDato\" name=\"endringDato\" onchange=\"listeboksVisLedigTimebestilling(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/><br/>\n";
     echo "<label>Tidspunkt</label>";
     echo "<select id=\"endringTidspunkt\" name=\"endringTidspunkt\">\n";
     echo "<option>-Velg behandler og dato-</option>\n";

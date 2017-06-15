@@ -73,22 +73,8 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
 <script src="js/validering.js"></script>
-<script>
-  $(function() {
-    $('#regDato, #endringDato').datepicker({
-      dateFormat: 'yy-mm-dd',
-      prevText:'',
-      nextText:'',
-      minDate: "-10",
-      maxDate: "+365"
-    });
-  });
-  $(function() {
-    $('#endringDato').on('click', function() {
-      $(this).datepicker({showOn:'focus'}).focus();
-    });
-  });
-</script>
+<script src="js/datepicker.js"></script>
+<script src="js/datepicker-no.js"></script>
 
 </body>
 </html>

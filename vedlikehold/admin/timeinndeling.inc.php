@@ -54,14 +54,8 @@ include("libs/listeboks.php");
         <label>Tidspunkt</label><input type="time" id="regFraTidspunkt" name="regFraTidspunkt" required />
         <input type="time" id="regTilTidspunkt" name="regTilTidspunkt" required /><br/>
         <label>Registrer i bulk <a><span class="glyphicon glyphicon-info-sign icon_info" title="Registrer timeinndeling i bulk, registrerer kun valg av time i tidspunkt (f.ex fra 8-12)"></span></a>
-        </label><input type="checkbox" name="checkboxbulk" /><br/>
-        <label>Intervall</label>
-        <select name="regIntervall">
-          <option value="NULL">-Velg intervall-</option>
-          <option value="15">15min</option>
-          <option value="30">30min</option>
-          <option value="60">60min</option>
-        </select><br/>
+        </label><input type="checkbox" name="checkboxbulk" onchange="visCheckboxTimeinndeling()" /><br/>
+        <div id="regskjult"></div>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegTimeinndeling">
       </form>
     </div>
