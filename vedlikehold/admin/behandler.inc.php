@@ -61,7 +61,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Endre en eksisterende behandler"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return validerBehandlerEndring()">
         <label>Behandler</label>
         <select name="velgBehandler" id="velgBehandler" onchange="endreBehandler(this.value)">
           <option>-Velg behandler-</option>
@@ -77,7 +77,7 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende behandler"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return confirm('Er du sikker?');">
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return slett_confirm()">
         <label>Behandler</label>
         <select name="slettBehandler">
           <option value="NULL">-Velg behandler-</option>

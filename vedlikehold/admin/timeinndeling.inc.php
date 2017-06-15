@@ -44,7 +44,7 @@ include("libs/listeboks.php");
         </select><br/>
         <label>Ukedag</label>
         <select name="regUkedag">
-          <option>-Velg ukedag-</option>
+          <option value="NULL">-Velg ukedag-</option>
           <option value="Mandag">Mandag</option>
           <option value="Tirsdag">Tirsdag</option>
           <option value="Onsdag">Onsdag</option>
@@ -53,6 +53,15 @@ include("libs/listeboks.php");
         </select><br/>
         <label>Tidspunkt</label><input type="time" id="regFraTidspunkt" name="regFraTidspunkt" required />
         <input type="time" id="regTilTidspunkt" name="regTilTidspunkt" required /><br/>
+        <label>Registrer i bulk <a><span class="glyphicon glyphicon-info-sign icon_info" title="Registrer timeinndeling i bulk, registrerer kun valg av time i tidspunkt (f.ex fra 8-12)"></span></a>
+        </label><input type="checkbox" name="checkboxbulk" /><br/>
+        <label>Intervall</label>
+        <select name="regIntervall">
+          <option value="NULL">-Velg intervall-</option>
+          <option value="15">15min</option>
+          <option value="30">30min</option>
+          <option value="60">60min</option>
+        </select><br/>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegTimeinndeling">
       </form>
     </div>
@@ -91,15 +100,15 @@ include("libs/listeboks.php");
           <span class="glyphicon glyphicon-info-sign icon_info" title="Slett en eksisterende timeinndeling"></span>
         </a>
       </h3>
-      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return confirm('Er du sikker?');>
+      <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return slett_confirm()">
         <label>Behandler</label>
         <select id="slettBehandler" name="slettBehandler">
-          <option>-Velg behandler-</option>
+          <option value="NULL">-Velg behandler-</option>
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>Ukedag</label>
         <select id="slettUkedag" name="slettUkedag" onchange="listeboksSlettTimeinndeling(this.value)">
-          <option>-Velg ukedag-</option>
+          <option value="NULL">-Velg ukedag-</option>
           <option value="Mandag">Mandag</option>
           <option value="Tirsdag">Tirsdag</option>
           <option value="Onsdag">Onsdag</option>
@@ -110,6 +119,8 @@ include("libs/listeboks.php");
         <select id="slettTidspunkt" name="slettTidspunkt">
           <option>-Velg behandler og ukedag-</option>
         </select><br/>
+        <label>Slett i bulk <a><span class="glyphicon glyphicon-info-sign icon_info" title="Slett timeinndeling i bulk per dag, velg behandler og ukedag"></span></a>
+        </label><input type="checkbox" name="checkboxslettbulk" /><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettTimeinndeling">
       </form>
     </div>
