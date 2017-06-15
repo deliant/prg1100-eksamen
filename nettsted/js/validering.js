@@ -3,6 +3,14 @@ function fjernMelding() {
   document.getElementById("respons").innerHTML="";
 }
 
+function slett_confirm() {
+  if(confirm("Er du sikker på at du vil utføre slettingen?")) {
+    document.forms[0].submit();
+  } else {
+    return false;
+  }
+}
+
 function validerPersonnr(personnr) {
   var tegn1, tegn2, tegn3, tegn4, tegn5, tegn6, tegn7, tegn8, tegn9, tegn10, tegn11;
   var lovligPersonnr = true;
