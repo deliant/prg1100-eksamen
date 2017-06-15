@@ -2,6 +2,7 @@
 function registrerBruker() {
   include("db.php");
   $personnr = mysqli_real_escape_string($conn, $_POST["regPersonnr"]);
+  $personnr = printf("%13d", $personnr);
   $navn = mysqli_real_escape_string($conn, $_POST["regNavn"]);
   $behandler = mysqli_real_escape_string($conn, $_POST["regBehandler"]);
   $passord = mysqli_real_escape_string($conn, $_POST["regPassord"]);
