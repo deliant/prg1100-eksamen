@@ -162,7 +162,7 @@ function registrerTimeinndeling() {
                 $regtime = sprintf("%02d", ($regtime + 1));
               }
 
-              $regtid = $regtime . ":00-". $regtime + 1;
+              $regtid = $regtime .":00-". sprintf("%02d", ($regtime + 1) ."00";
 
               // Sjekk om timeinndeling allerede eksisterer
               $sql = "SELECT timeinndelingnr FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag' AND tidspunkt='$regtid'";
