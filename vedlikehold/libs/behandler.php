@@ -11,7 +11,7 @@ function visBehandler() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td><img class=\"thumbnail-bilde\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
+      echo "<td><img class=\"thumbnail-bilde\" src=\"D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
@@ -33,7 +33,8 @@ function registrerBehandler() {
   $bildenr = mysqli_real_escape_string($conn, $_POST["regBildenr"]);
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr)) {
+  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr) &&
+  $yrkesgruppenr != NULL && $bildenr != "NULL") {
     // Sjekk om checkbox for databasebruker er på
     if(isset($_POST["checkboxbruker"])) {
       $passord = mysqli_real_escape_string($conn, $_POST["regPassord"]);
@@ -54,6 +55,8 @@ function registrerBehandler() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -67,7 +70,8 @@ function endreBehandler() {
   $bildenr = mysqli_real_escape_string($conn, $_POST["endringBildenr"]);
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr)) {
+  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr) &&
+  $navn != "NULL" && $yrkesgruppnr != "NULL" && $bildenr != "NULL") {
     $sql = "UPDATE behandler SET behandlernavn='$navn', yrkesgruppenr='$yrkesgruppenr', bildenr='$bildenr' WHERE brukernavn='$brukernavn'";
 
     // Endre i databasen
@@ -77,6 +81,8 @@ function endreBehandler() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);

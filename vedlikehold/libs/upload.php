@@ -1,5 +1,5 @@
 <?php
-$target_dir = "../bilder/";
+$target_dir = "D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/";
 $target_file = $target_dir . basename($_FILES["regFilnavn"]["name"]);
 $uploadOk = 1;
 $bildeFiltype = pathinfo($target_file,PATHINFO_EXTENSION);

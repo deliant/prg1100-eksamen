@@ -7,7 +7,7 @@ function visBilde() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td><img class=\"thumbnail-bilde\" src=\"../bilder/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
+      echo "<td><img class=\"thumbnail-bilde\" src=\"D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['beskrivelse']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['opplastingsdato']) ."</td>\n";
@@ -39,6 +39,8 @@ function registrerBilde() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -58,6 +60,8 @@ function endreBilde() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -77,7 +81,7 @@ function slettBilde() {
       $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
       $result = mysqli_query($conn, $sql);
       $row = mysqli_fetch_assoc($result);
-      $filbane = "../bilder/" . $row["filnavn"];
+      $filbane = "D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/" . $row["filnavn"];
 
       if(is_writable($filbane)) {
         if(unlink($filbane)) {

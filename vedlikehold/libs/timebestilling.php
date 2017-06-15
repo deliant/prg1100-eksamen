@@ -30,14 +30,15 @@ function registrerTimebestilling() {
   $personnr = mysqli_real_escape_string($conn, $_POST["regPasient"]);
   $dato = mysqli_real_escape_string($conn, $_POST["regDato"]);
   $tidspunkt = mysqli_real_escape_string($conn, $_POST["regTidspunkt"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
   $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($tidspunkt)) {
+  if(!empty($brukernavn) && !empty($personnr) && !empty($dato) && !empty($tidspunkt) &&
+  $brukernavn != "NULL" && $personnr != "NULL" && $tidspunkt != "NULL") {
     $regTimebestillingOk = 1;
     // Sjekk om tidspunkt for timebestilling er i timeinndeling
     $sql = "SELECT timeinndelingnr FROM timeinndeling
@@ -72,6 +73,8 @@ function registrerTimebestilling() {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -84,13 +87,14 @@ function endreTimebestilling() {
   $tidspunkt = mysqli_real_escape_string($conn, $_POST["endringTidspunkt"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_POST["endringPasient"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
   $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
 
-  if(!empty($timebestillingnr) && !empty($dato) && !empty($tidspunkt) && !empty($brukernavn) && !empty($personnr)) {
+  if(!empty($timebestillingnr) && !empty($dato) && !empty($tidspunkt) && !empty($brukernavn) && !empty($personnr) &&
+  $timbestillingnr != "NULL" && $brukernavn != "NULL" && $tidspunkt != "NULL" && $personnr != "NULL") {
     $regTimebestillingOk = 1;
     // Sjekk om tidspunkt for timebestilling er i timeinndeling
     $sql = "SELECT timeinndelingnr FROM timeinndeling
@@ -121,6 +125,8 @@ function endreTimebestilling() {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -148,7 +154,7 @@ include("db.php");
 if(@$_GET["action"] == "listeboksReg") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["regBehandler"]);
   $dato = mysqli_real_escape_string($conn, $_GET["regDato"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);
@@ -220,7 +226,7 @@ if(@$_GET["action"] == "listeboksEndre") {
 if(@$_GET["action"] == "listeboksVisLedig") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["endringBehandler"]);
   $dato = mysqli_real_escape_string($conn, $_GET["endringDato"]);
-  setlocale(LC_TIME, "nb_NO.UTF-8");
+  setlocale(LC_TIME, "no");
   $year = substr($dato, 0, 4);
   $month = substr($dato, 5, 2);
   $day = substr($dato, 8, 2);

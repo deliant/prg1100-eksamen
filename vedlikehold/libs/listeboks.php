@@ -11,7 +11,7 @@ function listeboksBehandler() {
       echo "<option value=\"". htmlspecialchars($row['brukernavn']) ."\">". htmlspecialchars($row['behandlernavn']) ." - ". htmlspecialchars($row['yrkesgruppenavn']) ."</option>\n";
     }
   } else {
-    echo "<option value=\"Ingen\">Ingen behandlere funnet</option>\n";
+    echo "<option value=\"NULL\">Ingen behandlere funnet</option>\n";
   }
 
   mysqli_close($conn);
@@ -27,7 +27,23 @@ function listeboksBilde() {
       echo "<option value=\"". htmlspecialchars($row['bildenr']) ."\">". htmlspecialchars($row['bildenr']) ." - ". htmlspecialchars($row['beskrivelse']) ."</option>\n";
     }
   } else {
-    echo "<option value=\"Ingen\">Ingen bilder funnet</option>\n";
+    echo "<option value=\"NULL\">Ingen bilder funnet</option>\n";
+  }
+
+  mysqli_close($conn);
+}
+
+function listeboksBruker() {
+  include("db.php");
+  $sql = "SELECT brukernavn FROM bruker ORDER BY brukernavn";
+  $result = mysqli_query($conn, $sql);
+
+  if(mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+      echo "<option value=\"". htmlspecialchars($row['brukernavn']) ."\">". htmlspecialchars($row['brukernavn']) ."</option>\n";
+    }
+  } else {
+    echo "<option value=\"NULL\">Ingen brukere funnet</option>\n";
   }
 
   mysqli_close($conn);
@@ -43,7 +59,7 @@ function listeboksPasient() {
       echo "<option value=\"". htmlspecialchars($row['personnr']) ."\">". htmlspecialchars($row['personnr']) ." - ". htmlspecialchars($row['pasientnavn']) ."</option>\n";
     }
   } else {
-    echo "<option value=\"Ingen\">Ingen pasienter funnet</option>\n";
+    echo "<option value=\"NULL\">Ingen pasienter funnet</option>\n";
   }
 
   mysqli_close($conn);
@@ -59,7 +75,7 @@ function listeboksYrkesgruppe() {
       echo "<option value=\"". htmlspecialchars($row['yrkesgruppenr']) ."\">". htmlspecialchars($row['yrkesgruppenavn']) ."</option>\n";
     }
   } else {
-    echo "<option value=\"Ingen\">Ingen yrkesgrupper funnet</option>\n";
+    echo "<option value=\"NULL\">Ingen yrkesgrupper funnet</option>\n";
   }
 
   mysqli_close($conn);

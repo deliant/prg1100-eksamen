@@ -2,7 +2,7 @@
 function velgDato($brukernavn, $dato) {
   if(!empty($brukernavn) && !empty($dato)) {
     include("db.php");
-    setlocale(LC_TIME, "nb_NO.UTF-8");
+    setlocale(LC_TIME, "no");
     $year = substr($dato, 0, 4);
     $month = substr($dato, 5, 2);
     $day = substr($dato, 8, 2);
@@ -76,7 +76,7 @@ function velgDato($brukernavn, $dato) {
 function velgUkesliste($brukernavn, $dato) {
   if(!empty($brukernavn) && !empty($dato)) {
     include("db.php");
-    setlocale(LC_TIME, "nb_NO.UTF-8");
+    setlocale(LC_TIME, "no");
     $year = substr($dato, 0, 4);
     $month = substr($dato, 5, 2);
     $day = substr($dato, 8, 2);
