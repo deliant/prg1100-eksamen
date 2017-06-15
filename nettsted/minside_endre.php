@@ -107,6 +107,8 @@ if(isset($_POST["submitEndreTimebestilling"])) {
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
 <script src="js/validering.js"></script>
+<script src="js/datepicker.js"></script>
+<script src="js/datepicker-no.js"></script>
 
 </body>
 </html>

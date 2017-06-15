@@ -40,6 +40,16 @@ function endreTimebestilling(str) {
     };
     xmlhttp.open("GET","libs/minside.php?action=endre&velgTidspunkt="+tidspunkt,true);
     xmlhttp.send();
+
+    $.ajax({
+      //... other ajax params,
+      type: "GET",
+      url: "libs/timebestilling.php",
+      success: function(){
+        //... success callback code
+        initDatepicker('#endringDato');
+      }
+    });
   }
 }
 
@@ -156,6 +166,16 @@ function visUkesliste(str) {
     };
     xmlhttp.open("GET","libs/ukesliste.php?action=visUkesliste&velgBehandler="+behandler+"&velgDato="+dato,true);
     xmlhttp.send();
+
+    $.ajax({
+      //... other ajax params,
+      type: "GET",
+      url: "libs/ukesliste.php",
+      success: function(){
+        //... success callback code
+        initDatepicker('#velgDato');
+      }
+    });
   }
 }
 
