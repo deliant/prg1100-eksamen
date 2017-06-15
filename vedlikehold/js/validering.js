@@ -2,6 +2,14 @@ function fjernMelding() {
   document.getElementById("validering").innerHTML="";
 }
 
+function slett_confirm() {
+  if(confirm("Er du sikker på at du vil utføre slettingen?")) {
+    document.forms[0].submit();
+  } else {
+    return false;
+  }
+}
+
 function validerBrukernavn(brukernavn) {
   var lovligBrukernavn = true;
   if(brukernavn.length > 20) {
@@ -46,13 +54,15 @@ function validerTidspunkt(fratidspunkt, tiltidspunkt) {
     lovligTidspunkt = false;
   } else {
     fratime = fratidspunkt.substr(0,2);
-    framinutt = fratidspunkt.substr(3,2);
+    framinutt = fratidspunkt.substr(3);
     tiltime = tiltidspunkt.substr(0,2);
-    tilminutt = tiltidspunkt.substr(3,2);
+    tilminutt = tiltidspunkt.substr(3);
+    var lovligTid = ["00", "15", "30", "45"];
 
-    if(framinutt != "15"|| framinutt != "30" || framinutt != "45" || framinutt != "00" ||
-      tilminutt != "15"|| tilminutt != "30" || tilminutt != "45" || tilminutt != "00") {
-      confirm("Legge til irregulær time? " +fratime+framinutt+ " - " +tiltime+tilminutt)
+    if(lovligTid.indexOf(framinutt) || lovligTid.indexOf(tilminutt)) {
+      if(!confirm("Legge til irregulær time? " +fratime+framinutt+ " - " +tiltime+tilminutt)) {
+        lovligTidspunkt = false;
+      }
     }
     if(fratime < "08" || fratime > "16" || tiltime < "08" || tiltime > "16") {
       lovligTidspunkt = false;
