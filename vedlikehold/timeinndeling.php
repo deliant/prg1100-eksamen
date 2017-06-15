@@ -68,9 +68,9 @@
   </div>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/ajax.js"></script>
 <script src="js/validering.js"></script>
@@ -82,12 +82,13 @@
       minTime: '08',
       maxTime: '16',
       startTime: '08:00',
-      dynamic: true,
+      dynamic: false,
       dropdown: true,
       scrollbar: true
     });
   });
 </script>
+
 
 </body>
 </html>
