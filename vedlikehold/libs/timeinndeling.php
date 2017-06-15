@@ -234,7 +234,7 @@ function endreTimeinndeling() {
 
       if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
@@ -265,7 +265,7 @@ function slettTimeinndeling() {
       $sql = "DELETE FROM timeinndeling WHERE brukernavn='$brukernavn' AND ukedag='$ukedag'";
       if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
@@ -277,7 +277,7 @@ function slettTimeinndeling() {
       $sql = "DELETE FROM timeinndeling WHERE timeinndelingnr='$timeinndelingnr'";
       if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }

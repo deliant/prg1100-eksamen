@@ -68,7 +68,7 @@ function registrerTimebestilling() {
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
         echo "<div class=\"alert alert-success\" align=\"top\">". $row['pasientnavn'] ." registrert til time $dato kl. $tidspunkt i timebestilling databasen.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
@@ -120,7 +120,7 @@ function endreTimebestilling() {
 
       if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
@@ -141,7 +141,7 @@ function slettTimebestilling() {
 
     if (mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }

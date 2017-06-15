@@ -35,7 +35,7 @@ function registrerBilde() {
 
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">$beskrivelse registrert i bilde databasen.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
@@ -56,7 +56,7 @@ function endreBilde() {
 
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\"\n>";
+      echo "<meta http-equiv=\"refresh\" content=\"0\"\n>";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
@@ -97,7 +97,7 @@ function slettBilde() {
         $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
         if(mysqli_query($conn, $sql)) {
           echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-          echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+          echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
         } else {
           echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
         }

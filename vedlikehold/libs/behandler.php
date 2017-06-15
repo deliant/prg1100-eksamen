@@ -51,7 +51,7 @@ function registrerBehandler() {
     VALUES ('$brukernavn', '$navn', '$yrkesgruppenr', '$bildenr')";
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">$navn registrert i behandler databasen.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
@@ -77,7 +77,7 @@ function endreBehandler() {
     // Endre i databasen
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
@@ -156,7 +156,7 @@ function slettBehandler() {
       $sql = "DELETE FROM behandler WHERE brukernavn='$brukernavn'";
       if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
