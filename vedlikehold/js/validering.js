@@ -113,25 +113,31 @@ function validerDato(dato) {
 
 function validerBrukerRegistrering() {
   var brukernavn = document.getElementById("regBrukernavn").value;
-  var navn = document.getElementById("regNavn").value;
   var lovligBrukernavn = validerBrukernavn(brukernavn);
-  var lovligNavn = validerNavn(navn);
   var feilMelding = "";
   if(!brukernavn) {
     feilMelding = "Brukernavn er ikke fyllt ut<br/>";
   }
-  if(!navn) {
-    feilMelding = "Navn er ikke fyllt ut<br/>";
-  }
-  if(!lovligBrukernavn) {
-    feilMelding = "Brukernavn inneholder 20 tegn og er unikt<br/>";
-  }
-  if(!lovligNavn) {
-    feilMelding = "Navn inneholder maks 50 bokstaver, ingen tall";
-  }
-  if(lovligBrukernavn && lovligNavn) {
+  if(lovligBrukernavn) {
     return true;
   } else {
+    feilMelding = "Brukernavn inneholder 20 tegn og er unikt";
+    document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
+    return false;
+  }
+}
+
+function validerBrukerEndring() {
+  var brukernavn = document.getElementById("endringBrukernavn").value;
+  var lovligBrukernavn = validerBrukernavn(brukernavn);
+  var feilMelding = "";
+  if(!brukernavn) {
+    feilMelding = "Brukernavn er ikke fyllt ut<br/>";
+  }
+  if(lovligBrukernavn) {
+    return true;
+  } else {
+    feilMelding = "Brukernavn inneholder 20 tegn og er unikt";
     document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
     return false;
   }
