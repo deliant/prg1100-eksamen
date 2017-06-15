@@ -364,19 +364,19 @@ if(@$_GET["action"] == "endre") {
     echo "<label>Ukedag</label><select name=\"endringUkedag\">\n";
     echo "<option>-Velg ukedag-</option>\n";
     echo "<option value=\"Mandag\"";
-    if($row["ukedag"] == "Mandag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Mandag") { echo " selected=\"selected\""; }
     echo ">Mandag</option>\n";
     echo "<option value=\"Tirsdag\"";
-    if($row["ukedag"] == "Tirsdag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Tirsdag") { echo " selected=\"selected\""; }
     echo ">Tirsdag</option>\n";
     echo "<option value=\"Onsdag\"";
-    if($row["ukedag"] == "Onsdag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Onsdag") { echo " selected=\"selected\""; }
     echo ">Onsdag</option>\n";
     echo "<option value=\"Torsdag\"";
-    if($row["ukedag"] == "Torsdag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Torsdag") { echo " selected=\"selected\""; }
     echo ">Torsdag</option>\n";
     echo "<option value=\"Fredag\"";
-    if($row["ukedag"] == "Fredag") { print " selected=\"selected\""; }
+    if($row["ukedag"] == "Fredag") { echo " selected=\"selected\""; }
     echo ">Fredag</option>\n";
     echo "</select><br/>\n";
     echo "<label>Tidspunkt</label><input type=\"time\" id=\"endringFraTidspunkt\" name=\"endringFraTidspunkt\" value=\"". htmlspecialchars($fratidspunkt) ."\" required />\n";
