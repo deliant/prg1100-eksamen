@@ -25,6 +25,8 @@ function velgDato($brukernavn, $dato) {
       FROM timebestilling
       WHERE dato='$dato'
       )
+    AND brukernavn='$brukernavn'
+    AND ukedag='$ukedag'
     GROUP BY tidspunkt";
     $result2 = mysqli_query($conn, $sql2);
     $array = array();
@@ -108,7 +110,10 @@ function velgUkesliste($brukernavn, $dato) {
         FROM timebestilling
         WHERE dato='$visdato'
         )
+      AND brukernavn='$brukernavn'
+      AND ukedag='$ukedag'
       GROUP BY tidspunkt";
+
       $result2 = mysqli_query($conn, $sql2);
       $array = array();
       while($row2 = mysqli_fetch_assoc($result2)) {

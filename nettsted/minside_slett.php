@@ -72,7 +72,7 @@ if(!$innloggetBruker) {
       <div class="panel panel-default" id="ajax">
         <div class="panel-heading"><strong>Slett timebestilling</strong></div>
         <div class="panel-body">
-          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return confirm('Er du sikker?');">
+          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" onsubmit="return slett_confirm()">
             <div class="row">
               <div class="col-md-3">Tidspunkt</div>
               <div class="col-md-5">

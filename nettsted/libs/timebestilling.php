@@ -2,7 +2,7 @@
 function registrerTimebestilling() {
   include("db.php");
   if(!isset($_SESSION["personnr"])) {
-    echo "<div  class=\"alert alert-danger\" align=\"top\">Vennligst <a href=\"minside.php\">logg inn</a> for å bestille time</div>\n";
+    echo "<div class=\"alert alert-danger\" align=\"top\">Vennligst <a href=\"minside.php\">logg inn</a> for å bestille time</div>\n";
   } else {
     $brukernavn = mysqli_real_escape_string($conn, $_POST["regBehandler"]);
     $personnr = mysqli_real_escape_string($conn, $_SESSION["personnr"]);
@@ -96,7 +96,10 @@ if(@$_GET["action"] == "listeboksReg") {
     WHERE tidspunkt NOT IN ( 
     SELECT DISTINCT tidspunkt 
       FROM timebestilling
-      WHERE dato='$dato' )";
+      WHERE dato='$dato')
+    AND brukernavn='$brukernavn'
+    AND ukedag='$ukedag'
+    GROUP BY tidspunkt";
 
     $result = mysqli_query($conn, $sql);
 

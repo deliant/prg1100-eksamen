@@ -256,7 +256,11 @@ if(@$_GET["action"] == "listeboksVisLedig") {
     WHERE tidspunkt NOT IN ( 
     SELECT DISTINCT tidspunkt 
       FROM timebestilling
-      WHERE dato='$dato' )";
+      WHERE dato='$dato')
+    AND brukernavn='$brukernavn'
+    AND ukedag='$ukedag'
+    GROUP BY tidspunkt";
+
     $result = mysqli_query($conn, $sql);
 
     if(mysqli_num_rows($result) > 0) {
@@ -326,7 +330,7 @@ if(@$_GET["action"] == "endre") {
     echo "</div>\n";
     echo "<div class=\"row\">\n";
     echo "<div class=\"col-md-3\">Dato</div>\n";
-    echo "<div class=\"col-md-5\"><input type=\"text\" class=\"form-control\" id=\"endringDato\" name=\"endringDato\" onkeyup=\"listeboksVisLedigTimebestillingDato(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/></div>\n";
+    echo "<div class=\"col-md-5\"><input type=\"text\" class=\"form-control\" id=\"endringDato\" name=\"endringDato\" onchange=\"listeboksVisLedigTimebestillingDato(this.value)\" value=\"". htmlspecialchars($row['dato']) ."\" required/></div>\n";
     echo "</div>\n";
     echo "<div class=\"row\">\n";
     echo "<div class=\"col-md-3\">Tidspunkt</div>\n";
