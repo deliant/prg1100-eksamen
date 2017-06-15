@@ -12,9 +12,9 @@ function slett_confirm() {
 }
 
 function validerPersonnr(personnr) {
-  var tegn1, tegn2, tegn3, tegn4, tegn5, tegn6, tegn7, tegn8, tegn9, tegn10, tegn11;
+  var tegn1, tegn2, tegn3, tegn4, tegn5, tegn6, tegn7, tegn8, tegn9, tegn10, tegn11, tegn12, tegn13;
   var lovligPersonnr = true;
-  if(personnr.length != 11) {
+  if(personnr.length != 13) {
     lovligPersonnr = false;
   } else {
     tegn1 = personnr.substr(0,1);
@@ -28,11 +28,14 @@ function validerPersonnr(personnr) {
     tegn9 = personnr.substr(8,1);
     tegn10 = personnr.substr(9,1);
     tegn11 = personnr.substr(10,1);
+    tegn12 = personnr.substr(11,1);
+    tegn13 = personnr.substr(12,1);
 
     if(tegn1 < "0" || tegn1 > "9" || tegn2 < "0" || tegn2 > "9" || tegn3 < "0" || tegn3 > "9" ||
-    tegn4 < "0" || tegn4 > "9" ||  tegn5 < "0" || tegn5 > "9" ||  tegn6 < "0" || tegn6 > "9" ||
-    tegn7 < "0" || tegn7 > "9" ||  tegn8 < "0" || tegn8 > "9" ||  tegn9 < "0" || tegn9 > "9" ||
-    tegn10 < "0" || tegn10 > "9" ||  tegn11 < "0" || tegn11 > "9") {
+      tegn4 < "0" || tegn4 > "9" ||  tegn5 < "0" || tegn5 > "9" ||  tegn6 < "0" || tegn6 > "9" ||
+      tegn7 < "0" || tegn7 > "9" ||  tegn8 < "0" || tegn8 > "9" ||  tegn9 < "0" || tegn9 > "9" ||
+      tegn10 < "0" || tegn10 > "9" ||  tegn11 < "0" || tegn11 > "9" ||
+      tegn12 < "0" || tegn12 > "9" ||  tegn13 < "0" || tegn13 > "9") {
       lovligPersonnr = false;
     }
   }
@@ -58,7 +61,7 @@ function validerBrukerRegistrering() {
   if(lovligPersonnr) {
     return true;
   } else {
-    feilMelding = "Personnr inneholder 11 tall og er unikt";
+    feilMelding = "Personnr inneholder 13 tall og er unikt";
     document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
     return false;
   }
@@ -74,7 +77,7 @@ function validerBrukerInnlogging() {
   if(lovligPersonnr) {
     return true;
   } else {
-    feilMelding = "Personnr inneholder 11 tall og er unikt";
+    feilMelding = "Personnr inneholder 13 tall og er unikt";
     document.getElementById("validering").innerHTML="<div class=\"alert alert-danger\" align=\"top\">"+feilMelding+"</div>";
     return false;
   }
