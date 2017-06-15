@@ -49,7 +49,7 @@ include("libs/listeboks.php");
         <select name="regBildenr">
           <?php listeboksBilde(); ?>
         </select><br/>
-        <label>Registrer som superbruker</label><input type="checkbox" name="checkboxbruker" onchange="visCheckboxBehandler()" /><br/>
+        <label>Registrer som web bruker</label><input type="checkbox" name="checkboxbruker" onchange="visCheckboxBehandler()" /><br/>
         <div id="regskjult"></div>
         <label>&nbsp;</label><input class="btn btn-success" type="submit" value="Registrer" name="submitRegBehandler">
       </form>
