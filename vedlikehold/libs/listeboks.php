@@ -23,7 +23,6 @@ function listeboksBilde() {
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
-    echo "<option value"
     while($row = mysqli_fetch_assoc($result)) {
       echo "<option value=\"". htmlspecialchars($row['bildenr']) ."\">". htmlspecialchars($row['bildenr']) ." - ". htmlspecialchars($row['beskrivelse']) ."</option>\n";
     }

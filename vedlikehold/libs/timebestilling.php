@@ -73,6 +73,8 @@ function registrerTimebestilling() {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -91,7 +93,8 @@ function endreTimebestilling() {
   $day = substr($dato, 8, 2);
   $ukedag = strftime("%A", mktime(0, 0, 0, $month, $day, $year));
 
-  if(!empty($timebestillingnr) && !empty($dato) && !empty($tidspunkt) && !empty($brukernavn) && !empty($personnr)) {
+  if(!empty($timebestillingnr) && !empty($dato) && !empty($tidspunkt) && !empty($brukernavn) && !empty($personnr) &&
+  $timbestillingnr != "NULL" && $brukernavn != "NULL" && $tidspunkt != "NULL" && $personnr != "NULL") {
     $regTimebestillingOk = 1;
     // Sjekk om tidspunkt for timebestilling er i timeinndeling
     $sql = "SELECT timeinndelingnr FROM timeinndeling
@@ -122,6 +125,8 @@ function endreTimebestilling() {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);

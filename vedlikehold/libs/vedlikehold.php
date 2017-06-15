@@ -18,6 +18,8 @@ function registrerBruker() {
       echo "<div class=\"alert alert-success\">Brukeren med innlogging " . $brukernavn . " er nå registrert.<br/>\n";
       echo "<a href=\"index.php\">Gå til innlogging</a></div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -42,6 +44,8 @@ function endrePassord() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);

@@ -55,6 +55,8 @@ function registrerBehandler() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -68,7 +70,8 @@ function endreBehandler() {
   $bildenr = mysqli_real_escape_string($conn, $_POST["endringBildenr"]);
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr)) {
+  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr) &&
+  $navn != "NULL" && $yrkesgruppnr != "NULL" && $bildenr != "NULL") {
     $sql = "UPDATE behandler SET behandlernavn='$navn', yrkesgruppenr='$yrkesgruppenr', bildenr='$bildenr' WHERE brukernavn='$brukernavn'";
 
     // Endre i databasen
@@ -78,6 +81,8 @@ function endreBehandler() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);

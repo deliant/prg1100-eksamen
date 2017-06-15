@@ -40,6 +40,8 @@ function registrerPasient() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -52,7 +54,7 @@ function endrePasient() {
   @$passord = mysqli_real_escape_string($conn, $_POST["endringPassord"]);
   $brukernavn = mysqli_real_escape_string($conn, $_POST["endringFastlege"]);
 
-  if(!empty($personnr) && !empty($navn) && !empty($brukernavn)) {
+  if(!empty($personnr) && !empty($navn) && !empty($brukernavn) && $brukernavn != "NULL") {
     if(isset($passord) && !empty($passord)) {
       $kryptert_passord = password_hash($passord, PASSWORD_DEFAULT);
       $sql = "UPDATE pasient SET pasientnavn='$navn', passord='$kryptert_passord' brukernavn='$brukernavn' WHERE personnr='$personnr'";
@@ -66,6 +68,8 @@ function endrePasient() {
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);

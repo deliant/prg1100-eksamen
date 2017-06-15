@@ -193,6 +193,8 @@ function registrerTimeinndeling() {
       }
     }
 
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -208,7 +210,8 @@ function endreTimeinndeling() {
   $tidspunkt = $fratidspunkt . "-" . $tiltidspunkt;
 
   // Sjekk at tekstfeltene har input
-  if(!empty($timeinndelingnr) && !empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt)) {
+  if(!empty($timeinndelingnr) && !empty($brukernavn) && !empty($ukedag) && !empty($fratidspunkt) && !empty($tiltidspunkt) &&
+  $timeinndelingnr != "NULL" && $brukernavn != "NULL" && $ukedag != "NULL") {
     $regTimeinndelingOk = 1;
     // Sjekk at verdiene for fratidspunkt og tiltidspunkt ikke er like
     if($fratidspunkt == $tiltidspunkt) {
@@ -236,6 +239,8 @@ function endreTimeinndeling() {
         echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);

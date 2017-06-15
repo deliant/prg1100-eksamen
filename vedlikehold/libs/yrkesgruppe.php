@@ -32,6 +32,8 @@ function registrerYrkesgruppe() {
     } else {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Registrering ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
@@ -42,7 +44,7 @@ function endreYrkesgruppe() {
   $yrkesgruppenr = mysqli_real_escape_string($conn, $_POST["velgYrkesgruppe"]);
   $yrkesgruppenavn = mysqli_real_escape_string($conn, $_POST["endringYrkesgruppe"]);
 
-  if(!empty($yrkesgruppenr) && !empty($yrkesgruppenavn)) {
+  if(!empty($yrkesgruppenr) && !empty($yrkesgruppenavn) && $yrkesgruppenr != "NULL") {
     $sql = "UPDATE yrkesgruppe SET yrkesgruppenavn='$yrkesgruppenavn' WHERE yrkesgruppenr='$yrkesgruppenr'";
 
     if(mysqli_query($conn, $sql)) {
@@ -51,6 +53,8 @@ function endreYrkesgruppe() {
     } else {
       echo "<div class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
+  } else {
+    echo "<div class=\"alert alert-danger\" align=\"top\">Fyll ut alle felt. Endring ikke godkjent</div>\n";
   }
 
   mysqli_close($conn);
