@@ -281,7 +281,8 @@ if(@$_GET["action"] == "listeboksVisLedig") {
 if(@$_GET["action"] == "listeboksSlett") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["slettBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_GET["slettPasient"]);
-  $sql = "SELECT timebestillingnr FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
+  $sql = "SELECT timebestillingnr, dato, tidspunkt 
+  FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
