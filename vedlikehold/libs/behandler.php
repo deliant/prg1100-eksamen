@@ -5,7 +5,7 @@ function visBehandler() {
   FROM behandler AS b
   LEFT JOIN yrkesgruppe ON b.yrkesgruppenr = yrkesgruppe.yrkesgruppenr
   LEFT JOIN bilde ON b.bildenr = bilde.bildenr
-  ORDER BY behandlernavn";
+  ORDER BY yrkesgruppenavn, behandlernavn";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
