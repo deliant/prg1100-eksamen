@@ -36,7 +36,7 @@ function registrerPasient() {
 
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">$navn ($personnr) registrert i pasient databasen.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
@@ -64,7 +64,7 @@ function endrePasient() {
 
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
@@ -100,7 +100,7 @@ function slettPasient() {
 
       if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }

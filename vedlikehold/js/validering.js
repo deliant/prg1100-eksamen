@@ -254,13 +254,13 @@ function validerPasientRegistrering() {
 }
 
 function validerPasientEndring() {
-  var navn = document.getElementById("regNavn").value;
+  var navn = document.getElementById("endringNavn").value;
   var lovligNavn = validerNavn(navn);
   var feilMelding = "";
   if(!navn) {
     feilMelding = "Navn er ikke fyllt ut<br/>";
   }
-  if(!lovligNavn) {
+  if(lovligNavn) {
     return true;
   } else {
     feilMelding = "Navn inneholder maks 50 bokstaver, ingen tall<br/>";

@@ -11,7 +11,7 @@ function visBehandler() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td><img class=\"thumbnail-bilde\" src=\"D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
+      echo "<td><img class=\"thumbnail-bilde\" src=\"http://home.hbv.no/phptemp/web-prg11v10/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['behandlernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['brukernavn']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['yrkesgruppenavn']) ."</td>\n";
@@ -51,7 +51,7 @@ function registrerBehandler() {
     VALUES ('$brukernavn', '$navn', '$yrkesgruppenr', '$bildenr')";
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">$navn registrert i behandler databasen.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
@@ -71,13 +71,13 @@ function endreBehandler() {
 
   // Sjekk at tekstfeltene har input
   if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr) &&
-  $navn != "NULL" && $yrkesgruppnr != "NULL" && $bildenr != "NULL") {
+  $navn != "NULL" && $yrkesgruppenr != "NULL" && $bildenr != "NULL") {
     $sql = "UPDATE behandler SET behandlernavn='$navn', yrkesgruppenr='$yrkesgruppenr', bildenr='$bildenr' WHERE brukernavn='$brukernavn'";
 
     // Endre i databasen
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\" align=\"top\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
@@ -129,7 +129,7 @@ function slettBehandler() {
         $sql = "SELECT filnavn FROM bilde WHERE bildenr='$bildenr'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        $filbane = "/../bilder/" . $row["filnavn"];
+        $filbane = "D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/" . $row["filnavn"];
 
         if(is_writable($filbane)) {
           // Slett fil
@@ -156,7 +156,7 @@ function slettBehandler() {
       $sql = "DELETE FROM behandler WHERE brukernavn='$brukernavn'";
       if(mysqli_query($conn, $sql)) {
         echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-        echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+        echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
       } else {
         echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
       }

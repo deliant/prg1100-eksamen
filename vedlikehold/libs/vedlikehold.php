@@ -38,7 +38,7 @@ function endrePassord($brukernavn, $passord) {
       $sql = "UPDATE bruker SET passord='$kryptert_passord' WHERE brukernavn='$brukernavn'";
       mysqli_query($conn, $sql) or die("Kan ikke registrere data i databasen." . mysqli_error($conn));
       echo "<div class=\"alert alert-success\">Passord for ". $brukernavn ." er oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: " . mysqli_error($conn) . "</div>\n";
     }
@@ -103,7 +103,7 @@ function slettBruker() {
 
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }

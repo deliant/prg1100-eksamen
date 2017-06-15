@@ -7,7 +7,7 @@ function visBilde() {
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
       echo "<tr>\n";
-      echo "<td><img class=\"thumbnail-bilde\" src=\"D:\\Sites\\home.hbv.no\\phptemp\\web-prg11v10/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
+      echo "<td><img class=\"thumbnail-bilde\" src=\"http://home.hbv.no/phptemp/web-prg11v10/". htmlspecialchars($row['filnavn']) ."\"></td>\n";
       echo "<td>". htmlspecialchars($row['bildenr']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['beskrivelse']) ."</td>\n";
       echo "<td>". htmlspecialchars($row['opplastingsdato']) ."</td>\n";
@@ -35,7 +35,7 @@ function registrerBilde() {
 
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">$beskrivelse registrert i bilde databasen.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+      echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
@@ -56,7 +56,7 @@ function endreBilde() {
 
     if(mysqli_query($conn, $sql)) {
       echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-      echo "<meta http-equiv=\"refresh\" content=\"1\"\n>";
+      echo "<meta http-equiv=\"refresh\" content=\"0\"\n>";
     } else {
       echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
     }
@@ -97,7 +97,7 @@ function slettBilde() {
         $sql = "DELETE FROM bilde WHERE bildenr='$bildenr'";
         if(mysqli_query($conn, $sql)) {
           echo "<div class=\"alert alert-success\">Databasen oppdatert.</div>\n";
-          echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
+          echo "<meta http-equiv=\"refresh\" content=\"0\">\n";
         } else {
           echo "<div class=\"alert alert-danger\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";
         }
