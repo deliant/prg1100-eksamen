@@ -27,7 +27,7 @@ function registrerYrkesgruppe() {
     VALUES ('$yrkesgruppenavn')";
 
     if(mysqli_query($conn, $sql)) {
-      echo "<div class=\"alert alert-success\" align=\"top\">$yrkesgruppe registrert i yrkesgruppe databasen.</div>\n";
+      echo "<div class=\"alert alert-success\" align=\"top\">$yrkesgruppenavn registrert i yrkesgruppe databasen.</div>\n";
       echo "<meta http-equiv=\"refresh\" content=\"1\">\n";
     } else {
       echo "<div  class=\"alert alert-danger\" align=\"top\">Feil under database forespørsel: ". mysqli_error($conn) ."</div>\n";

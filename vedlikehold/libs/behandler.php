@@ -33,7 +33,8 @@ function registrerBehandler() {
   $bildenr = mysqli_real_escape_string($conn, $_POST["regBildenr"]);
 
   // Sjekk at tekstfeltene har input
-  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr)) {
+  if(!empty($brukernavn) && !empty($navn) && !empty($yrkesgruppenr) && !empty($bildenr) &&
+    $yrkesgruppenr != NULL && $bildenr != "NULL") {
     // Sjekk om checkbox for databasebruker er på
     if(isset($_POST["checkboxbruker"])) {
       $passord = mysqli_real_escape_string($conn, $_POST["regPassord"]);
