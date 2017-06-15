@@ -175,6 +175,16 @@ function endreTimebestilling(str) {
     };
     xmlhttp.open("GET","libs/timebestilling.php?action=endre&velgTidspunkt="+str,true);
     xmlhttp.send();
+
+    $.ajax({
+      //... other ajax params,
+      type: "GET",
+      url: "libs/timebestilling.php",
+      success: function(){
+        //... success callback code
+        initDatepicker('#regDato, #endringDato');
+      }
+    });
   }
 }
 
@@ -243,6 +253,16 @@ function endreTimeinndeling(str) {
     };
     xmlhttp.open("GET","libs/timeinndeling.php?action=endre&velgTidspunkt="+str,true);
     xmlhttp.send();
+
+    $.ajax({
+      //... other ajax params,
+      type: "GET",
+      url: "libs/timeinndeling.php",
+      success: function(){
+        //... success callback code
+        initTimepicker('#regFraTidspunkt, #regTilTidspunkt, #endringFraTidspunkt, #endringTilTidspunkt');
+      }
+    });
   }
 }
 
