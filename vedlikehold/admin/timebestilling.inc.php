@@ -99,7 +99,7 @@ include("libs/listeboks.php");
           <?php listeboksBehandler(); ?>
         </select><br/>
         <label>Tidspunkt</label>
-        <select name="slettTidspunkt">
+        <select id="slettTidspunkt" name="slettTidspunkt">
           <option>-Velg pasient og behandler-</option>
         </select><br/>
         <label>&nbsp;</label><input class="btn btn-danger" type="submit" value="Slett" name="submitSlettTimebestilling">
