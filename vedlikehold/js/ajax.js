@@ -287,3 +287,79 @@ function endreYrkesgruppe(str) {
     xmlhttp.send();
   }
 }
+
+function visCheckboxBehandler(str) {
+  if (str == "") {
+    document.getElementById("regskjult").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("regskjult").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/behandler.php?action=visCheckbox",true);
+    xmlhttp.send();
+  }
+}
+
+function visCheckboxPasient(str) {
+  if (str == "") {
+    document.getElementById("endreskjultskjult").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("endreskjult").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/pasient.php?action=visCheckbox",true);
+    xmlhttp.send();
+  }
+}
+
+function visCheckboxTimeinndeling(str) {
+  if (str == "") {
+    document.getElementById("regskjult").innerHTML = "";
+    return;
+  } else {
+    if (window.XMLHttpRequest) {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    } else {
+      // code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("regskjult").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET","libs/timeinndeling.php?action=visCheckbox",true);
+    xmlhttp.send();
+
+    $.ajax({
+      //... other ajax params,
+      type: "GET",
+      url: "libs/timeinndeling.php",
+      success: function(){
+        //... success callback code
+        initTimepicker('#regFraTidspunkt, #regTilTidspunkt, #endringFraTidspunkt, #endringTilTidspunkt');
+      }
+    });
+  }
+}
