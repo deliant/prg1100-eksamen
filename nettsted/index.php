@@ -56,10 +56,10 @@
 <!-- Jumbotron -->
 <div class="jumbotron-front">
   <div class="container bg-jumbo--front">
-    <h1>Bjarum Medical</h1>
-    <p>Her kan du enkelt bestille ledige timer hos våre høyt kvalifiserte leger</p>
+    <h1>Bestill time</h1>
+    <p>Her kan du enkelt finne oversikt og bestille ledige timer hos våre høyt kvalifiserte medarbeidere</p>
     <p>
-      <a class="btn btn-success btn-lg" href="timebestilling.php" role="button"><strong>Finn ledig time &raquo;</strong></a>
+      <a class="btn btn-success btn-lg text-center" href="timebestilling.php" role="button"><strong>Finn ledig time &raquo;</strong></a>
     </p>
   </div>
 </div>
@@ -69,14 +69,22 @@
     <div class="bg-bottom">
       <div class="row">
         <div class="col-md-6">
-          <h2>Bestill time</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>Bjarum Medical på web</h2>
+          <p>Her kan du kjapt og enkelt bestille, endre og avlyse avtaler hos våre behandlere på vår kundeportal. Du finner også oversikt over når våre medarbeidere har ledige timer</p>
+          <p>Vi jobber kontinuerlig med å forbedre din kundeopplevelse hos oss</p>
         </div>
         <div class="col-md-6">
           <h2>Ansatte</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <p>På Bjarum Medical har vi mange ansatte over flere yrkesgrupper, og kan garantert treffe ditt behov for legetjenester med en høy standard</p>
+          <p>La våre dyktige medarbeidere ta vare på livskvaliteten din!</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p><a class="btn btn-primary" href="ukesliste.php" role="button">Ukesliste &raquo;</a></p>
+        </div>
+        <div class="col-md-6">
+          <p><a class="btn btn-primary" href="ansatte.php" role="button">Gå til ansatte &raquo;</a></p>
         </div>
       </div>
     </div>

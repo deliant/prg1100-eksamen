@@ -4,8 +4,17 @@ function visTimeinndeling() {
   $sql = "SELECT ukedag, tidspunkt, behandlernavn
   FROM timeinndeling AS t
   LEFT JOIN behandler AS b ON t.brukernavn = b.brukernavn
-  ORDER BY behandlernavn, tidspunkt";
+  ORDER BY behandlernavn,
+  CASE
+    WHEN ukedag = 'Mandag' THEN 1
+    WHEN ukedag = 'Tirsdag' THEN 2
+    WHEN ukedag = 'Onsdag' THEN 3
+    WHEN ukedag = 'Torsdag' THEN 4
+    WHEN ukedag = 'Fredag' THEN 5
+  END ASC
+  , tidspunkt";
   $result = mysqli_query($conn, $sql);
+
 
   if(mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
