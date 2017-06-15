@@ -199,7 +199,7 @@ if(@$_GET["action"] == "listeboksReg") {
     if(mysqli_num_rows($result) > 0) {
       echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
       while($row = mysqli_fetch_assoc($result)) {
-        echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">". htmlspecialchars($row['tidspunkt']) ."</option>\n";
+        echo "<option value=\"". htmlspecialchars($row['tidspunkt']) ."\">". htmlspecialchars($row['tidspunkt']) ."</option>\n";
       }
     } else {
       echo "<option value=\"NULL\">Ingen ledige timebestillinger</option>\n";
@@ -216,7 +216,7 @@ if(@$_GET["action"] == "listeboksEndre") {
   if(mysqli_num_rows($result) > 0) {
     echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=\"" . htmlspecialchars($row['timebestillingnr']) . "\">". htmlspecialchars($row['dato']) ." (". htmlspecialchars($row['tidspunkt']) .")</option>\n";
+      echo "<option value=\"". htmlspecialchars($row['timebestillingnr']) ."\">". htmlspecialchars($row['dato']) ." (". htmlspecialchars($row['tidspunkt']) .")</option>\n";
     }
   } else {
     echo "<option value=\"NULL\">Ingen timebestillinger funnet</option>\n";
@@ -251,7 +251,7 @@ if(@$_GET["action"] == "listeboksVisLedig") {
       $result = mysqli_query($conn, $sql);
       echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
       while ($row = mysqli_fetch_assoc($result)) {
-        echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">" . htmlspecialchars($row['tidspunkt']) . "</option>\n";
+        echo "<option value=\"". htmlspecialchars($row['tidspunkt']) ."\">" . htmlspecialchars($row['tidspunkt']) . "</option>\n";
       }
     }
 
@@ -270,7 +270,7 @@ if(@$_GET["action"] == "listeboksVisLedig") {
     if(mysqli_num_rows($result) > 0) {
       echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
       while($row = mysqli_fetch_assoc($result)) {
-        echo "<option value=\"" . htmlspecialchars($row['tidspunkt']) . "\">". htmlspecialchars($row['tidspunkt']) ."</option>\n";
+        echo "<option value=\"". htmlspecialchars($row['tidspunkt']) ."\">". htmlspecialchars($row['tidspunkt']) ."</option>\n";
       }
     } else {
       echo "<option value=\"NULL\">Ingen ledige timebestillinger</option>\n";
@@ -281,13 +281,14 @@ if(@$_GET["action"] == "listeboksVisLedig") {
 if(@$_GET["action"] == "listeboksSlett") {
   $brukernavn = mysqli_real_escape_string($conn, $_GET["slettBehandler"]);
   $personnr = mysqli_real_escape_string($conn, $_GET["slettPasient"]);
-  $sql = "SELECT * FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
+  $sql = "SELECT timebestillingnr, dato, tidspunkt 
+  FROM timebestilling WHERE brukernavn='$brukernavn' AND personnr='$personnr'";
   $result = mysqli_query($conn, $sql);
 
   if(mysqli_num_rows($result) > 0) {
-    echo "<option selected=\"selected\">-Velg tidspunkt-</option>";
+    echo "<option value=\"NULL\" selected=\"selected\">-Velg tidspunkt-</option>";
     while($row = mysqli_fetch_assoc($result)) {
-      echo "<option value=\"" . htmlspecialchars($row['timebestillingnr']) . "\">". htmlspecialchars($row['dato']) ." (". htmlspecialchars($row['tidspunkt']) .")</option>\n";
+      echo "<option value=\"". htmlspecialchars($row['timebestillingnr']) ."\">". htmlspecialchars($row['dato']) ." (". htmlspecialchars($row['tidspunkt']) .")</option>\n";
     }
   } else {
     echo "<option value=\"NULL\">Ingen timebestillinger funnet</option>\n";

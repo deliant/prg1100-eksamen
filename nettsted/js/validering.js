@@ -1,6 +1,5 @@
 function fjernMelding() {
   document.getElementById("validering").innerHTML="";
-  document.getElementById("respons").innerHTML="";
 }
 
 function slett_confirm() {

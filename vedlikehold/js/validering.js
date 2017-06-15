@@ -59,15 +59,15 @@ function validerTidspunkt(fratidspunkt, tiltidspunkt) {
     tilminutt = tiltidspunkt.substr(3);
     var lovligTid = ["00", "15", "30", "45"];
 
-    if(lovligTid.indexOf(framinutt) || lovligTid.indexOf(tilminutt)) {
-      if(!confirm("Legge til irregulær time? " +fratime+framinutt+ " - " +tiltime+tilminutt)) {
-        lovligTidspunkt = false;
-      }
-    }
     if(fratime < "08" || fratime > "16" || tiltime < "08" || tiltime > "16") {
       lovligTidspunkt = false;
     }
+
+    if(lovligTid.indexOf(framinutt) || lovligTid.indexOf(tilminutt)) {
+      lovligTidspunkt = false;
+    }
   }
+
   return lovligTidspunkt;
 }
 
