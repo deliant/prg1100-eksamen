@@ -33,6 +33,22 @@ function listeboksBilde() {
   mysqli_close($conn);
 }
 
+function listeboksBruker() {
+  include("db.php");
+  $sql = "SELECT brukernavn FROM bruker ORDER BY brukernavn";
+  $result = mysqli_query($conn, $sql);
+
+  if(mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+      echo "<option value=\"". htmlspecialchars($row['brukernavn']) ."\">". htmlspecialchars($row['brukernavn']) ."</option>\n";
+    }
+  } else {
+    echo "<option value=\"NULL\">Ingen brukere funnet</option>\n";
+  }
+
+  mysqli_close($conn);
+}
+
 function listeboksPasient() {
   include("db.php");
   $sql = "SELECT personnr, pasientnavn FROM pasient ORDER BY pasientnavn";
